@@ -24,14 +24,48 @@
     }
   }
 
+  .compose {
+    display: block;
+    height: 60px;
+    line-height: 60px;
+
+    a {
+      padding: 10px 15px;
+      margin-left: 10px;
+      text-decoration: none;
+      background: darken(@sidebar-bg, 5%);
+      color: @body-bg;
+      border-radius: 3px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+
+      &:hover {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+      }
+
+      img {
+        height: 16px;
+        margin-right: 5px;
+        margin-bottom: 2px;
+      }
+
+      @media (max-width: @screen-md-max) {
+        padding: 6px;
+
+        img {
+          margin-right: 0;
+        }
+
+        .text {
+          display: none;
+        }
+      }
+    }
+  }
+
+
   ul.menu {
     .clearfix;
     .list-unstyled;
-  
-    &.mobile {
-      margin-left: 0px;
-      margin-right: 0px;
-    }
   
     li {
       display: block;
@@ -63,6 +97,8 @@
 
         img {
           height: 18px;
+          margin-right: 5px;
+          margin-bottom: 3px;
         }
       }
   
@@ -70,32 +106,6 @@
         > a {
           color: @body-bg;
           background: darken(@sidebar-bg, 5%);
-        }
-      }
-
-      &.header {
-        padding: 15px;
-        font-size: 18px;
-        color: @body-bg;
-        // background: darken(@sidebar-bg, 5%);
-
-        span.sm {
-          display: none;
-        }
-
-        span.lg {
-          display: block;
-        }
-
-        @media (max-width: @screen-md-max) {
-
-          span.sm {
-            display: block;
-          }
-          
-          span.lg {
-            display: none;
-          }
         }
       }
     }

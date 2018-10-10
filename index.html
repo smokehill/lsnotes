@@ -6,23 +6,28 @@
   <meta name="author" content="valera.padolochniy@gmail.com">
   <title>Notes</title>
   <!-- styles -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="dist/libs/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="dist/app.css" />
 </head>
 <body>
 
-  <div class="wrapper" id="app">
+  <div id="app">
 
     <div id="sidebar">
+
+      <div class="compose">
+        <a href="#" id="btn-compose">
+          <img src="dist/img/sb_new.png" alt="">
+          <span class="text">Compose</span>
+        </a>
+      </div>
+
       <ul class="menu">
-        <li class="header">
-          <span class="sm">N</span>
-          <span class="lg">Notes</span>
-        </li>
         <li>
-          <a href="#/list">
+          <a href="#/inbox">
             <img src="dist/img/sb_list.png" alt="">
-            <span class="text">List</span>
+            <span class="text">Inbox</span>
           </a>
         </li>
         <li>
@@ -35,20 +40,14 @@
     </div>
       
     <div id="content">
-      <h4 class="title">List</h4>
-      <ul class="list">
-        <li><a href="#"><img src="dist/img/checkbox1.png" alt=""> Task 1</a></li>
-        <li><a href="#"><img src="dist/img/checkbox2.png" alt=""> Task 1</a></li>
-        <li><a href="#"><img src="dist/img/checkbox1.png" alt=""> Task 1</a></li>
-      </ul>
+      <router-view></router-view>
     </div>
-
+    <!--
     <div id="form">
-      <!--
       <div class="dummy">
         <img src="dist/img/file.png" alt="">
         <p>No task selected</p>
-      </div>-->
+      </div>
       <form action="#">
         <div class="controls">
           <a href="#"><img src="dist/img/f_close.png" alt=""></a>
@@ -62,7 +61,7 @@
           <textarea name="text" class="form-control" rows="10"></textarea>
         </div>
       </form>
-    </div>
+    </div>-->
 
   </div>
 

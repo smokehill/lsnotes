@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import NotesComponent from './components/Notes.vue';
 
+import InboxComponent from './components/inbox.vue';
+import TrashComponent from './components/trash.vue';
 
 Vue.use(VueRouter);
 
@@ -9,11 +10,15 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: NotesComponent
+      component: InboxComponent
     },
     {
-      path: '/notes',
-      component: NotesComponent
+      path: '/inbox',
+      component: InboxComponent
+    },
+    {
+      path: '/trash',
+      component: TrashComponent
     },
   ],
   // mode: 'history' // removes /#/ from url

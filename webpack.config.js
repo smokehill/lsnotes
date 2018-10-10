@@ -37,13 +37,13 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin({
-        filename: 'app.css',
-        allChunks: true
+      filename: 'app.css',
+      allChunks: true
     }),
-    new CopyWebpackPlugin([
-      { from: 'node_modules/bootstrap', to: 'libs/bootstrap' },
-      { from: 'node_modules/jquery', to: 'libs/jquery' },
-    ], { debug: true }),
+    // new CopyWebpackPlugin([
+    //   { from: 'node_modules/bootstrap', to: 'libs/bootstrap' },
+    //   { from: 'node_modules/jquery', to: 'libs/jquery' },
+    // ], { debug: true }),
     new VueLoaderPlugin()
   ],
   resolve: {
