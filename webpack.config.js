@@ -45,5 +45,10 @@ module.exports = {
       { from: 'node_modules/jquery', to: 'libs/jquery' },
     ], { debug: true }),
     new VueLoaderPlugin()
-  ]
+  ],
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
+  }
 };
