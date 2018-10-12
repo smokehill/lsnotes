@@ -6,68 +6,43 @@
   <meta name="author" content="valera.padolochniy@gmail.com">
   <title>Notes</title>
   <!-- styles -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="dist/libs/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="dist/app.css" />
 </head>
 <body>
 
   <div id="app">
-
     <div id="sidebar">
-
       <div class="compose">
-        <a href="#" id="btn-compose" v-on:click="compose">
-          <img src="dist/img/sb_new.png" alt="">
-          <span class="text">Compose</span>
-        </a>
+        <img src="dist/img/sidebar_compose.png" v-on:click="compose" alt="compose">
       </div>
-
       <ul class="menu">
         <li>
           <a href="#/inbox">
-            <img src="dist/img/sb_list.png" alt="">
+            <img src="dist/img/sidebar_inbox.png" alt="">
             <span class="text">Inbox</span>
           </a>
         </li>
         <li>
+          <a href="#">
+            <img src="dist/img/sidebar_draft.png" alt="">
+            <span class="text">Drafts</span>
+          </a>
+        </li>
+        <li>
           <a href="#/trash">
-            <img src="dist/img/sb_trash.png" alt="">
+            <img src="dist/img/sidebar_trash.png" alt="">
             <span class="text">Trash</span>
           </a>
         </li>
       </ul>
     </div>
-      
     <div id="content">
       <router-view></router-view>
     </div>
-    <!--
-    <div id="form">
-      <div class="dummy">
-        <img src="dist/img/file.png" alt="">
-        <p>No task selected</p>
-      </div>
-      <form action="#">
-        <div class="controls">
-          <a href="#"><img src="dist/img/f_close.png" alt=""></a>
-          <a href="#"><img src="dist/img/f_floppy.png" alt=""></a>
-          <a href="#"><img src="dist/img/f_trash.png" alt=""></a>
-        </div>
-        <div class="form-group">
-          <input type="text" name="title" class="form-control" autocomplete="off">
-        </div>
-        <div class="form-group">
-          <textarea name="text" class="form-control" rows="10"></textarea>
-        </div>
-      </form>
-    </div>-->
-    <form-component></form-component>
+    <form-component ref="form"></form-component>
   </div>
 
   <!-- scripts -->
-  <script type="text/javascript" src="dist/libs/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="dist/libs/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="dist/app.js"></script>
 </body>
 </html>

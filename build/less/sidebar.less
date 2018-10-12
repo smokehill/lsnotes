@@ -10,70 +10,55 @@
   overflow-y: auto;
   background: @sidebar-bg;
 
-  @media (max-width: @screen-md-max) {
-    width: 50px;
-  }
-
-  .logo {
-    color: @body-bg;
-    text-decoration: none;
-
-    img {
-      width: 20px;
-      margin-right: 5px;
-    }
+  @media (max-width: @screen-sm) {
+    width: 60px;
   }
 
   .compose {
     display: block;
-    height: 60px;
-    line-height: 60px;
+    height: 80px;
+    line-height: 80px;
 
-    a {
-      padding: 10px 15px;
-      margin-left: 10px;
+    img {
+      vertical-align: middle;
+      height: 16px;
+      padding: 8px;
+      margin-left: 12px;
       text-decoration: none;
-      background: darken(@sidebar-bg, 5%);
-      color: @body-bg;
+      background: @body-bg;
+      color: @sidebar-bg;
       border-radius: 3px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+      cursor: pointer;
 
       &:hover {
         box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
       }
+    }
+
+    @media (max-width: @screen-sm) {
+      margin-left: 12px;
 
       img {
-        height: 16px;
-        margin-right: 5px;
-        margin-bottom: 2px;
-      }
-
-      @media (max-width: @screen-md-max) {
-        padding: 6px;
-
-        img {
-          margin-right: 0;
-        }
-
-        .text {
-          display: none;
-        }
+        margin-left: 0;
       }
     }
   }
 
-
   ul.menu {
-    .clearfix;
-    .list-unstyled;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   
     li {
       display: block;
+      height: 40px;
+      line-height: 40px;
 
       a {
         color: @body-bg;
         display: inherit;
-        padding: 10px 15px;
+        text-decoration: none;
   
         &:hover {
           text-decoration: none;
@@ -84,21 +69,25 @@
         &:focus {
           text-decoration: none;
         }
-  
-        i[class^="m-icon fa fa-"] {
-          width: 20px;
-        }
-
-        @media (max-width: @screen-md-max) {
-          .text {
-            display: none;
-          }
-        }
 
         img {
           height: 18px;
-          margin-right: 5px;
-          margin-bottom: 3px;
+          float: left;
+          margin-top: 10px;
+          margin-left: 15px;
+          margin-right: 10px;
+        }
+
+        @media (max-width: @screen-sm) {
+          height: 40px;
+          width: 60px;
+
+          img {
+            margin-left: 18px;
+          }
+          .text {
+            display: none;
+          }
         }
       }
   

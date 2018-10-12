@@ -1,16 +1,24 @@
-@import '../../node_modules/bootstrap/less/bootstrap.less';
-@icon-font-path: '/node_modules/bootstrap/fonts';
-
 // variables
 
-html, body {
-  font-family: 'Roboto', sans-serif;
-}
+@screen-lg: 1200px;
+@screen-md: 992px;
+@screen-sm: 768px;
 
 @sidebar-bg: #5c85d6;
+@text-color: #363636;
 @hr-tag: #eee;
 @body-bg: #fff;
-@brand-primary: @sidebar-bg;
+
+html, body {
+  font-size: 14px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: @text-color;
+}
 
 @import 'sidebar.less';
 @import 'content.less';

@@ -9,11 +9,11 @@
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "icons": {
-    "128": "dist/img/128.png",
-    "64": "dist/img/64.png",
-    "16": "dist/img/16.png"
+    "128": "dist/img/app128.png",
+    "64": "dist/img/app64.png",
+    "16": "dist/img/app16.png"
   },
   "browser_action": {
-    "default_icon": "dist/img/16.png"
+    "default_icon": "dist/img/app16.png"
   }
 }

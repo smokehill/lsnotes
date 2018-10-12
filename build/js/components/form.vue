@@ -1,51 +1,82 @@
 <template>
-  <div id="note-form">
-    <div class="header">
-      <span class="text">Note</span>
-      <ul class="controls">
-        <li><a href="#" v-on:click="resize"><img src="dist/img/m_minus.png" alt="resize"></a></li>
-        <li><a href="#" v-on:click="close"><img src="dist/img/m_close.png" alt="close"></a></li>
-      </ul>
-    </div>
-    <div class="body">
-      <form action="#">
-        <div class="form-group">
-          <input type="text" name="title" class="form-control" autocomplete="off">
-        </div>
-        <div class="form-group">
-          <textarea name="text" class="form-control"></textarea>
-        </div>
-      </form>
+  <div id="note-form" v-form-size>
+    <div class="wrapper">
+      <div class="header">
+        <span class="text">Note</span>
+        <ul class="controls">
+          <li><a href="#" v-on:click="change"><img src="dist/img/form_minus.png" alt="change"></a></li>
+          <li><a href="#" v-on:click="close"><img src="dist/img/form_close.png" alt="close"></a></li>
+        </ul>
+      </div>
+      <div class="body">
+        <input type="text" name="title" autocomplete="off">
+        <textarea name="text"></textarea>
+      </div>
+      <div class="footer-wrapper"></div>
     </div>
     <div class="footer">
-      <a href="#" class="btn btn-primary btn-md">Save</a>
+      <a href="#" class="btn-save">Save</a>
     </div>
   </div>
 </template>
 
 <script>
+  import $ from 'jquery';
   export default {
     name: 'note-form',
     data() {
       return {}
     },
-    mounted() {},
+    directives: {
+      'form-size': {
+        // TODO
+        bind: function(el) {
+          window.addEventListener('resize', function(){
+            if ($(el).hasClass('active')) {
+              $(el).addClass('small');
+              $(el).find('.controls a:first img').attr('src', 'dist/img/form_plus.png');
+            }
+          });
+        },
+        unbind: function (el) {
+          window.removeEventListener('resize', function(){
+            $(el).removeClass('small');
+            $(el).find('.controls a:first img').attr('src', 'dist/img/form_minus.png');
+          });
+        },
+      }
+    },
     methods: {
+      show(){
+        $(this.$el).addClass('active');
+        this.__fixInputs();
+      },
       close(e) {
         e.preventDefault();
-        $(this.$el).removeClass('active');
+        $(this.$el)
+          .removeClass('active')
+          .removeClass('small')
+          .find('.controls a:first img').attr('src', 'dist/img/form_minus.png');
       },
-      resize(e) {
+      change(e) {
         e.preventDefault();
-        var resizeBtn = $(this.$el).find('.controls a:first');
         if ($(this.$el).hasClass('small')) {
           $(this.$el).removeClass('small');
-          resizeBtn.find('img').attr('src', 'dist/img/m_minus.png');
+          $(this.$el).find('.controls a:first img').attr('src', 'dist/img/form_minus.png');
         } else {
           $(this.$el).addClass('small');
-          resizeBtn.find('img').attr('src', 'dist/img/m_plus.png');
+          $(this.$el).find('.controls a:first img').attr('src', 'dist/img/form_plus.png');
         }
-      }
+        this.__fixInputs();
+      },
+      __fixInputs(){
+        // TODO
+        var width = $(this.$el).width() - 50;
+        var height = $(this.$el).find('textarea').offset().top - $(this.$el).find('.footer').offset().top;
+        $(this.$el).find('input').css({'width': width+'px'});
+        $(this.$el).find('textarea').css({'width': width+'px'});
+        $(this.$el).find('textarea').css({'height': (Math.abs(height) - 52) +'px'});
+      },
     }
   }
 </script>
