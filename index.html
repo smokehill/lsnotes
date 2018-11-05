@@ -5,33 +5,19 @@
   <meta name="description" content="Notes">
   <meta name="author" content="valera.padolochniy@gmail.com">
   <title>Notes</title>
-  <!-- styles -->
   <link rel="stylesheet" href="dist/app.css" />
 </head>
 <body>
-
   <div id="app">
     <div id="sidebar">
       <div class="compose">
-        <img src="dist/img/sidebar_compose.png" v-on:click="compose" alt="compose">
+        <img src="dist/img/sidebar_compose.png" v-on:click="compose" alt="Compose" />
       </div>
       <ul class="menu">
-        <li>
-          <a href="#/inbox">
-            <img src="dist/img/sidebar_inbox.png" alt="">
-            <span class="text">Inbox</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="dist/img/sidebar_draft.png" alt="">
-            <span class="text">Drafts</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/trash">
-            <img src="dist/img/sidebar_trash.png" alt="">
-            <span class="text">Trash</span>
+        <li v-for="m in menu" :data-name="m.name | tolowercase">
+          <a :href="m.path">
+            <img :src="m.image" :alt="m.name" />
+            <span class="text">{{ m.name }}</span>
           </a>
         </li>
       </ul>
@@ -41,8 +27,6 @@
     </div>
     <form-component ref="form"></form-component>
   </div>
-
-  <!-- scripts -->
   <script type="text/javascript" src="dist/app.js"></script>
 </body>
 </html>

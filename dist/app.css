@@ -1,1 +1,274 @@
-body,html{font-size:14px;height:100%;margin:0;padding:0}h1,h2,h3,h4,h5,h6,p{color:#363636}#sidebar{position:absolute;top:0;left:0;right:0;bottom:0;width:220px;padding-bottom:20px;overflow-x:hidden;overflow-y:auto;background:#5c85d6}@media (max-width:768px){#sidebar{width:60px}}#sidebar .compose{display:block;height:80px;line-height:80px}#sidebar .compose img{vertical-align:middle;height:16px;padding:8px;margin-left:12px;text-decoration:none;background:#fff;color:#5c85d6;border-radius:3px;box-shadow:0 2px 5px rgba(0,0,0,.2);cursor:pointer}#sidebar .compose img:hover{box-shadow:0 2px 5px rgba(0,0,0,.3)}@media (max-width:768px){#sidebar .compose{margin-left:12px}#sidebar .compose img{margin-left:0}}#sidebar ul.menu{list-style:none;padding:0;margin:0}#sidebar ul.menu li{display:block;height:40px;line-height:40px}#sidebar ul.menu li a{color:#fff;display:inherit;text-decoration:none}#sidebar ul.menu li a:hover{text-decoration:none;color:#fff;background:#507cd3}#sidebar ul.menu li a:focus{text-decoration:none}#sidebar ul.menu li a img{height:18px;float:left;margin-top:10px;margin-left:15px;margin-right:10px}@media (max-width:768px){#sidebar ul.menu li a{height:40px;width:60px}#sidebar ul.menu li a img{margin-left:18px}#sidebar ul.menu li a .text{display:none}}#sidebar ul.menu li.active>a{color:#fff;background:#4876d1}#content{position:absolute;top:0;left:0;right:0;bottom:0;padding:15px;margin-left:220px;background:#fff}@media (max-width:768px){#content{margin-left:60px}}#content h4.title{margin-top:0;padding-top:0;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #eee}#content ul.list{list-style:none;padding:0;margin:0}#content ul.list li{display:block;border-bottom:1px solid #eee}#content ul.list li a{color:#363636;display:inherit;padding:10px 0}#content ul.list li a:hover{text-decoration:none;color:#1c1c1c}#content ul.list li a:focus{text-decoration:none;color:#2e2e2e}#content ul.list li a img{height:10px;margin-right:10px;opacity:.7}#content ul.list li.active>a{padding-left:12px;color:#fff;background:#507cd3;border-left:3px solid #fff}#note-form{position:fixed;top:10px;right:10px;bottom:10px;width:500px;z-index:900;background:#fff;box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);border-radius:4px;overflow:hidden;display:none}#note-form.active{display:block}#note-form.small{top:auto;right:10px;bottom:10px;height:40px;z-index:900}#note-form.small .header{border-radius:4px}#note-form.small .body,#note-form.small .footer{display:none}@media (max-width:768px){#note-form{top:10px;left:70px;right:10px;bottom:10px;width:auto}}#note-form .header{height:40px;line-height:40px;background:#4d4d4d;color:#fff;border-top-left-radius:4px;border-top-right-radius:4px}#note-form .header .text{margin-left:15px}#note-form .header ul.controls{list-style:none;padding:0;margin:0;float:right;margin-right:8px}#note-form .header ul.controls li{display:inline-block}#note-form .header ul.controls li a{color:#fff;text-decoration:none;padding:4px 6px}#note-form .header ul.controls li a img{height:10px}#note-form .header ul.controls li a:hover{opacity:.8}#note-form .wrapper{height:100%;margin-bottom:-60px}#note-form .wrapper .body{background:#fff;padding:15px}#note-form .wrapper .body input,#note-form .wrapper .body textarea{display:block;border:1px solid #ccc;border-radius:0;box-shadow:none;margin-bottom:15px;padding:10px;color:#363636;resize:none;outline:none}#note-form .wrapper .footer-wrapper{height:60px}#note-form .footer{background:#fff;height:60px;line-height:60px;padding:0 15px}#note-form .footer a.btn-save{text-decoration:none;color:#fff;background:#5c85d6;padding:8px 15px;border-radius:3px}#note-form .footer a.btn-save:hover{background:#4876d1}
+html,
+body {
+  font-size: 14px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #363636;
+}
+#sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 220px;
+  padding-bottom: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #5c85d6;
+}
+@media (max-width: 768px) {
+  #sidebar {
+    width: 60px;
+  }
+}
+#sidebar .compose {
+  display: block;
+  height: 80px;
+  line-height: 80px;
+}
+#sidebar .compose img {
+  vertical-align: middle;
+  height: 16px;
+  padding: 8px;
+  margin-left: 12px;
+  text-decoration: none;
+  background: #fff;
+  color: #5c85d6;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+#sidebar .compose img:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 768px) {
+  #sidebar .compose {
+    margin-left: 12px;
+  }
+  #sidebar .compose img {
+    margin-left: 0;
+  }
+}
+#sidebar ul.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#sidebar ul.menu li {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+}
+#sidebar ul.menu li a {
+  color: #fff;
+  display: inherit;
+  text-decoration: none;
+}
+#sidebar ul.menu li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: #507cd3;
+}
+#sidebar ul.menu li a:focus {
+  text-decoration: none;
+}
+#sidebar ul.menu li a img {
+  height: 18px;
+  float: left;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  #sidebar ul.menu li a {
+    height: 40px;
+    width: 60px;
+  }
+  #sidebar ul.menu li a img {
+    margin-left: 18px;
+  }
+  #sidebar ul.menu li a .text {
+    display: none;
+  }
+}
+#sidebar ul.menu li.active > a {
+  color: #fff;
+  background: #4876d1;
+}
+#content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  margin-left: 220px;
+  background: #fff;
+}
+@media (max-width: 768px) {
+  #content {
+    margin-left: 60px;
+  }
+}
+#content h4.title {
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+#content ul.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#content ul.list li {
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+#content ul.list li a {
+  color: #363636;
+  display: inherit;
+  padding: 10px 0;
+}
+#content ul.list li a:hover {
+  text-decoration: none;
+  color: #1c1c1c;
+}
+#content ul.list li a:focus {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+#content ul.list li a img {
+  height: 10px;
+  margin-right: 10px;
+  opacity: 0.7;
+}
+#content ul.list li.active > a {
+  padding-left: 12px;
+  color: #fff;
+  background: #507cd3;
+  border-left: 3px solid #fff;
+}
+#note-form {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  width: 500px;
+  z-index: 900;
+  background: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4px;
+  overflow: hidden;
+  display: none;
+}
+#note-form.active {
+  display: block;
+}
+#note-form.small {
+  top: auto;
+  right: 10px;
+  bottom: 10px;
+  height: 40px;
+  z-index: 900;
+}
+#note-form.small .header {
+  border-radius: 4px;
+}
+#note-form.small .body {
+  display: none;
+}
+#note-form.small .footer {
+  display: none;
+}
+@media (max-width: 768px) {
+  #note-form {
+    top: 10px;
+    left: 70px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+  }
+}
+#note-form .header {
+  height: 40px;
+  line-height: 40px;
+  background: #4d4d4d;
+  color: #fff;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+#note-form .header .text {
+  margin-left: 15px;
+}
+#note-form .header ul.controls {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: right;
+  margin-right: 8px;
+}
+#note-form .header ul.controls li {
+  display: inline-block;
+}
+#note-form .header ul.controls li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 4px 6px;
+}
+#note-form .header ul.controls li a img {
+  height: 10px;
+}
+#note-form .header ul.controls li a:hover {
+  opacity: 0.8;
+}
+#note-form .wrapper {
+  height: 100%;
+  margin-bottom: -60px;
+}
+#note-form .wrapper .body {
+  background: #fff;
+  padding: 15px;
+}
+#note-form .wrapper .body input,
+#note-form .wrapper .body textarea {
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 15px;
+  padding: 10px;
+  color: #363636;
+  resize: none;
+  outline: none;
+}
+#note-form .wrapper .footer-wrapper {
+  height: 60px;
+}
+#note-form .footer {
+  background: #fff;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 15px;
+}
+#note-form .footer a.btn-save {
+  text-decoration: none;
+  color: #fff;
+  background: #5c85d6;
+  padding: 8px 15px;
+  border-radius: 3px;
+}
+#note-form .footer a.btn-save:hover {
+  background: #4876d1;
+}
