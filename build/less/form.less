@@ -1,4 +1,4 @@
-#note-form {
+#form {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -90,16 +90,21 @@
       background: @body-bg;
       padding: 15px;
 
+
+      input {
+        margin-bottom: 15px;
+      }
+
       input, textarea {
         display: block;
-        border: 1px solid #ccc;
+        border: 1px solid #dcdcdc;
         border-radius: 0;
         box-shadow: none;
-        margin-bottom: 15px;
         padding: 10px;
         color: @text-color;
         resize: none;
         outline: none;
+        font-size: 14px;
       }
     }
 

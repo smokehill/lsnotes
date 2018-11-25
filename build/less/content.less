@@ -30,17 +30,16 @@
       border-bottom: 1px solid @hr-tag;
 
       a {
-        color: @text-color;
+        color: lighten(@text-color, 15%);
         display: inherit;
         padding: 10px 0;
-        
+        text-decoration: none;
+
         &:hover {
-          text-decoration: none;
           color: darken(@text-color, 10%);
         }
   
         &:focus {
-          text-decoration: none;
           color: darken(@text-color, 3%);
         }
 
@@ -48,6 +47,10 @@
           height: 10px;
           margin-right: 10px;
           opacity: 0.7;
+        }
+
+        span.date {
+          float: right;
         }
       }
 

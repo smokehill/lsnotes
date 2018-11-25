@@ -1,11 +1,10 @@
 <template>
   <div class="content-wrapper">
-    <h4 class="title">Inbox</h4>
+    <h4 class="title">Drafts</h4>
     <ul class="list" v-if="list.length > 0">
       <li v-for="item in list">
-        <a href="#" v-on:click="edit" :data-id="item.id">
+        <a href="#">
           <img src="dist/img/list_checkbox1.png" alt="">{{ item.title }}
-          <span class="date">{{ item.date }}</span>
         </a>
       </li>
     </ul>
@@ -15,9 +14,9 @@
 <script>
   import $ from 'jquery';
   import { lsGet } from './../helpers.js';
-
+  
   export default {
-    name: 'inbox',
+    name: 'drafts',
     data() {
       return {
         list: []
@@ -30,25 +29,19 @@
     methods: {
       init() {
         const lsList = lsGet('list');
-        
-        this.list = [];
 
+        this.list = [];
+        
         if (lsList != null) {
 
           for (let i = 0; i < lsList.length; i++) {
 
-            if (lsList[i].type == 'inbox') {
+            if (lsList[i].type == 'draft') {
 
               this.list.push(lsList[i]);
             }
           }
         }
-      },
-      edit(e) {
-        e.preventDefault();
-        const id = $(e.target).data('id');
-        this.$parent.$refs.form.show(id);
-
       }
     }
   }

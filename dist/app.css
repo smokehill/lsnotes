@@ -137,16 +137,15 @@ p {
   border-bottom: 1px solid #eee;
 }
 #content ul.list li a {
-  color: #363636;
+  color: #5c5c5c;
   display: inherit;
   padding: 10px 0;
+  text-decoration: none;
 }
 #content ul.list li a:hover {
-  text-decoration: none;
   color: #1c1c1c;
 }
 #content ul.list li a:focus {
-  text-decoration: none;
   color: #2e2e2e;
 }
 #content ul.list li a img {
@@ -154,13 +153,16 @@ p {
   margin-right: 10px;
   opacity: 0.7;
 }
+#content ul.list li a span.date {
+  float: right;
+}
 #content ul.list li.active > a {
   padding-left: 12px;
   color: #fff;
   background: #507cd3;
   border-left: 3px solid #fff;
 }
-#note-form {
+#form {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -173,27 +175,27 @@ p {
   overflow: hidden;
   display: none;
 }
-#note-form.active {
+#form.active {
   display: block;
 }
-#note-form.small {
+#form.small {
   top: auto;
   right: 10px;
   bottom: 10px;
   height: 40px;
   z-index: 900;
 }
-#note-form.small .header {
+#form.small .header {
   border-radius: 4px;
 }
-#note-form.small .body {
+#form.small .body {
   display: none;
 }
-#note-form.small .footer {
+#form.small .footer {
   display: none;
 }
 @media (max-width: 768px) {
-  #note-form {
+  #form {
     top: 10px;
     left: 70px;
     right: 10px;
@@ -201,7 +203,7 @@ p {
     width: auto;
   }
 }
-#note-form .header {
+#form .header {
   height: 40px;
   line-height: 40px;
   background: #4d4d4d;
@@ -209,66 +211,69 @@ p {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
-#note-form .header .text {
+#form .header .text {
   margin-left: 15px;
 }
-#note-form .header ul.controls {
+#form .header ul.controls {
   list-style: none;
   padding: 0;
   margin: 0;
   float: right;
   margin-right: 8px;
 }
-#note-form .header ul.controls li {
+#form .header ul.controls li {
   display: inline-block;
 }
-#note-form .header ul.controls li a {
+#form .header ul.controls li a {
   color: #fff;
   text-decoration: none;
   padding: 4px 6px;
 }
-#note-form .header ul.controls li a img {
+#form .header ul.controls li a img {
   height: 10px;
 }
-#note-form .header ul.controls li a:hover {
+#form .header ul.controls li a:hover {
   opacity: 0.8;
 }
-#note-form .wrapper {
+#form .wrapper {
   height: 100%;
   margin-bottom: -60px;
 }
-#note-form .wrapper .body {
+#form .wrapper .body {
   background: #fff;
   padding: 15px;
 }
-#note-form .wrapper .body input,
-#note-form .wrapper .body textarea {
+#form .wrapper .body input {
+  margin-bottom: 15px;
+}
+#form .wrapper .body input,
+#form .wrapper .body textarea {
   display: block;
-  border: 1px solid #ccc;
+  border: 1px solid #dcdcdc;
   border-radius: 0;
   box-shadow: none;
-  margin-bottom: 15px;
   padding: 10px;
   color: #363636;
   resize: none;
   outline: none;
+  font-size: 14px;
 }
-#note-form .wrapper .footer-wrapper {
+#form .wrapper .footer-wrapper {
   height: 60px;
 }
-#note-form .footer {
+#form .footer {
   background: #fff;
   height: 60px;
   line-height: 60px;
   padding: 0 15px;
 }
-#note-form .footer a.btn-save {
+#form .footer a.btn-save {
   text-decoration: none;
   color: #fff;
   background: #5c85d6;
   padding: 8px 15px;
   border-radius: 3px;
 }
-#note-form .footer a.btn-save:hover {
+#form .footer a.btn-save:hover {
   background: #4876d1;
 }
