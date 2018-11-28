@@ -1,10 +1,10 @@
 <template>
   <div class="content-wrapper">
     <h4 class="title">Drafts</h4>
-    <ul class="list" v-if="list.length > 0">
-      <li v-for="item in list">
+    <ul class="list" v-if="notes.length > 0">
+      <li v-for="note in notes">
         <a href="#">
-          <img src="dist/img/list_checkbox1.png" alt="">{{ item.title }}
+          <img src="dist/img/list_checkbox1.png" alt="">{{ note.title }}
         </a>
       </li>
     </ul>
@@ -19,7 +19,7 @@
     name: 'drafts',
     data() {
       return {
-        list: []
+        notes: []
       }
     },
     mounted: function() {
@@ -28,20 +28,18 @@
     },
     methods: {
       init() {
-        const lsList = lsGet('list');
+        const lsNotes = lsGet('notes');
 
-        this.list = [];
-        
-        if (lsList != null) {
+        this.notes = [];
 
-          for (let i = 0; i < lsList.length; i++) {
-
-            if (lsList[i].type == 'draft') {
-
-              this.list.push(lsList[i]);
+        if (lsNotes != null) {
+          for (let i = 0; i < lsNotes.length; i++) {
+            if (lsNotes[i].type == 'drafts') {
+              this.notes.push(lsNotes[i]);
             }
           }
         }
+
       }
     }
   }

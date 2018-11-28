@@ -17,11 +17,11 @@
         </ul>
       </div>
       <div class="body">
-        <input v-model="title" autocomplete="off">
-        <textarea v-model="content"></textarea>
-        <input type="hidden" v-model="id">
-        <input type="hidden" v-model="type">
-        <input type="hidden" v-model="date">
+        <input v-model="note.title" autocomplete="off">
+        <textarea v-model="note.content"></textarea>
+        <input type="hidden" v-model="note.id">
+        <input type="hidden" v-model="note.type">
+        <input type="hidden" v-model="note.date">
       </div>
       <div class="footer-wrapper"></div>
     </div>
@@ -33,22 +33,26 @@
 
 <script>
   import $ from 'jquery';
-  import { setId, setDate, lsGet, lsSet } from './../helpers.js';
+  import { lsGet, lsSet } from './../helpers.js';
 
   export default {
     name: 'note-form',
     data() {
       return {
-        id: '',
-        type: '',
-        title: '',
-        content: '',
-        date: ''
+        note: {
+          id: '',
+          type: '',
+          title: '',
+          content: '',
+          is_deleted: false,
+          type: 'inbox', // [inbox, draft]
+          date: ''
+        }
       }
     },
     directives: {
       'form-size': {
-        // TODO
+        // TODO: code review
         bind: (el) => {
           window.addEventListener('resize', () => {
             if ($(el).hasClass('active')) {
@@ -69,14 +73,15 @@
       show(id = null) {
 
         if (id != null) {
-          const list = lsGet('list');
-          for (let i = 0; i < list.length; i++) {
-            if (list[i].id == id) {
-              this.id = list[i].id;
-              this.type = list[i].type;
-              this.title = list[i].title;
-              this.content = list[i].content;
-              this.date = list[i].date;
+          const notes = lsGet('notes');
+
+          for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id == id) {
+              this.note.id = notes[i].id;
+              this.note.type = notes[i].type;
+              this.note.title = notes[i].title;
+              this.note.content = notes[i].content;
+              this.note.date = notes[i].date;
               break;
             }
           }
@@ -102,28 +107,28 @@
           return false;
         }
 
-        let list = lsGet('list');
+        let notes = lsGet('notes');
 
         if (this.id == '') {
-          list.push({
-            id: setId(),
+          notes.push({
+            id: this.__setId(),
             type: 'inbox',
             title: this.title,
             content: this.content,
-            date: setDate(),
+            date: this.__setDate(),
           });
         } else {
-          for (let i = 0; i < list.length; i++) {
-            if (list[i].id == this.id) {
-              list[i].type = this.type;
-              list[i].title = this.title;
-              list[i].content = this.content;
+          for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id == this.note.id) {
+              notes[i].type = this.note.type;
+              notes[i].title = this.note.title;
+              notes[i].content = this.note.content;
               break;
             }
           }
         }
 
-        lsSet('list', list);
+        lsSet('notes', notes);
 
         // TODO: find better solution
         const components = this.$parent.$children;
@@ -149,7 +154,7 @@
         this.__fixInput();
       },
       __fixInput() {
-        // TODO
+        // TODO: code review
         let width = $(this.$el).width() - 50;
         let height = $(this.$el).find('textarea').offset().top - $(this.$el).find('.footer').offset().top;
         $(this.$el).find('input').css({'width': width+'px'});
@@ -157,11 +162,20 @@
         $(this.$el).find('textarea').css({'height': (Math.abs(height) - 32) +'px'});
       },
       __empty() {
-        this.id = '';
-        this.type = '';
-        this.title = '';
-        this.content = '';
-        this.date = '';
+        this.note.id = '';
+        this.note.type = '';
+        this.note.title = '';
+        this.note.content = '';
+        this.note.date = '';
+      },
+      __setId() {
+        return Math.floor(Date.now() / 1000);
+      },
+      __setDate() {
+        let date = new Date().toISOString();
+        date = date.replace('T', ' ');
+
+        return date.replace(/\.([a-zA-Z0-9]+)/, '');
       }
     }
   }

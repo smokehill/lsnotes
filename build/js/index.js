@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import $ from 'jquery';
+import { lsGet, lsSet } from './helpers.js';
 
 import InboxComponent from './components/inbox.vue';
 import DraftsComponent from './components/drafts.vue';
 import TrashComponent from './components/trash.vue';
 import FormComponent from './components/form.vue';
-
-import { lsGet, lsSet } from './helpers.js';
 
 
 Vue.use(VueRouter);
@@ -77,9 +76,9 @@ const app = new Vue({
     'form-component': FormComponent,
   },
   created: function() {
-    if (lsGet('list') == null) {
+    if (lsGet('notes') == null) {
       // init Local Storage base params
-      lsSet('list', []);
+      lsSet('notes', []);
     }
   },
   mounted: function() {

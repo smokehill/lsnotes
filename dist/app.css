@@ -4,6 +4,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 h1,
 h2,
@@ -83,9 +84,9 @@ p {
   text-decoration: none;
 }
 #sidebar ul.menu li a img {
-  height: 18px;
+  height: 17px;
   float: left;
-  margin-top: 10px;
+  margin-top: 11px;
   margin-left: 15px;
   margin-right: 10px;
 }
@@ -257,6 +258,7 @@ p {
   resize: none;
   outline: none;
   font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 #form .wrapper .footer-wrapper {
   height: 60px;
@@ -273,6 +275,7 @@ p {
   background: #5c85d6;
   padding: 8px 15px;
   border-radius: 3px;
+  margin-right: 10px;
 }
 #form .footer a.btn-save:hover {
   background: #4876d1;

@@ -9,12 +9,3 @@ export function lsSet(key, value)
 {
     localStorage.setItem(key, JSON.stringify(value));
 }
-
-export function setId() {
-  return Math.floor(Date.now() / 1000);
-};
-
-export function setDate() {
-  return new Date().toISOString().slice(0,10);
-};
-
