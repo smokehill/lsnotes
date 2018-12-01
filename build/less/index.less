@@ -23,6 +23,15 @@ h1, h2, h3, h4, h5, h6, p {
   color: @text-color;
 }
 
+a {
+  color: darken(@sidebar-bg, 3%);
+  text-decoration: none;
+
+  &:hover {
+    color: darken(@sidebar-bg, 10%);
+  }
+}
+
 @import 'sidebar.less';
 @import 'content.less';
 @import 'form.less';

@@ -20,6 +20,10 @@
     border-bottom: 1px solid @hr-tag;
   }
 
+  .controls {
+    margin-bottom: 10px;
+  }
+
   ul.list {
     list-style: none;
     padding: 0;
@@ -28,39 +32,29 @@
     li {
       display: block;
       border-bottom: 1px solid @hr-tag;
+      padding: 10px 0;
+      color: lighten(@text-color, 15%);
 
-      a {
-        color: lighten(@text-color, 15%);
-        display: inherit;
-        padding: 10px 0;
-        text-decoration: none;
-
-        &:hover {
-          color: darken(@text-color, 10%);
-        }
-  
-        &:focus {
-          color: darken(@text-color, 3%);
-        }
-
-        img {
-          height: 10px;
-          margin-right: 10px;
-          opacity: 0.7;
-        }
-
-        span.date {
-          float: right;
-        }
+      img {
+        height: 10px;
+        margin-right: 10px;
+        opacity: 0.7;
       }
 
-      &.active {
-        > a {
-          padding-left: 12px;
-          color: @body-bg;
-          background: darken(@sidebar-bg, 3%);
-          border-left: 3px solid @body-bg;
-        }
+      span.title {
+        cursor: pointer;
+      }
+
+      span.date {
+        float: right;
+      }
+
+      &:hover {
+        color: darken(@text-color, 10%);
+      }
+
+      &:focus {
+        color: darken(@text-color, 3%);
       }
     }
   }

@@ -4,7 +4,6 @@ import $ from 'jquery';
 import { lsGet, lsSet } from './helpers.js';
 
 import InboxComponent from './components/inbox.vue';
-import DraftsComponent from './components/drafts.vue';
 import TrashComponent from './components/trash.vue';
 import FormComponent from './components/form.vue';
 
@@ -32,11 +31,6 @@ const router = new VueRouter({
       component: InboxComponent
     },
     {
-      path: '/drafts',
-      name: 'drafts',
-      component: DraftsComponent
-    },
-    {
       path: '/trash',
       name: 'trash',
       component: TrashComponent
@@ -54,11 +48,6 @@ const app = new Vue({
         name: 'Inbox',
         path: '#/inbox',
         image: 'dist/img/sidebar_inbox.png'
-      },
-      {
-        name: 'Drafts',
-        path: '#/drafts',
-        image: 'dist/img/sidebar_draft.png'
       },
       {
         name: 'Trash',

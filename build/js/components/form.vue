@@ -2,15 +2,15 @@
   <div id="form" v-form-size>
     <div class="wrapper">
       <div class="header">
-        <span class="text">Note</span>
+        <span class="text">Note [ {{type}} ]</span>
         <ul class="controls">
           <li>
-            <a href="#" v-on:click="change">
+            <a href="#" v-on:click="change($event)">
               <img src="dist/img/form_minimize.png" alt="change" />
             </a>
           </li>
           <li>
-            <a href="#" v-on:click="close">
+            <a href="#" v-on:click="close($event)">
               <img src="dist/img/form_close.png" alt="close" />
             </a>
           </li>
@@ -26,7 +26,7 @@
       <div class="footer-wrapper"></div>
     </div>
     <div class="footer">
-      <a href="#" class="btn-save" v-on:click="save">Save</a>
+      <a href="#" class="btn-save" v-on:click="save($event)">Save</a>
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@
     name: 'note-form',
     data() {
       return {
+        type: 'new',
         note: {
           id: '',
           type: '',
@@ -76,12 +77,15 @@
           const notes = lsGet('notes');
 
           for (let i = 0; i < notes.length; i++) {
+
             if (notes[i].id == id) {
               this.note.id = notes[i].id;
               this.note.type = notes[i].type;
               this.note.title = notes[i].title;
               this.note.content = notes[i].content;
               this.note.date = notes[i].date;
+
+              this.type = notes[i].type;
               break;
             }
           }

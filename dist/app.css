@@ -15,6 +15,13 @@ h6,
 p {
   color: #363636;
 }
+a {
+  color: #507cd3;
+  text-decoration: none;
+}
+a:hover {
+  color: #3367cc;
+}
 #sidebar {
   position: absolute;
   top: 0;
@@ -128,6 +135,9 @@ p {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
+#content .controls {
+  margin-bottom: 10px;
+}
 #content ul.list {
   list-style: none;
   padding: 0;
@@ -136,32 +146,25 @@ p {
 #content ul.list li {
   display: block;
   border-bottom: 1px solid #eee;
-}
-#content ul.list li a {
-  color: #5c5c5c;
-  display: inherit;
   padding: 10px 0;
-  text-decoration: none;
+  color: #5c5c5c;
 }
-#content ul.list li a:hover {
-  color: #1c1c1c;
-}
-#content ul.list li a:focus {
-  color: #2e2e2e;
-}
-#content ul.list li a img {
+#content ul.list li img {
   height: 10px;
   margin-right: 10px;
   opacity: 0.7;
 }
-#content ul.list li a span.date {
+#content ul.list li span.title {
+  cursor: pointer;
+}
+#content ul.list li span.date {
   float: right;
 }
-#content ul.list li.active > a {
-  padding-left: 12px;
-  color: #fff;
-  background: #507cd3;
-  border-left: 3px solid #fff;
+#content ul.list li:hover {
+  color: #1c1c1c;
+}
+#content ul.list li:focus {
+  color: #2e2e2e;
 }
 #form {
   position: fixed;
