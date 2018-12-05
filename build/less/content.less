@@ -24,6 +24,13 @@
     margin-bottom: 10px;
   }
 
+  input[type=checkbox] {
+    position: relative;
+    top: 2px;
+    left: -2px;
+    cursor: pointer;
+  }
+
   ul.list {
     list-style: none;
     padding: 0;
@@ -34,19 +41,15 @@
       border-bottom: 1px solid @hr-tag;
       padding: 10px 0;
       color: lighten(@text-color, 15%);
-
-      img {
-        height: 10px;
-        margin-right: 10px;
-        opacity: 0.7;
-      }
+      cursor: pointer;
 
       span.title {
-        cursor: pointer;
+        display: inline-block;
       }
 
       span.date {
         float: right;
+        display: inline-block;
       }
 
       &:hover {

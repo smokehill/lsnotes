@@ -2,12 +2,12 @@
   <div class="content-wrapper">
     <h4 class="title">Trash</h4>
     <div class="controls">
-      <input type="checkbox" title="Select all" v-on:click="selectAll($event)"/> 
-      <a href="#" v-on:click="restoreSelected($event)">Restore selected</a>
+      <a href="#" v-on:click="restoreSelected($event)">Restore</a> /
+      <a href="#">Clear trash</a>
     </div>
     <ul class="list" v-if="notes.length > 0">
       <li v-for="note in notes" :data-id="note.id">
-        <input type="checkbox">
+        <input type="checkbox" />
         <span class="title" v-on:click="edit($event, note.id)">{{ note.title }}</span>
         <span class="date">{{ note.date }}</span>
       </li>
@@ -48,13 +48,6 @@
       edit(e, id) {
         e.preventDefault();
         this.$parent.$refs.form.show(id);
-      },
-      selectAll(e) {
-        let checkboxes = $('.list').find('input[type=checkbox]');
-
-        checkboxes.each(function(index, checkbox) {
-            $(e.target).is(':checked') ? $(checkbox).prop('checked', true) : $(checkbox).prop('checked', false);
-        });
       },
       restoreSelected(e) {
         e.preventDefault();

@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  color: #363636;
 }
 h1,
 h2,
@@ -138,6 +139,12 @@ a:hover {
 #content .controls {
   margin-bottom: 10px;
 }
+#content input[type=checkbox] {
+  position: relative;
+  top: 2px;
+  left: -2px;
+  cursor: pointer;
+}
 #content ul.list {
   list-style: none;
   padding: 0;
@@ -148,17 +155,14 @@ a:hover {
   border-bottom: 1px solid #eee;
   padding: 10px 0;
   color: #5c5c5c;
-}
-#content ul.list li img {
-  height: 10px;
-  margin-right: 10px;
-  opacity: 0.7;
+  cursor: pointer;
 }
 #content ul.list li span.title {
-  cursor: pointer;
+  display: inline-block;
 }
 #content ul.list li span.date {
   float: right;
+  display: inline-block;
 }
 #content ul.list li:hover {
   color: #1c1c1c;

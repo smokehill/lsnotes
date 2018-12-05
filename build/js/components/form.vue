@@ -101,7 +101,8 @@
           .removeClass('active')
           .removeClass('small')
           .find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
-
+        
+        this.type = 'new';
         this.__empty();
       },
       save(e) {
@@ -113,12 +114,12 @@
 
         let notes = lsGet('notes');
 
-        if (this.id == '') {
+        if (this.note.id == '') {
           notes.push({
             id: this.__setId(),
             type: 'inbox',
-            title: this.title,
-            content: this.content,
+            title: this.note.title,
+            content: this.note.content,
             date: this.__setDate(),
           });
         } else {
@@ -139,8 +140,7 @@
 
         for (let i = 0; i < components.length; i++) {
           if (components[i].$options.name == 'inbox'
-            || components[i].$options.name == 'trash'
-            || components[i].$options.name == 'draft') {
+            || components[i].$options.name == 'trash') {
               components[i].init();
           }
         }
