@@ -92,7 +92,7 @@ a:hover {
   text-decoration: none;
 }
 #sidebar ul.menu li a img {
-  height: 17px;
+  height: 18px;
   float: left;
   margin-top: 11px;
   margin-left: 15px;
@@ -138,6 +138,27 @@ a:hover {
 }
 #content .controls {
   margin-bottom: 10px;
+}
+#content ol.breadcrumb {
+  list-style: none;
+  margin: 0 0 15px 0;
+  padding: 0;
+}
+#content ol.breadcrumb li {
+  display: inline-block;
+}
+#content ol.breadcrumb li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\A0";
+}
+#content ol.breadcrumb li:first-child:before {
+  padding: 0;
+  color: #ccc;
+  content: "";
+}
+#content ol.breadcrumb li a:hover {
+  text-decoration: underline;
 }
 #content input[type=checkbox] {
   position: relative;
@@ -266,6 +287,7 @@ a:hover {
   outline: none;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
 }
 #form .wrapper .footer-wrapper {
   height: 60px;
@@ -286,4 +308,11 @@ a:hover {
 }
 #form .footer a.btn-save:hover {
   background: #4876d1;
+}
+#form .footer #process {
+  color: #767676;
+  float: right;
+}
+#form .footer #process.hidden {
+  display: none;
 }

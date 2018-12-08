@@ -1,9 +1,9 @@
 <template>
   <div class="content-wrapper">
     <h4 class="title">Inbox</h4>
-    <div class="controls">
-      <a href="#" v-on:click="deleteSelected($event)">Delete</a>
-    </div>
+    <ol class="breadcrumb">
+      <li><a href="#" v-on:click="deleteSelected($event)">Delete selected</a></li>
+    </ol>
     <ul class="list" v-if="notes.length > 0">
       <li v-for="note in notes" v-on:click="edit($event, note.id)" :data-id="note.id" >
         <input type="checkbox"/>

@@ -18,15 +18,17 @@
       </div>
       <div class="body">
         <input v-model="note.title" autocomplete="off">
-        <textarea v-model="note.content"></textarea>
-        <input type="hidden" v-model="note.id">
-        <input type="hidden" v-model="note.type">
-        <input type="hidden" v-model="note.date">
+        <textarea v-model="note.content" v-auto-save></textarea>
+        <input type="hidden" name="id" v-model="note.id">
+        <input type="hidden" name="type" v-model="note.type">
+        <input type="hidden" name="date" v-model="note.date">
       </div>
       <div class="footer-wrapper"></div>
     </div>
     <div class="footer">
       <a href="#" class="btn-save" v-on:click="save($event)">Save</a>
+      <a href="#">Delete</a>
+      <span id="process" class="hidden">Saving...</span>
     </div>
   </div>
 </template>
@@ -46,14 +48,44 @@
           title: '',
           content: '',
           is_deleted: false,
-          type: 'inbox', // [inbox, draft]
+          type: 'inbox', // available types [inbox, trash]
           date: ''
         }
       }
     },
     directives: {
+      'auto-save': {
+        update: (el, binding, vnode) => {
+          var typingTimer;
+          var typingInterval = 3000;
+
+          $(el).on('keyup', function() {
+
+            if (vnode.context.note.id != '') {
+              $('#process').removeClass('hidden');
+              clearTimeout(typingTimer);
+
+              typingTimer = setTimeout(function() {
+                $('#process').addClass('hidden');
+                let notes = lsGet('notes');
+
+                for (let i = 0; i < notes.length; i++) {
+                  if (notes[i].id == vnode.context.note.id) {
+                    notes[i].title = vnode.context.note.title;
+                    notes[i].content = vnode.context.note.content;
+                    break;
+                  }
+                }
+
+                lsSet('notes', notes);
+              }, typingInterval);
+            }
+          }).on('keydown', function() {
+            clearTimeout(typingTimer);
+          });
+        }
+      },
       'form-size': {
-        // TODO: code review
         bind: (el) => {
           window.addEventListener('resize', () => {
             if ($(el).hasClass('active')) {
@@ -67,8 +99,8 @@
             $(el).removeClass('small');
             $(el).find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
           });
-        },
-      }
+        }
+      },
     },
     methods: {
       show(id = null) {
@@ -92,6 +124,8 @@
         }
   
         $(this.$el).addClass('active');
+        $(this.$el).removeClass('small');
+        $(this.$el).find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
         this.__fixInput();
       },
       close(e) {
@@ -108,11 +142,13 @@
       save(e) {
         e.preventDefault();
 
-        if (this.title == '' || this.content == '') {
+        if (this.note.title == '' || this.note.content == '') {
           return false;
         }
 
         let notes = lsGet('notes');
+
+        $('#process').removeClass('hidden');
 
         if (this.note.id == '') {
           notes.push({
@@ -125,7 +161,6 @@
         } else {
           for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == this.note.id) {
-              notes[i].type = this.note.type;
               notes[i].title = this.note.title;
               notes[i].content = this.note.content;
               break;
@@ -133,17 +168,20 @@
           }
         }
 
-        lsSet('notes', notes);
-
-        // TODO: find better solution
         const components = this.$parent.$children;
 
-        for (let i = 0; i < components.length; i++) {
-          if (components[i].$options.name == 'inbox'
-            || components[i].$options.name == 'trash') {
-              components[i].init();
+        setTimeout(function() {
+          lsSet('notes', notes);
+
+          for (let i = 0; i < components.length; i++) {
+            if (components[i].$options.name == 'inbox'
+              || components[i].$options.name == 'trash') {
+                components[i].init();
+            }
           }
-        }
+          $('#process').addClass('hidden');
+        }, 3000);
+
 
       },
       change(e) {

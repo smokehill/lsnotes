@@ -1,10 +1,10 @@
 <template>
   <div class="content-wrapper">
     <h4 class="title">Trash</h4>
-    <div class="controls">
-      <a href="#" v-on:click="restoreSelected($event)">Restore</a> /
-      <a href="#">Clear trash</a>
-    </div>
+    <ol class="breadcrumb">
+      <li><a href="#" v-on:click="restoreSelected($event)">Restore selected</a></li>
+      <li><a href="#">Clear trash</a></li>
+    </ol>
     <ul class="list" v-if="notes.length > 0">
       <li v-for="note in notes" :data-id="note.id">
         <input type="checkbox" />
