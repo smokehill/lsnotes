@@ -33,6 +33,33 @@ a {
   }
 }
 
+.btn-primary {
+  text-decoration: none;
+  color: @body-bg;
+  background: @sidebar-bg;
+  padding: 8px 15px;
+  border-radius: 3px;
+
+  &:hover {
+    color: @body-bg;
+    background: darken(@sidebar-bg, 5%);
+  }
+}
+
+.btn-default {
+  text-decoration: none;
+  color: @text-color;
+  background: @body-bg;
+  padding: 8px 15px;
+  border-radius: 3px;
+  border: 1px solid #dcdcdc;
+
+  &:hover {
+    color: @text-color;
+    background: darken(@body-bg, 5%);
+  }
+}
+
 @import 'sidebar.less';
 @import 'content.less';
 @import 'form.less';

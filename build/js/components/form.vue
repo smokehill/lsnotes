@@ -1,7 +1,7 @@
 <template>
   <div id="form" v-form-size>
-    <div class="wrapper">
-      <div class="header">
+    <div class="form-wrapper">
+      <div class="form-header">
         <span class="text">Note [ {{type}} ]</span>
         <ul class="controls">
           <li>
@@ -16,18 +16,17 @@
           </li>
         </ul>
       </div>
-      <div class="body">
+      <div class="form-body">
         <input v-model="note.title" autocomplete="off">
         <textarea v-model="note.content" v-auto-save></textarea>
         <input type="hidden" name="id" v-model="note.id">
         <input type="hidden" name="type" v-model="note.type">
         <input type="hidden" name="date" v-model="note.date">
       </div>
-      <div class="footer-wrapper"></div>
+      <div class="form-footer-wrapper"></div>
     </div>
-    <div class="footer">
-      <a href="#" class="btn-save" v-on:click="save($event)">Save</a>
-      <a href="#">Delete</a>
+    <div class="form-footer">
+      <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
       <span id="process" class="hidden">Saving...</span>
     </div>
   </div>
@@ -198,7 +197,7 @@
       __fixInput() {
         // TODO: code review
         let width = $(this.$el).width() - 50;
-        let height = $(this.$el).find('textarea').offset().top - $(this.$el).find('.footer').offset().top;
+        let height = $(this.$el).find('textarea').offset().top - $(this.$el).find('.form-footer').offset().top;
         $(this.$el).find('input').css({'width': width+'px'});
         $(this.$el).find('textarea').css({'width': width+'px'});
         $(this.$el).find('textarea').css({'height': (Math.abs(height) - 32) +'px'});

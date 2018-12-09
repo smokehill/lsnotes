@@ -22,15 +22,15 @@
     height: 40px;
     z-index: 900;
 
-    .header {
+    .form-header {
       border-radius: 4px;
     }
 
-    .body {
+    .form-body {
       display: none;
     }
 
-    .footer {
+    .form-footer {
       display: none;
     }
   }
@@ -43,7 +43,7 @@
     width: auto;
   }
 
-  .header {
+  .form-header {
     height: 40px;
     line-height: 40px;
     background: #4d4d4d;
@@ -82,11 +82,11 @@
     }
   }
 
-  .wrapper {
+  .form-wrapper {
     height: 100%;
     margin-bottom: -60px;
 
-    .body {
+    .form-body {
       background: @body-bg;
       padding: 15px;
 
@@ -110,29 +110,16 @@
       }
     }
 
-    .footer-wrapper {
+    .form-footer-wrapper {
       height: 60px;
     }
   }
 
-  .footer {
+  .form-footer {
     background: @body-bg;
     height: 60px;
     line-height: 60px;
     padding: 0 15px;
-
-    a.btn-save {
-      text-decoration: none;
-      color: @body-bg;
-      background: @sidebar-bg;
-      padding: 8px 15px;
-      border-radius: 3px;
-      margin-right: 10px;
-
-      &:hover {
-        background: darken(@sidebar-bg, 5%);
-      }
-    }
 
     #process {
       color: lighten(@text-color, 25%);
