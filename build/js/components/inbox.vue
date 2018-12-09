@@ -8,7 +8,7 @@
       <li v-for="note in notes" v-on:click="edit($event, note.id)" :data-id="note.id" >
         <input type="checkbox"/>
         <span class="title">{{ note.title }}</span>
-        <span class="date">{{ note.date }}</span>
+        <span class="date">{{ note.created_at }}</span>
       </li>
     </ul>
   </div>

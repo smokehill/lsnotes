@@ -267,7 +267,7 @@ a:hover {
 #content .modal .modal-content .modal-footer a {
   margin: 0 2px;
 }
-#form {
+.form {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -280,27 +280,27 @@ a:hover {
   overflow: hidden;
   display: none;
 }
-#form.active {
+.form.active {
   display: block;
 }
-#form.small {
+.form.small {
   top: auto;
   right: 10px;
   bottom: 10px;
   height: 40px;
   z-index: 900;
 }
-#form.small .form-header {
+.form.small .form-header {
   border-radius: 4px;
 }
-#form.small .form-body {
+.form.small .form-body {
   display: none;
 }
-#form.small .form-footer {
+.form.small .form-footer {
   display: none;
 }
 @media (max-width: 768px) {
-  #form {
+  .form {
     top: 10px;
     left: 70px;
     right: 10px;
@@ -308,7 +308,7 @@ a:hover {
     width: auto;
   }
 }
-#form .form-header {
+.form .form-header {
   height: 40px;
   line-height: 40px;
   background: #4d4d4d;
@@ -316,43 +316,43 @@ a:hover {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
-#form .form-header .text {
+.form .form-header .text {
   margin-left: 15px;
 }
-#form .form-header ul.controls {
+.form .form-header ul.controls {
   list-style: none;
   padding: 0;
   margin: 0;
   float: right;
   margin-right: 8px;
 }
-#form .form-header ul.controls li {
+.form .form-header ul.controls li {
   display: inline-block;
 }
-#form .form-header ul.controls li a {
+.form .form-header ul.controls li a {
   color: #fff;
   text-decoration: none;
   padding: 4px 6px;
 }
-#form .form-header ul.controls li a img {
+.form .form-header ul.controls li a img {
   height: 10px;
 }
-#form .form-header ul.controls li a:hover {
+.form .form-header ul.controls li a:hover {
   opacity: 0.8;
 }
-#form .form-wrapper {
+.form .form-wrapper {
   height: 100%;
   margin-bottom: -60px;
 }
-#form .form-wrapper .form-body {
+.form .form-wrapper .form-body {
   background: #fff;
   padding: 15px;
 }
-#form .form-wrapper .form-body input {
+.form .form-wrapper .form-body input {
   margin-bottom: 15px;
 }
-#form .form-wrapper .form-body input,
-#form .form-wrapper .form-body textarea {
+.form .form-wrapper .form-body input,
+.form .form-wrapper .form-body textarea {
   display: block;
   border: 1px solid #dcdcdc;
   border-radius: 0;
@@ -365,19 +365,19 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
 }
-#form .form-wrapper .form-footer-wrapper {
+.form .form-wrapper .form-footer-wrapper {
   height: 60px;
 }
-#form .form-footer {
+.form .form-footer {
   background: #fff;
   height: 60px;
   line-height: 60px;
   padding: 0 15px;
 }
-#form .form-footer #process {
+.form .form-footer #process {
   color: #767676;
   float: right;
 }
-#form .form-footer #process.hidden {
+.form .form-footer #process.hidden {
   display: none;
 }

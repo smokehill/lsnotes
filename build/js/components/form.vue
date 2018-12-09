@@ -1,5 +1,5 @@
 <template>
-  <div id="form" v-form-size>
+  <div class="form" v-resize>
     <div class="form-wrapper">
       <div class="form-header">
         <span class="text">Note [ {{type}} ]</span>
@@ -21,7 +21,7 @@
         <textarea v-model="note.content" v-auto-save></textarea>
         <input type="hidden" name="id" v-model="note.id">
         <input type="hidden" name="type" v-model="note.type">
-        <input type="hidden" name="date" v-model="note.date">
+        <input type="hidden" name="created_at" v-model="note.created_at">
       </div>
       <div class="form-footer-wrapper"></div>
     </div>
@@ -48,7 +48,7 @@
           content: '',
           is_deleted: false,
           type: 'inbox', // available types [inbox, trash]
-          date: ''
+          created_at: ''
         }
       }
     },
@@ -84,7 +84,7 @@
           });
         }
       },
-      'form-size': {
+      'resize': {
         bind: (el) => {
           window.addEventListener('resize', () => {
             if ($(el).hasClass('active')) {
@@ -114,7 +114,7 @@
               this.note.type = notes[i].type;
               this.note.title = notes[i].title;
               this.note.content = notes[i].content;
-              this.note.date = notes[i].date;
+              this.note.created_at = notes[i].created_at;
 
               this.type = notes[i].type;
               break;
@@ -155,13 +155,15 @@
             type: 'inbox',
             title: this.note.title,
             content: this.note.content,
-            date: this.__setDate(),
+            created_at: this.__setDate(),
+            updated_at: this.__setDate(),
           });
         } else {
           for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == this.note.id) {
               notes[i].title = this.note.title;
               notes[i].content = this.note.content;
+              notes[i].updated_at = this.__setDate();
               break;
             }
           }
@@ -207,7 +209,8 @@
         this.note.type = '';
         this.note.title = '';
         this.note.content = '';
-        this.note.date = '';
+        this.note.created_at = '';
+        this.note.updated_at = '';
       },
       __setId() {
         return Math.floor(Date.now() / 1000);

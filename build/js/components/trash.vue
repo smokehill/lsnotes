@@ -9,7 +9,7 @@
       <li v-for="note in notes" :data-id="note.id">
         <input type="checkbox" />
         <span class="title" v-on:click="edit($event, note.id)">{{ note.title }}</span>
-        <span class="date">{{ note.date }}</span>
+        <span class="date">{{ note.created_at }}</span>
       </li>
     </ul>
     <div id="trash-modal" class="modal hidden">
@@ -101,7 +101,7 @@
       },
       clearTrash(e) {
         e.preventDefault();
-        // TODO
+        // TODO: delete trash data
       }
     }
   }
