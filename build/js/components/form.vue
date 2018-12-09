@@ -2,7 +2,7 @@
   <div class="form" v-resize>
     <div class="form-wrapper">
       <div class="form-header">
-        <span class="text">Note [ {{type}} ]</span>
+        <span class="text">Note [ {{ type }} ]</span>
         <ul class="controls">
           <li>
             <a href="#" v-on:click="change($event)">
@@ -27,7 +27,7 @@
     </div>
     <div class="form-footer">
       <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
-      <span id="process" class="hidden">Saving...</span>
+      <span id="process"></span>
     </div>
   </div>
 </template>
@@ -47,40 +47,42 @@
           title: '',
           content: '',
           is_deleted: false,
-          type: 'inbox', // available types [inbox, trash]
-          created_at: ''
-        }
+          type: 'inbox',
+          created_at: '',
+          updated_at: ''
+        },
+        typingTimer: '',
+        typingInterval: 3000
       }
     },
     directives: {
       'auto-save': {
+        // TODO: fix autosave
         update: (el, binding, vnode) => {
-          var typingTimer;
-          var typingInterval = 3000;
-
           $(el).on('keyup', function() {
-
             if (vnode.context.note.id != '') {
-              $('#process').removeClass('hidden');
-              clearTimeout(typingTimer);
+              $('#process').text('Saving...');
+              clearTimeout(vnode.context.typingTimer);
 
-              typingTimer = setTimeout(function() {
-                $('#process').addClass('hidden');
+              vnode.context.typingTimer = setTimeout(function() {
                 let notes = lsGet('notes');
+                const updatedAt = vnode.context.__setDate();
 
                 for (let i = 0; i < notes.length; i++) {
                   if (notes[i].id == vnode.context.note.id) {
                     notes[i].title = vnode.context.note.title;
                     notes[i].content = vnode.context.note.content;
+                    notes[i].updated_at = updatedAt;
                     break;
                   }
                 }
-
+                
+                $('#process').text('Last edit was: '+updatedAt);
                 lsSet('notes', notes);
-              }, typingInterval);
+              }, vnode.context.typingInterval);
             }
           }).on('keydown', function() {
-            clearTimeout(typingTimer);
+            clearTimeout(vnode.context.typingTimer);
           });
         }
       },
@@ -115,8 +117,10 @@
               this.note.title = notes[i].title;
               this.note.content = notes[i].content;
               this.note.created_at = notes[i].created_at;
+              this.note.updated_at = notes[i].updated_at;
 
               this.type = notes[i].type;
+              $('#process').text('Last edit was: ' + this.note.updated_at);
               break;
             }
           }
@@ -146,8 +150,9 @@
         }
 
         let notes = lsGet('notes');
+        const date = this.__setDate();
 
-        $('#process').removeClass('hidden');
+        $('#process').text('Saving...');
 
         if (this.note.id == '') {
           notes.push({
@@ -155,15 +160,15 @@
             type: 'inbox',
             title: this.note.title,
             content: this.note.content,
-            created_at: this.__setDate(),
-            updated_at: this.__setDate(),
+            created_at: date,
+            updated_at: date,
           });
         } else {
           for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == this.note.id) {
               notes[i].title = this.note.title;
               notes[i].content = this.note.content;
-              notes[i].updated_at = this.__setDate();
+              notes[i].updated_at = date;
               break;
             }
           }
@@ -173,14 +178,13 @@
 
         setTimeout(function() {
           lsSet('notes', notes);
-
           for (let i = 0; i < components.length; i++) {
             if (components[i].$options.name == 'inbox'
               || components[i].$options.name == 'trash') {
                 components[i].init();
             }
           }
-          $('#process').addClass('hidden');
+          $('#process').text('Last edit was: '+date);
         }, 3000);
 
 
@@ -211,12 +215,17 @@
         this.note.content = '';
         this.note.created_at = '';
         this.note.updated_at = '';
+
+        $('#process').text('');
       },
       __setId() {
         return Math.floor(Date.now() / 1000);
       },
       __setDate() {
-        let date = new Date().toISOString();
+        // converts UTC to local
+        let date = new Date().toLocaleString() + ' UTC';
+        date = new Date(date);
+        date = date.toISOString();
         date = date.replace('T', ' ');
 
         return date.replace(/\.([a-zA-Z0-9]+)/, '');
