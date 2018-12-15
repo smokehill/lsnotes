@@ -43,11 +43,10 @@
         type: 'new',
         note: {
           id: '',
-          type: '',
+          type: 'inbox',
           title: '',
           content: '',
           is_deleted: false,
-          type: 'inbox',
           created_at: '',
           updated_at: ''
         },
@@ -123,6 +122,9 @@
               break;
             }
           }
+        } else {
+          $('.form-header .text').text('Note [ new ]');
+          this.__empty();
         }
   
         $(this.$el).addClass('active');
@@ -209,9 +211,10 @@
       },
       __empty() {
         this.note.id = '';
-        this.note.type = '';
+        this.note.type = 'inbox';
         this.note.title = '';
         this.note.content = '';
+        this.note.is_deleted = false;
         this.note.created_at = '';
         this.note.updated_at = '';
 
