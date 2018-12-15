@@ -72,6 +72,11 @@
           for (let i = 0; i < lsNotes.length; i++) {
             if ($.inArray(lsNotes[i].id, deleted) != -1) {
               lsNotes[i].type = 'trash';
+
+              // change note type in form header
+              if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
+                $('.form-header .text').text('Note [ trash ]');
+              }
             }
           }
 

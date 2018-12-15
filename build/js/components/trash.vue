@@ -23,7 +23,7 @@
           <p>All data will be deleted from the trash forever! Do You really want to continue?</p>
         </div>
         <div class="modal-footer">
-          <a href="#" class="btn-primary">Yes</a>
+          <a href="#" class="btn-primary" v-on:click="clearTrash($event)">Yes</a>
           <a href="#" class="btn-default" v-on:click="closeModal($event)">No</a>
         </div>
       </div>
@@ -83,6 +83,11 @@
           for (let i = 0; i < lsNotes.length; i++) {
             if ($.inArray(lsNotes[i].id, restored) != -1) {
               lsNotes[i].type = 'inbox';
+
+              // change note type in form header
+              if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
+                $('.form-header .text').text('Note [ inbox ]');
+              }
             }
           }
 
@@ -101,7 +106,20 @@
       },
       clearTrash(e) {
         e.preventDefault();
-        // TODO: delete trash data
+        let lsNotes = lsGet('notes');
+
+        if (lsNotes != null) {
+
+          for (let i = lsNotes.length - 1; i >= 0; i--) {
+            if (lsNotes[i].type == 'trash') {
+              lsNotes.splice(i, 1);
+            }
+          }
+
+          lsSet('notes', lsNotes);
+          this.init();
+          this.closeModal(e);
+        }
       }
     }
   }

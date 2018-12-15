@@ -105,7 +105,6 @@
     },
     methods: {
       show(id = null) {
-
         if (id != null) {
           const notes = lsGet('notes');
 
