@@ -285,10 +285,6 @@ a:hover {
 }
 .form.small {
   top: auto;
-  right: 10px;
-  bottom: 10px;
-  height: 40px;
-  z-index: 900;
 }
 .form.small .form-header {
   border-radius: 4px;
@@ -302,7 +298,6 @@ a:hover {
 @media (max-width: 768px) {
   .form {
     top: 10px;
-    left: 70px;
     right: 10px;
     bottom: 10px;
     width: auto;

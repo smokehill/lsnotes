@@ -5,12 +5,17 @@
         <span class="text">Note [ {{ type }} ]</span>
         <ul class="controls">
           <li>
-            <a href="#" v-on:click="change($event)">
+            <a href="#" v-on:click="change($event, 'height')" title="Minimize">
               <img src="dist/img/form_minimize.png" alt="change" />
             </a>
           </li>
           <li>
-            <a href="#" v-on:click="close($event)">
+            <a href="#" v-on:click="change($event, 'width')" title="Full-screen">
+              <img src="dist/img/form_full_screen.png" alt="change" />
+            </a>
+          </li>
+          <li>
+            <a href="#" v-on:click="close($event)" title="Close">
               <img src="dist/img/form_close.png" alt="close" />
             </a>
           </li>
@@ -90,14 +95,18 @@
           window.addEventListener('resize', () => {
             if ($(el).hasClass('active')) {
               $(el).addClass('small');
-              $(el).find('.controls a:first img').attr('src', 'dist/img/form_maximize.png');
+              $(el).find('.controls li:nth-child(1) a').attr('title', 'Maximize');
+              $(el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_maximize.png');
+              $(el).css({'width': '300px'});
             }
           });
         },
         unbind: (el) => {
           window.removeEventListener('resize', () => {
             $(el).removeClass('small');
-            $(el).find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
+            $(el).find('.controls li:nth-child(1) a').attr('title', 'Minimize');
+            $(el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
+            $(el).css({'width': '500px'});
           });
         }
       },
@@ -129,7 +138,7 @@
   
         $(this.$el).addClass('active');
         $(this.$el).removeClass('small');
-        $(this.$el).find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
+        $(this.$el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
         this.__fixInput();
       },
       close(e) {
@@ -138,7 +147,7 @@
         $(this.$el)
           .removeClass('active')
           .removeClass('small')
-          .find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
+          .find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
         
         this.type = 'new';
         this.__empty();
@@ -190,15 +199,43 @@
 
 
       },
-      change(e) {
+      change(e, type) {
         e.preventDefault();
-        if ($(this.$el).hasClass('small')) {
-          $(this.$el).removeClass('small');
-          $(this.$el).find('.controls a:first img').attr('src', 'dist/img/form_minimize.png');
-        } else {
-          $(this.$el).addClass('small');
-          $(this.$el).find('.controls a:first img').attr('src', 'dist/img/form_maximize.png');
+
+        if (type == 'height') {
+          if ($(this.$el).hasClass('small')) {
+            $(this.$el).removeClass('small');
+            $(this.$el).find('.controls li:nth-child(1) a').attr('title', 'Minimize');
+            $(this.$el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
+            $(this.$el).css({'width': '500px'});
+          } else {
+            $(this.$el).addClass('small');
+            $(this.$el).find('.controls li:nth-child(1) a').attr('title', 'Maximize');
+            $(this.$el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_maximize.png');
+            $(this.$el).css({'width': '300px'});
+          }
         }
+        else if (type == 'width') {
+
+          if ($(this.$el).hasClass('small')) {
+            $(this.$el).removeClass('small');
+          }
+
+          if ($(this.$el).hasClass('full_screen')) {
+            $(this.$el).removeClass('full_screen');
+            $(this.$el).find('.controls li:nth-child(2) a').attr('title', 'Full-screen');
+            $(this.$el).find('.controls li:nth-child(2) a img').attr('src', 'dist/img/form_full_screen.png');
+            $(this.$el).css({'width': '500px'});
+          } else {
+            const width = $('#content').width() + 10;
+
+            $(this.$el).addClass('full_screen');
+            $(this.$el).find('.controls li:nth-child(2) a').attr('title', 'Exit full-screen');
+            $(this.$el).find('.controls li:nth-child(2) a img').attr('src', 'dist/img/form_full_screen_exit.png');
+            $(this.$el).css({'width': width+'px'});
+          }
+        }
+
         this.__fixInput();
       },
       __fixInput() {
