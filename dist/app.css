@@ -155,7 +155,7 @@ a:hover {
 #content h4.title {
   margin-top: 0;
   padding-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
@@ -165,23 +165,48 @@ a:hover {
 #content ol.breadcrumb {
   list-style: none;
   margin: 0 0 15px 0;
-  padding: 0;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #eee;
 }
 #content ol.breadcrumb li {
   display: inline-block;
+  line-height: 32px;
 }
-#content ol.breadcrumb li:before {
-  padding: 0 5px;
-  color: #ccc;
-  content: "/\A0";
+#content ol.breadcrumb li:hover {
+  background-color: #eee;
+  border-radius: 3px;
 }
-#content ol.breadcrumb li:first-child:before {
-  padding: 0;
-  color: #ccc;
-  content: "";
+#content ol.breadcrumb li a {
+  text-decoration: none;
+  padding: 8px 16px;
+  opacity: 0.6;
 }
 #content ol.breadcrumb li a:hover {
-  text-decoration: underline;
+  opacity: 0.8;
+}
+#content ol.breadcrumb li a.breadcrumb-checkbox {
+  background: url(7aa721911f8249efbaa9d643365950c8.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+}
+#content ol.breadcrumb li a.breadcrumb-checkbox.on {
+  background: url(dd881ea18397220682b77b7fa1e9d3f1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+}
+#content ol.breadcrumb li a.breadcrumb-trash {
+  background: url(de2c28417a0de13272bc76d5f0e2febb.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+}
+#content ol.breadcrumb li a.breadcrumb-restore {
+  background: url(5274561033fcb0e13a13f962a9e9a57b.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
 }
 #content input[type=checkbox] {
   position: relative;
@@ -201,6 +226,25 @@ a:hover {
   color: #5c5c5c;
   cursor: pointer;
 }
+#content ul.list li span.checkbox {
+  padding: 0px 8px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background: url(7aa721911f8249efbaa9d643365950c8.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+  opacity: 0.2;
+}
+#content ul.list li span.checkbox.on {
+  padding: 0px 8px;
+  margin-right: 10px;
+  background: url(dd881ea18397220682b77b7fa1e9d3f1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+  opacity: 0.2;
+}
 #content ul.list li span.title {
   display: inline-block;
 }
@@ -211,8 +255,14 @@ a:hover {
 #content ul.list li:hover {
   color: #1c1c1c;
 }
+#content ul.list li:hover span.checkbox {
+  opacity: 0.8;
+}
 #content ul.list li:focus {
   color: #2e2e2e;
+}
+#content ul.list li:focus span.checkbox {
+  opacity: 0.8;
 }
 #content .modal {
   position: fixed;
@@ -325,15 +375,38 @@ a:hover {
   display: inline-block;
 }
 .form .form-header ul.controls li a {
-  color: #fff;
   text-decoration: none;
-  padding: 4px 6px;
+  padding: 12px 12px;
 }
-.form .form-header ul.controls li a img {
-  height: 10px;
+.form .form-header ul.controls li a.form-show-hide {
+  background: url(1f0464693a94d242eac474f350d9da76.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
 }
-.form .form-header ul.controls li a:hover {
-  opacity: 0.8;
+.form .form-header ul.controls li a.form-show-hide.on {
+  background: url(3646cd00ce98636b7bbd581309c2345f.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+}
+.form .form-header ul.controls li a.form-full-screen {
+  background: url(29f7b3150615041906b9a5a96f697b92.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+}
+.form .form-header ul.controls li a.form-full-screen.on {
+  background: url(9f4f6a1e6f5872621dca336a01030d45.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+}
+.form .form-header ul.controls li a.form-close {
+  background: url(ef08b0f09918bf8692bb955c95e19d9b.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
 }
 .form .form-wrapper {
   height: 100%;

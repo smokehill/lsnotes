@@ -2,12 +2,13 @@
   <div class="content-wrapper">
     <h4 class="title">Trash</h4>
     <ol class="breadcrumb">
-      <li><a href="#" v-on:click="restoreSelected($event)">Restore selected</a></li>
-      <li><a href="#" v-on:click="openModal($event)">Clear trash</a></li>
+      <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
+      <li><a href="#" class="breadcrumb-restore" v-on:click="restoreSelected($event)" title="Restore selected"></a></li>
+      <li><a href="#" class="breadcrumb-trash" v-on:click="openModal($event)" title="Clear trash"></a></li>
     </ol>
     <ul class="list" v-if="notes.length > 0">
       <li v-for="note in notes" :data-id="note.id">
-        <input type="checkbox" />
+        <span class="checkbox" v-on:click="select($event)"></span>
         <span class="title" v-on:click="edit($event, note.id)">{{ note.title }}</span>
         <span class="date">{{ note.created_at }}</span>
       </li>
@@ -65,15 +66,43 @@
         e.preventDefault();
         this.$parent.$refs.form.show(id);
       },
+      select(e) {
+        $(e.target).hasClass('on') ? $(e.target).removeClass('on') : $(e.target).addClass('on');
+      },
+      selectAll(e) {
+
+        let status = 'on';
+
+        $(e.target).hasClass('on') ? $(e.target).removeClass('on') : $(e.target).addClass('on');
+
+        if (!$(e.target).hasClass('on')) {
+          status = 'off';
+        }
+
+        const list = $('.list').find('li');
+
+        list.each(function(index, li) {
+
+            let el = $(li).find('.checkbox');
+
+            if (status == 'on' && !el.hasClass('on')) {
+              el.addClass('on');
+            }
+
+            if (status == 'off' && el.hasClass('on')) {
+              el.removeClass('on');
+            }
+        });
+      },
       restoreSelected(e) {
         e.preventDefault();
         
         let restored = [];
-        const list = $('.list').find('li');
-        const lsNotes = lsGet('notes');
+        let list = $('.list').find('li');
+        let lsNotes = lsGet('notes');
 
         list.each(function(index, li) {
-            if ($(li).find('input[type=checkbox]').is(':checked')) {
+            if ($(li).find('.checkbox').hasClass('on')) {
               restored.push($(li).data('id'));
             }
         });
@@ -94,6 +123,10 @@
           lsSet('notes', lsNotes);
           this.init();
         }
+
+        list.each(function(index, li) {
+            $(li).find('.checkbox').removeClass('on');
+        });
       },
       openModal(e) {
         e.preventDefault();

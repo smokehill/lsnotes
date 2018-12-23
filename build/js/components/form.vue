@@ -4,21 +4,9 @@
       <div class="form-header">
         <span class="text">Note [ {{ type }} ]</span>
         <ul class="controls">
-          <li>
-            <a href="#" v-on:click="change($event, 'height')" title="Minimize">
-              <img src="dist/img/form_minimize.png" alt="change" />
-            </a>
-          </li>
-          <li>
-            <a href="#" v-on:click="change($event, 'width')" title="Full-screen">
-              <img src="dist/img/form_full_screen.png" alt="change" />
-            </a>
-          </li>
-          <li>
-            <a href="#" v-on:click="close($event)" title="Close">
-              <img src="dist/img/form_close.png" alt="close" />
-            </a>
-          </li>
+          <li><a href="#" class="form-show-hide" v-on:click="change($event, 'height')" title="Minimize"></a></li>
+          <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="Full-screen"></a></li>
+          <li><a href="#" class="form-close" v-on:click="close($event)" title="Close"></a></li>
         </ul>
       </div>
       <div class="form-body">
@@ -71,7 +59,7 @@
               vnode.context.typingTimer = setTimeout(function() {
                 let notes = lsGet('notes');
                 const updatedAt = vnode.context.__setDate();
-
+                
                 for (let i = 0; i < notes.length; i++) {
                   if (notes[i].id == vnode.context.note.id) {
                     notes[i].title = vnode.context.note.title;
@@ -96,7 +84,7 @@
             if ($(el).hasClass('active')) {
               $(el).addClass('small');
               $(el).find('.controls li:nth-child(1) a').attr('title', 'Maximize');
-              $(el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_maximize.png');
+              $(el).find('.controls li:nth-child(1) a').addClass('on');
               $(el).css({'width': '300px'});
             }
           });
@@ -105,7 +93,7 @@
           window.removeEventListener('resize', () => {
             $(el).removeClass('small');
             $(el).find('.controls li:nth-child(1) a').attr('title', 'Minimize');
-            $(el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
+            $(el).find('.controls li:nth-child(1) a').removeClass('on');
             $(el).css({'width': '500px'});
           });
         }
@@ -138,7 +126,7 @@
   
         $(this.$el).addClass('active');
         $(this.$el).removeClass('small');
-        $(this.$el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
+        $(this.$el).find('.controls li:nth-child(1) a').removeClass('on');
         this.__fixInput();
       },
       close(e) {
@@ -147,7 +135,7 @@
         $(this.$el)
           .removeClass('active')
           .removeClass('small')
-          .find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
+          .find('.controls li:nth-child(1) a').removeClass('on');
         
         this.type = 'new';
         this.__empty();
@@ -206,12 +194,12 @@
           if ($(this.$el).hasClass('small')) {
             $(this.$el).removeClass('small');
             $(this.$el).find('.controls li:nth-child(1) a').attr('title', 'Minimize');
-            $(this.$el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_minimize.png');
+            $(this.$el).find('.controls li:nth-child(1) a').removeClass('on');
             $(this.$el).css({'width': '500px'});
           } else {
             $(this.$el).addClass('small');
             $(this.$el).find('.controls li:nth-child(1) a').attr('title', 'Maximize');
-            $(this.$el).find('.controls li:nth-child(1) a img').attr('src', 'dist/img/form_maximize.png');
+            $(this.$el).find('.controls li:nth-child(1) a').addClass('on');
             $(this.$el).css({'width': '300px'});
           }
         }
@@ -224,14 +212,14 @@
           if ($(this.$el).hasClass('full_screen')) {
             $(this.$el).removeClass('full_screen');
             $(this.$el).find('.controls li:nth-child(2) a').attr('title', 'Full-screen');
-            $(this.$el).find('.controls li:nth-child(2) a img').attr('src', 'dist/img/form_full_screen.png');
+            $(this.$el).find('.controls li:nth-child(2) a').removeClass('on');
             $(this.$el).css({'width': '500px'});
           } else {
             const width = $('#content').width() + 10;
 
             $(this.$el).addClass('full_screen');
             $(this.$el).find('.controls li:nth-child(2) a').attr('title', 'Exit full-screen');
-            $(this.$el).find('.controls li:nth-child(2) a img').attr('src', 'dist/img/form_full_screen_exit.png');
+            $(this.$el).find('.controls li:nth-child(2) a').addClass('on');
             $(this.$el).css({'width': width+'px'});
           }
         }

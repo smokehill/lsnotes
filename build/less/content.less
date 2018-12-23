@@ -15,7 +15,7 @@
   h4.title {
     margin-top: 0;
     padding-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid @hr-tag;
   }
@@ -27,26 +27,56 @@
   ol.breadcrumb {
     list-style: none;
     margin: 0 0 15px 0;
-    padding: 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid @hr-tag;
 
     li {
       display: inline-block;
+      line-height: 32px;
 
-      &:before {
-        padding: 0 5px;
-        color: #ccc;
-        content: "/\00a0";
+      &:hover {
+        background-color: @hr-tag;
+        border-radius: 3px;
       }
 
-      &:first-child:before {
-        padding: 0;
-        color: #ccc;
-        content: "";
+      a {
+        text-decoration: none;
+        padding: 8px 16px;
+        opacity: 0.6;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &.breadcrumb-checkbox {
+          background: url(../../dist/img/breadcramb_checkbox.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 16px 16px;
+
+          &.on {
+            background: url(../../dist/img/breadcramb_checkbox_on.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 16px 16px;
+          }
+        }
+
+        &.breadcrumb-trash {
+          background: url(../../dist/img/breadcramb_trash.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 16px 16px;
+        }
+
+        &.breadcrumb-restore {
+          background: url(../../dist/img/breadcramb_restore.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 16px 16px;
+        }
       }
 
-      a:hover {
-        text-decoration: underline;
-      }
     }
   }
 
@@ -69,6 +99,27 @@
       color: lighten(@text-color, 15%);
       cursor: pointer;
 
+      span.checkbox {
+        padding: 0px 8px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background: url(../../dist/img/breadcramb_checkbox.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+        opacity: 0.2;
+
+        &.on {
+          padding: 0px 8px;
+          margin-right: 10px;
+          background: url(../../dist/img/breadcramb_checkbox_on.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 16px 16px;
+          opacity: 0.2;
+        }
+      }
+
       span.title {
         display: inline-block;
       }
@@ -80,10 +131,18 @@
 
       &:hover {
         color: darken(@text-color, 10%);
+
+        span.checkbox {
+          opacity: 0.8;
+        }
       }
 
       &:focus {
         color: darken(@text-color, 3%);
+
+        span.checkbox {
+          opacity: 0.8;
+        }
       }
     }
   }
