@@ -3,7 +3,7 @@
     <h4 class="title">Inbox</h4>
     <ol class="breadcrumb">
       <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
-      <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete"></a></li>
+      <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
     </ol>
     <ul class="list" v-if="notes.length > 0">
       <li v-for="note in notes" v-on:click="edit($event, note.id)" :data-id="note.id" >
@@ -56,6 +56,7 @@
         $(e.target).hasClass('on') ? $(e.target).removeClass('on') : $(e.target).addClass('on');
       },
       selectAll(e) {
+        e.preventDefault();
 
         let status = 'on';
 
@@ -64,6 +65,8 @@
         if (!$(e.target).hasClass('on')) {
           status = 'off';
         }
+
+        // Reset checked values
 
         const list = $('.list').find('li');
 
@@ -110,6 +113,8 @@
           this.init();
         }
 
+        $('.breadcrumb-checkbox').removeClass('on');
+  
         list.each(function(index, li) {
             $(li).find('.checkbox').removeClass('on');
         });

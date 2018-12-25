@@ -70,6 +70,7 @@
         $(e.target).hasClass('on') ? $(e.target).removeClass('on') : $(e.target).addClass('on');
       },
       selectAll(e) {
+        e.preventDefault();
 
         let status = 'on';
 
@@ -78,6 +79,8 @@
         if (!$(e.target).hasClass('on')) {
           status = 'off';
         }
+
+        // Reset checked values
 
         const list = $('.list').find('li');
 
@@ -124,6 +127,8 @@
           this.init();
         }
 
+        $('.breadcrumb-checkbox').removeClass('on');
+        
         list.each(function(index, li) {
             $(li).find('.checkbox').removeClass('on');
         });

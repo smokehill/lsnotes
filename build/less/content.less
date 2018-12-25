@@ -49,13 +49,13 @@
         }
 
         &.breadcrumb-checkbox {
-          background: url(../../dist/img/breadcramb_checkbox.png);
+          background: url(../img/breadcramb_checkbox.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 16px 16px;
 
           &.on {
-            background: url(../../dist/img/breadcramb_checkbox_on.png);
+            background: url(../img/breadcramb_checkbox_on.png);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 16px 16px;
@@ -63,14 +63,14 @@
         }
 
         &.breadcrumb-trash {
-          background: url(../../dist/img/breadcramb_trash.png);
+          background: url(../img/breadcramb_trash.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 16px 16px;
         }
 
         &.breadcrumb-restore {
-          background: url(../../dist/img/breadcramb_restore.png);
+          background: url(../img/breadcramb_restore.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 16px 16px;
@@ -78,13 +78,6 @@
       }
 
     }
-  }
-
-  input[type=checkbox] {
-    position: relative;
-    top: 2px;
-    left: -2px;
-    cursor: pointer;
   }
 
   ul.list {
@@ -103,20 +96,21 @@
         padding: 0px 8px;
         margin-left: 10px;
         margin-right: 10px;
-        background: url(../../dist/img/breadcramb_checkbox.png);
+        background: url(../img/breadcramb_checkbox.png);
         background-repeat: no-repeat;
         background-position: center;
         background-size: 16px 16px;
         opacity: 0.2;
 
+        &:hover {
+          opacity: 0.8;
+        }
+
         &.on {
-          padding: 0px 8px;
-          margin-right: 10px;
-          background: url(../../dist/img/breadcramb_checkbox_on.png);
+          background: url(../img/breadcramb_checkbox_on.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 16px 16px;
-          opacity: 0.2;
         }
       }
 
@@ -131,18 +125,10 @@
 
       &:hover {
         color: darken(@text-color, 10%);
-
-        span.checkbox {
-          opacity: 0.8;
-        }
       }
 
       &:focus {
         color: darken(@text-color, 3%);
-
-        span.checkbox {
-          opacity: 0.8;
-        }
       }
     }
   }
