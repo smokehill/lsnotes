@@ -16,9 +16,7 @@
     <div id="trash-modal" class="modal hidden">
       <div class="modal-content">
         <div class="modal-header">
-          <a href="#" v-on:click="closeModal($event)">
-            <img src="dist/img/form_close.png" alt="close" />
-          </a>
+          <a href="#" class="modal-close" v-on:click="closeModal($event)"></a>
         </div>
         <div class="modal-body">
           <p>All data will be deleted from the trash forever! Do You really want to continue?</p>

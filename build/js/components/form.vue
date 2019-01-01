@@ -69,7 +69,7 @@
                   }
                 }
                 
-                $('#process').text('Last edit was: '+updatedAt);
+                $('#process').text(`Last edit was: ${updatedAt}`);
                 lsSet('notes', notes);
               }, vnode.context.typingInterval);
             }
@@ -115,7 +115,8 @@
               this.note.updated_at = notes[i].updated_at;
 
               this.type = notes[i].type;
-              $('#process').text('Last edit was: ' + this.note.updated_at);
+              $('.form-header .text').text(`Note [ ${notes[i].type} ]`);
+              $('#process').text(`Last edit was: ${this.note.updated_at}`);
               break;
             }
           }

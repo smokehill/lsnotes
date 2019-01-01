@@ -163,18 +163,20 @@
         padding: 0 15px;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
+        position: relative;
 
         a {
-          color: @body-bg;
           text-decoration: none;
-          float: right;
+          position: absolute;
+          right: 8px;
+          top: 8px;      
 
-          img {
-            height: 10px;
-          }
-
-          &:hover {
-            opacity: 0.8;
+          &.modal-close {
+            padding: 12px 12px;
+            background: url(../img/form_close.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 12px 12px;
           }
         }
       }

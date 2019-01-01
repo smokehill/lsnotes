@@ -281,17 +281,20 @@ a:hover {
   padding: 0 15px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  position: relative;
 }
 #content .modal .modal-content .modal-header a {
-  color: #fff;
   text-decoration: none;
-  float: right;
+  position: absolute;
+  right: 8px;
+  top: 8px;
 }
-#content .modal .modal-content .modal-header a img {
-  height: 10px;
-}
-#content .modal .modal-content .modal-header a:hover {
-  opacity: 0.8;
+#content .modal .modal-content .modal-header a.modal-close {
+  padding: 12px 12px;
+  background: url(img/background/form_close.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
 }
 #content .modal .modal-content .modal-body {
   padding: 15px;
