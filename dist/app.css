@@ -185,25 +185,25 @@ a:hover {
   opacity: 0.8;
 }
 #content ol.breadcrumb li a.breadcrumb-checkbox {
-  background: url(img/background/breadcramb_checkbox.png);
+  background: url(img/icons/background/breadcramb_checkbox.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px 16px;
 }
 #content ol.breadcrumb li a.breadcrumb-checkbox.on {
-  background: url(img/background/breadcramb_checkbox_on.png);
+  background: url(img/icons/background/breadcramb_checkbox_on.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px 16px;
 }
 #content ol.breadcrumb li a.breadcrumb-trash {
-  background: url(img/background/breadcramb_trash.png);
+  background: url(img/icons/background/breadcramb_trash.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px 16px;
 }
 #content ol.breadcrumb li a.breadcrumb-restore {
-  background: url(img/background/breadcramb_restore.png);
+  background: url(img/icons/background/breadcramb_restore.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px 16px;
@@ -224,7 +224,7 @@ a:hover {
   padding: 0px 8px;
   margin-left: 10px;
   margin-right: 10px;
-  background: url(img/background/breadcramb_checkbox.png);
+  background: url(img/icons/background/breadcramb_checkbox.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px 16px;
@@ -234,7 +234,7 @@ a:hover {
   opacity: 0.8;
 }
 #content ul.list li span.checkbox.on {
-  background: url(img/background/breadcramb_checkbox_on.png);
+  background: url(img/icons/background/breadcramb_checkbox_on.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px 16px;
@@ -291,7 +291,7 @@ a:hover {
 }
 #content .modal .modal-content .modal-header a.modal-close {
   padding: 12px 12px;
-  background: url(img/background/form_close.png);
+  background: url(img/icons/background/form_close.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 12px;
@@ -370,31 +370,31 @@ a:hover {
   padding: 12px 12px;
 }
 .form .form-header ul.controls li a.form-show-hide {
-  background: url(img/background/form_minimize.png);
+  background: url(img/icons/background/form_minimize.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 12px;
 }
 .form .form-header ul.controls li a.form-show-hide.on {
-  background: url(img/background/form_maximize.png);
+  background: url(img/icons/background/form_maximize.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 12px;
 }
 .form .form-header ul.controls li a.form-full-screen {
-  background: url(img/background/form_full_screen.png);
+  background: url(img/icons/background/form_full_screen.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 12px;
 }
 .form .form-header ul.controls li a.form-full-screen.on {
-  background: url(img/background/form_full_screen_exit.png);
+  background: url(img/icons/background/form_full_screen_exit.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 12px;
 }
 .form .form-header ul.controls li a.form-close {
-  background: url(img/background/form_close.png);
+  background: url(img/icons/background/form_close.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 12px;

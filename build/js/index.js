@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import $ from 'jquery';
 import { lsGet, lsSet } from './helpers.js';
 
-import InboxComponent from './components/inbox.vue';
+import NotesComponent from './components/notes.vue';
 import TrashComponent from './components/trash.vue';
 import FormComponent from './components/form.vue';
 
@@ -22,13 +22,13 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'inbox',
-      component: InboxComponent
+      name: 'notes',
+      component: NotesComponent
     },
     {
-      path: '/inbox',
-      name: 'inbox',
-      component: InboxComponent
+      path: '/notes',
+      name: 'notes',
+      component: NotesComponent
     },
     {
       path: '/trash',
@@ -45,19 +45,19 @@ const app = new Vue({
     bus: new Vue(),
     menu: [
       {
-        name: 'Inbox',
-        path: '#/inbox',
-        image: 'dist/img/sidebar_inbox.png'
+        name: 'Notes',
+        path: '#/notes',
+        image: 'dist/img/icons/sidebar_notes.png'
       },
       {
         name: 'Trash',
         path: '#/trash',
-        image: 'dist/img/sidebar_trash.png'
+        image: 'dist/img/icons/sidebar_trash.png'
       },
       // {
       //   name: 'Settings',
       //   path: '#/settings',
-      //   image: 'dist/img/sidebar_settings.png'
+      //   image: 'dist/img/icons/sidebar_settings.png'
       // },
     ]
   },

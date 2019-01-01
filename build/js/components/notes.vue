@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrapper">
-    <h4 class="title">Inbox</h4>
+    <h4 class="title">Notes</h4>
     <ol class="breadcrumb">
       <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
       <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
@@ -20,7 +20,7 @@
   import { lsGet, lsSet } from './../helpers.js';
 
   export default {
-    name: 'inbox',
+    name: 'notes',
     data() {
       return {
         notes: []
@@ -38,7 +38,7 @@
 
         if (lsNotes != null) {
           for (let i = 0; i < lsNotes.length; i++) {
-            if (lsNotes[i].type == 'inbox') {
+            if (lsNotes[i].type == 'notes') {
               this.notes.push(lsNotes[i]);
             }
           }

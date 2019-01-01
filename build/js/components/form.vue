@@ -2,7 +2,7 @@
   <div class="form" v-resize>
     <div class="form-wrapper">
       <div class="form-header">
-        <span class="text">Note [ {{ type }} ]</span>
+        <span class="text">Type [ {{ type }} ]</span>
         <ul class="controls">
           <li><a href="#" class="form-show-hide" v-on:click="change($event, 'height')" title="Minimize"></a></li>
           <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="Full-screen"></a></li>
@@ -36,7 +36,7 @@
         type: 'new',
         note: {
           id: '',
-          type: 'inbox',
+          type: 'notes',
           title: '',
           content: '',
           is_deleted: false,
@@ -115,13 +115,13 @@
               this.note.updated_at = notes[i].updated_at;
 
               this.type = notes[i].type;
-              $('.form-header .text').text(`Note [ ${notes[i].type} ]`);
+              $('.form-header .text').text(`Type [ ${notes[i].type} ]`);
               $('#process').text(`Last edit was: ${this.note.updated_at}`);
               break;
             }
           }
         } else {
-          $('.form-header .text').text('Note [ new ]');
+          $('.form-header .text').text('Type [ new ]');
           this.__empty();
         }
   
@@ -156,7 +156,7 @@
         if (this.note.id == '') {
           notes.push({
             id: this.__setId(),
-            type: 'inbox',
+            type: 'notes',
             title: this.note.title,
             content: this.note.content,
             created_at: date,
@@ -178,7 +178,7 @@
         setTimeout(function() {
           lsSet('notes', notes);
           for (let i = 0; i < components.length; i++) {
-            if (components[i].$options.name == 'inbox'
+            if (components[i].$options.name == 'notes'
               || components[i].$options.name == 'trash') {
                 components[i].init();
             }
@@ -237,7 +237,7 @@
       },
       __empty() {
         this.note.id = '';
-        this.note.type = 'inbox';
+        this.note.type = 'notes';
         this.note.title = '';
         this.note.content = '';
         this.note.is_deleted = false;
