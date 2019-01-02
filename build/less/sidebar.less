@@ -1,18 +1,13 @@
 #sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   width: 220px;
-  padding-bottom: 20px;
   overflow-x: hidden;
   overflow-y: auto;
   background: @sidebar-bg;
-
-  @media (max-width: @screen-sm) {
-    width: 60px;
-  }
 
   .compose {
     display: block;
@@ -33,14 +28,6 @@
 
       &:hover {
         box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-      }
-    }
-
-    @media (max-width: @screen-sm) {
-      margin-left: 12px;
-
-      img {
-        margin-left: 0;
       }
     }
   }
@@ -76,18 +63,6 @@
           margin-top: 11px;
           margin-left: 15px;
           margin-right: 10px;
-        }
-
-        @media (max-width: @screen-sm) {
-          height: 40px;
-          width: 60px;
-
-          img {
-            margin-left: 18px;
-          }
-          .text {
-            display: none;
-          }
         }
       }
   

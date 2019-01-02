@@ -1,11 +1,11 @@
 <template>
-  <div class="form" v-resize>
+  <div class="form hidden">
     <div class="form-wrapper">
       <div class="form-header">
         <span class="text">Type [ {{ type }} ]</span>
         <ul class="controls">
           <li><a href="#" class="form-show-hide" v-on:click="change($event, 'height')" title="Minimize"></a></li>
-          <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="Full-screen"></a></li>
+          <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="lg"></a></li>
           <li><a href="#" class="form-close" v-on:click="close($event)" title="Close"></a></li>
         </ul>
       </div>
@@ -78,26 +78,6 @@
           });
         }
       },
-      'resize': {
-        bind: (el) => {
-          window.addEventListener('resize', () => {
-            if ($(el).hasClass('active')) {
-              $(el).addClass('small');
-              $(el).find('.controls li:nth-child(1) a').attr('title', 'Maximize');
-              $(el).find('.controls li:nth-child(1) a').addClass('on');
-              $(el).css({'width': '300px'});
-            }
-          });
-        },
-        unbind: (el) => {
-          window.removeEventListener('resize', () => {
-            $(el).removeClass('small');
-            $(el).find('.controls li:nth-child(1) a').attr('title', 'Minimize');
-            $(el).find('.controls li:nth-child(1) a').removeClass('on');
-            $(el).css({'width': '500px'});
-          });
-        }
-      },
     },
     methods: {
       show(id = null) {
@@ -124,19 +104,30 @@
           $('.form-header .text').text('Type [ new ]');
           this.__empty();
         }
-  
-        $(this.$el).addClass('active');
-        $(this.$el).removeClass('small');
-        $(this.$el).find('.controls li:nth-child(1) a').removeClass('on');
+
+        $(this.$el).removeClass('hidden');
+        $(this.$el).removeClass('sm');
+        const li1 = $(this.$el).find('.controls li:nth-child(1) a');
+        const li2 = $(this.$el).find('.controls li:nth-child(2) a');
+        li1.removeClass('on');
+        if (li2.hasClass('on')) {
+          $(this.$el).addClass('lg');
+          $('.form-overlay').removeClass('hidden');
+        }
+
         this.__fixInput();
       },
       close(e) {
         e.preventDefault();
 
         $(this.$el)
-          .removeClass('active')
-          .removeClass('small')
-          .find('.controls li:nth-child(1) a').removeClass('on');
+          .addClass('hidden')
+          .removeClass('sm')
+          .removeClass('lg');
+        
+        $(this.$el).find('.controls li:nth-child(1) a').removeClass('on')
+        $(this.$el).find('.controls li:nth-child(2) a').removeClass('on');
+        $('.form-overlay').addClass('hidden');
         
         this.type = 'new';
         this.__empty();
@@ -154,14 +145,22 @@
         $('#process').text('Saving...');
 
         if (this.note.id == '') {
+          const id = this.__setId();
+
           notes.push({
-            id: this.__setId(),
+            id: id,
             type: 'notes',
             title: this.note.title,
             content: this.note.content,
             created_at: date,
             updated_at: date,
           });
+          
+          this.note.id = id;
+          this.note.type = 'notes';
+          this.note.title = this.note.title;
+          this.note.content = this.note.content;
+          this.note.created_at = date;
         } else {
           for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == this.note.id) {
@@ -176,52 +175,59 @@
         const components = this.$parent.$children;
 
         setTimeout(function() {
+
           lsSet('notes', notes);
+
           for (let i = 0; i < components.length; i++) {
             if (components[i].$options.name == 'notes'
               || components[i].$options.name == 'trash') {
                 components[i].init();
             }
           }
-          $('#process').text('Last edit was: '+date);
+
+          $('.form-header .text').text(`Type [ notes ]`);
+          $('#process').text(`Last edit was: ${date}`);
+
         }, 3000);
-
-
       },
       change(e, type) {
         e.preventDefault();
-
         if (type == 'height') {
-          if ($(this.$el).hasClass('small')) {
-            $(this.$el).removeClass('small');
-            $(this.$el).find('.controls li:nth-child(1) a').attr('title', 'Minimize');
-            $(this.$el).find('.controls li:nth-child(1) a').removeClass('on');
-            $(this.$el).css({'width': '500px'});
+          const li1 = $(this.$el).find('.controls li:nth-child(1) a');
+          const li2 = $(this.$el).find('.controls li:nth-child(2) a');
+          if ($(this.$el).hasClass('sm')) {
+            $(this.$el).removeClass('sm');
+            if (li2.hasClass('on')) {
+              $(this.$el).addClass('lg');
+              $('.form-overlay').removeClass('hidden');
+            }
+            li1.attr('title', 'Minimize');
+            li1.removeClass('on');
           } else {
-            $(this.$el).addClass('small');
-            $(this.$el).find('.controls li:nth-child(1) a').attr('title', 'Maximize');
-            $(this.$el).find('.controls li:nth-child(1) a').addClass('on');
-            $(this.$el).css({'width': '300px'});
+            if ($(this.$el).hasClass('lg')) {
+              $(this.$el).removeClass('lg');
+              $('.form-overlay').addClass('hidden');
+            }
+            $(this.$el).addClass('sm');
+            li1.attr('title', 'Maximize');
+            li1.addClass('on');
           }
         }
         else if (type == 'width') {
-
-          if ($(this.$el).hasClass('small')) {
-            $(this.$el).removeClass('small');
-          }
-
-          if ($(this.$el).hasClass('full_screen')) {
-            $(this.$el).removeClass('full_screen');
-            $(this.$el).find('.controls li:nth-child(2) a').attr('title', 'Full-screen');
-            $(this.$el).find('.controls li:nth-child(2) a').removeClass('on');
-            $(this.$el).css({'width': '500px'});
+          const li1 = $(this.$el).find('.controls li:nth-child(2) a');
+          if ($(this.$el).hasClass('lg')) {
+            $(this.$el).removeClass('lg');
+            li1.attr('title', 'Full screen');
+            li1.removeClass('on');
+            $('.form-overlay').addClass('hidden');
           } else {
-            const width = $('#content').width() + 10;
-
-            $(this.$el).addClass('full_screen');
-            $(this.$el).find('.controls li:nth-child(2) a').attr('title', 'Exit full-screen');
-            $(this.$el).find('.controls li:nth-child(2) a').addClass('on');
-            $(this.$el).css({'width': width+'px'});
+            if ($(this.$el).hasClass('sm')) {
+              $(this.$el).removeClass('sm');
+            }
+            $(this.$el).addClass('lg');
+            li1.attr('title', 'Exit full screen');
+            li1.addClass('on');
+            $('.form-overlay').removeClass('hidden');
           }
         }
 

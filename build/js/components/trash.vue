@@ -4,7 +4,7 @@
     <ol class="breadcrumb">
       <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
       <li><a href="#" class="breadcrumb-restore" v-on:click="restoreSelected($event)" title="Restore selected"></a></li>
-      <li><a href="#" class="breadcrumb-trash" v-on:click="openModal($event)" title="Clear trash"></a></li>
+      <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
     </ol>
     <ul class="list" v-if="notes.length > 0">
       <li v-for="note in notes" :data-id="note.id">
@@ -13,20 +13,6 @@
         <span class="date">{{ note.created_at }}</span>
       </li>
     </ul>
-    <div id="trash-modal" class="modal hidden">
-      <div class="modal-content">
-        <div class="modal-header">
-          <a href="#" class="modal-close" v-on:click="closeModal($event)"></a>
-        </div>
-        <div class="modal-body">
-          <p>All data will be deleted from the trash forever! Do You really want to continue?</p>
-        </div>
-        <div class="modal-footer">
-          <a href="#" class="btn-primary" v-on:click="clearTrash($event)">Yes</a>
-          <a href="#" class="btn-default" v-on:click="closeModal($event)">No</a>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -98,25 +84,24 @@
       restoreSelected(e) {
         e.preventDefault();
         
-        let restored = [];
+        let selected = [];
         let list = $('.list').find('li');
         let lsNotes = lsGet('notes');
 
         list.each(function(index, li) {
-            if ($(li).find('.checkbox').hasClass('on')) {
-              restored.push($(li).data('id'));
-            }
+          if ($(li).find('.checkbox').hasClass('on')) {
+            selected.push($(li).data('id'));
+          }
         });
 
-        if (restored.length > 0 && lsNotes != null) {
-
+        if (selected.length > 0 && lsNotes != null) {
           for (let i = 0; i < lsNotes.length; i++) {
-            if ($.inArray(lsNotes[i].id, restored) != -1) {
-              lsNotes[i].type = 'inbox';
+            if ($.inArray(lsNotes[i].id, selected) != -1) {
+              lsNotes[i].type = 'notes';
 
               // change note type in form header
               if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
-                $('.form-header .text').text('Note [ inbox ]');
+                $('.form-header .text').text('Type [ notes ]');
               }
             }
           }
@@ -131,31 +116,39 @@
             $(li).find('.checkbox').removeClass('on');
         });
       },
-      openModal(e) {
+      deleteSelected(e) {
         e.preventDefault();
-        $('#trash-modal').removeClass('hidden');
-        this.$parent.$refs.form.close(e);
-      },
-      closeModal(e) {
-        e.preventDefault();
-        $('#trash-modal').addClass('hidden');
-      },
-      clearTrash(e) {
-        e.preventDefault();
+        
+        let selected = [];
+        let list = $('.list').find('li');
         let lsNotes = lsGet('notes');
 
-        if (lsNotes != null) {
+        list.each(function(index, li) {
+          if ($(li).find('.checkbox').hasClass('on')) {
+            selected.push($(li).data('id'));
+          }
+        });
 
+        if (selected.length > 0 && lsNotes != null) {
           for (let i = lsNotes.length - 1; i >= 0; i--) {
-            if (lsNotes[i].type == 'trash') {
+            if ($.inArray(lsNotes[i].id, selected) != -1) {
+              if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
+                this.$parent.$refs.form.close(e);
+              }
+              // TODO: fix
               lsNotes.splice(i, 1);
             }
           }
 
           lsSet('notes', lsNotes);
           this.init();
-          this.closeModal(e);
         }
+
+        $('.breadcrumb-checkbox').removeClass('on');
+        
+        list.each(function(index, li) {
+          $(li).find('.checkbox').removeClass('on');
+        });
       }
     }
   }
