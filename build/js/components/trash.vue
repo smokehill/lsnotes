@@ -1,18 +1,22 @@
 <template>
-  <div class="content-wrapper">
-    <h4 class="title">Trash</h4>
-    <ol class="breadcrumb">
-      <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
-      <li><a href="#" class="breadcrumb-restore" v-on:click="restoreSelected($event)" title="Restore selected"></a></li>
-      <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
-    </ol>
-    <ul class="list" v-if="notes.length > 0">
-      <li v-for="note in notes" :data-id="note.id">
-        <span class="checkbox" v-on:click="select($event)"></span>
-        <span class="title" v-on:click="edit($event, note.id)">{{ note.title }}</span>
-        <span class="date">{{ note.created_at }}</span>
-      </li>
-    </ul>
+  <div id="content">
+    <div class="content-header">
+      <h4 class="title">Trash</h4>
+      <ol class="breadcrumb">
+        <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
+        <li><a href="#" class="breadcrumb-restore" v-on:click="restoreSelected($event)" title="Restore selected"></a></li>
+        <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
+      </ol>
+    </div>
+    <div class="content-body">
+      <ul class="list" v-if="notes.length > 0">
+        <li v-for="note in notes" :data-id="note.id">
+          <span class="checkbox" v-on:click="select($event)"></span>
+          <span class="title" v-on:click="edit($event, note.id)">{{ note.title }}</span>
+          <span class="date">{{ note.created_at }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 

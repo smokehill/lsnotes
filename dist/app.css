@@ -66,7 +66,7 @@ a:hover {
   vertical-align: middle;
   height: 16px;
   padding: 8px;
-  margin-left: 12px;
+  margin-left: 15px;
   text-decoration: none;
   background: #fff;
   color: #5c85d6;
@@ -101,7 +101,7 @@ a:hover {
   text-decoration: none;
 }
 #sidebar ul.menu li a img {
-  height: 18px;
+  height: 17px;
   float: left;
   margin-top: 11px;
   margin-left: 15px;
@@ -121,169 +121,116 @@ a:hover {
   margin-left: 220px;
   background: #fff;
 }
-#content h4.title {
-  margin-top: 0;
-  padding-top: 0;
-  margin-bottom: 10px;
+#content .content-header {
+  position: fixed;
+  z-index: 800;
+  top: 0;
+  left: 235px;
+  right: 15px;
+  height: 90px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+#content .content-header h4.title {
+  margin-top: 15px;
+  margin-bottom: 8px;
   padding-bottom: 10px;
+  padding-left: 6px;
   border-bottom: 1px solid #eee;
 }
-#content .controls {
-  margin-bottom: 10px;
-}
-#content ol.breadcrumb {
+#content .content-header ol.breadcrumb {
   list-style: none;
-  margin: 0 0 15px 0;
-  padding: 0 0 10px 0;
-  border-bottom: 1px solid #eee;
+  margin: 0;
+  padding: 0;
 }
-#content ol.breadcrumb li {
+#content .content-header ol.breadcrumb li {
   display: inline-block;
   line-height: 32px;
 }
-#content ol.breadcrumb li:hover {
-  background-color: #eee;
-  border-radius: 3px;
-}
-#content ol.breadcrumb li a {
+#content .content-header ol.breadcrumb li a {
   text-decoration: none;
   padding: 8px 16px;
   opacity: 0.6;
 }
-#content ol.breadcrumb li a:hover {
+#content .content-header ol.breadcrumb li a:hover {
   opacity: 0.8;
 }
-#content ol.breadcrumb li a.breadcrumb-checkbox {
+#content .content-header ol.breadcrumb li a.breadcrumb-checkbox {
   background: url(img/icons/background/breadcramb_checkbox.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
 }
-#content ol.breadcrumb li a.breadcrumb-checkbox.on {
+#content .content-header ol.breadcrumb li a.breadcrumb-checkbox.on {
   background: url(img/icons/background/breadcramb_checkbox_on.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
 }
-#content ol.breadcrumb li a.breadcrumb-trash {
+#content .content-header ol.breadcrumb li a.breadcrumb-trash {
   background: url(img/icons/background/breadcramb_trash.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
 }
-#content ol.breadcrumb li a.breadcrumb-restore {
+#content .content-header ol.breadcrumb li a.breadcrumb-restore {
   background: url(img/icons/background/breadcramb_restore.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
 }
-#content ul.list {
+#content .content-body {
+  margin-top: 76px;
+}
+#content .content-body ul.list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-#content ul.list li {
+#content .content-body ul.list li {
   display: block;
   border-bottom: 1px solid #eee;
   padding: 10px 0;
   color: #5c5c5c;
   cursor: pointer;
 }
-#content ul.list li span.checkbox {
-  padding: 2px 10px;
-  margin-left: 6px;
-  margin-right: 18px;
+#content .content-body ul.list li span.checkbox {
+  padding: 10px 16px;
   background: url(img/icons/background/breadcramb_checkbox.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
   opacity: 0.2;
 }
-#content ul.list li span.checkbox:hover {
+#content .content-body ul.list li span.checkbox:hover {
   opacity: 0.8;
 }
-#content ul.list li span.checkbox.on {
+#content .content-body ul.list li span.checkbox.on {
   background: url(img/icons/background/breadcramb_checkbox_on.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
 }
-#content ul.list li span.title {
+#content .content-body ul.list li span.title {
   display: inline-block;
+  margin-left: 8px;
 }
-#content ul.list li span.date {
+#content .content-body ul.list li span.date {
   float: right;
   display: inline-block;
+  margin-right: 8px;
 }
-#content ul.list li:hover {
+#content .content-body ul.list li:hover {
   color: #1c1c1c;
 }
-#content ul.list li:focus {
+#content .content-body ul.list li:hover span.checkbox {
+  opacity: 0.6;
+}
+#content .content-body ul.list li:focus {
   color: #2e2e2e;
 }
-#content .modal-overlay {
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-#content .modal-overlay.hidden {
-  display: none;
-}
-#content .modal {
-  background-color: #fff;
-  margin: auto;
-  width: 30%;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-top: 100px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-}
-#content .modal.hidden {
-  display: none;
-}
-#content .modal .modal-header {
-  background-color: #363636;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 15px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  position: relative;
-}
-#content .modal .modal-header a {
-  text-decoration: none;
-  position: absolute;
-  right: 8px;
-  top: 8px;
-}
-#content .modal .modal-header a.modal-close {
-  padding: 12px 12px;
-  background: url(img/icons/background/form_close.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 12px 12px;
-}
-#content .modal .modal-body {
-  padding: 15px;
-}
-#content .modal .modal-footer {
-  height: 60px;
-  line-height: 60px;
-  padding: 0 15px;
-  text-align: center;
-}
-#content .modal .modal-footer a {
-  margin: 0 2px;
+#content .content-body ul.list li:focus span.checkbox {
+  opacity: 0.6;
 }
 .form-overlay {
   position: fixed;

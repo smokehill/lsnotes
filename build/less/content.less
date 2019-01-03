@@ -8,48 +8,102 @@
   margin-left: 220px;
   background: @body-bg;
 
-  h4.title {
-    margin-top: 0;
-    padding-top: 0;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+  .content-header {
+    position: fixed;
+    z-index: 800;
+    top: 0;
+    left: 235px;
+    right: 15px;
+    height: 90px;
+    background: @body-bg;
     border-bottom: 1px solid @hr-tag;
-  }
 
-  .controls {
-    margin-bottom: 10px;
-  }
+    h4.title {
+      margin-top: 15px;
+      margin-bottom: 8px;
+      padding-bottom: 10px;
+      padding-left: 6px;
+      border-bottom: 1px solid @hr-tag;
+    }
+    
+    ol.breadcrumb {
+      list-style: none;
+      margin: 0;
+      padding: 0;
   
-  ol.breadcrumb {
-    list-style: none;
-    margin: 0 0 15px 0;
-    padding: 0 0 10px 0;
-    border-bottom: 1px solid @hr-tag;
-
-    li {
-      display: inline-block;
-      line-height: 32px;
-
-      &:hover {
-        background-color: @hr-tag;
-        border-radius: 3px;
-      }
-
-      a {
-        text-decoration: none;
-        padding: 8px 16px;
-        opacity: 0.6;
-
-        &:hover {
-          opacity: 0.8;
+      li {
+        display: inline-block;
+        line-height: 32px;
+  
+        a {
+          text-decoration: none;
+          padding: 8px 16px;
+          opacity: 0.6;
+  
+          &:hover {
+            opacity: 0.8;
+          }
+  
+          &.breadcrumb-checkbox {
+            background: url(../img/breadcramb_checkbox.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px 17px;
+  
+            &.on {
+              background: url(../img/breadcramb_checkbox_on.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 17px 17px;
+            }
+          }
+  
+          &.breadcrumb-trash {
+            background: url(../img/breadcramb_trash.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px 17px;
+          }
+  
+          &.breadcrumb-restore {
+            background: url(../img/breadcramb_restore.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px 17px;
+          }
         }
+  
+      }
+    }
+  }
 
-        &.breadcrumb-checkbox {
+  .content-body {
+    margin-top: 76px;
+
+    ul.list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        display: block;
+        border-bottom: 1px solid @hr-tag;
+        padding: 10px 0;
+        color: lighten(@text-color, 15%);
+        cursor: pointer;
+  
+        span.checkbox {
+          padding: 10px 16px;
           background: url(../img/breadcramb_checkbox.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 17px 17px;
-
+          opacity: 0.2;
+  
+          &:hover {
+            opacity: 0.8;
+          }
+  
           &.on {
             background: url(../img/breadcramb_checkbox_on.png);
             background-repeat: no-repeat;
@@ -57,148 +111,33 @@
             background-size: 17px 17px;
           }
         }
-
-        &.breadcrumb-trash {
-          background: url(../img/breadcramb_trash.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 17px 17px;
+  
+        span.title {
+          display: inline-block;
+          margin-left: 8px;
         }
-
-        &.breadcrumb-restore {
-          background: url(../img/breadcramb_restore.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 17px 17px;
+  
+        span.date {
+          float: right;
+          display: inline-block;
+          margin-right: 8px;
         }
-      }
-
-    }
-  }
-
-  ul.list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      display: block;
-      border-bottom: 1px solid @hr-tag;
-      padding: 10px 0;
-      color: lighten(@text-color, 15%);
-      cursor: pointer;
-
-      span.checkbox {
-        padding: 2px 10px;
-        margin-left: 6px;
-        margin-right: 18px;
-        background: url(../img/breadcramb_checkbox.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 17px 17px;
-        opacity: 0.2;
-
+  
         &:hover {
-          opacity: 0.8;
+          color: darken(@text-color, 10%);
+
+          span.checkbox {
+            opacity: 0.6;
+          }
         }
+  
+        &:focus {
+          color: darken(@text-color, 3%);
 
-        &.on {
-          background: url(../img/breadcramb_checkbox_on.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 17px 17px;
+          span.checkbox {
+            opacity: 0.6;
+          }
         }
-      }
-
-      span.title {
-        display: inline-block;
-      }
-
-      span.date {
-        float: right;
-        display: inline-block;
-      }
-
-      &:hover {
-        color: darken(@text-color, 10%);
-      }
-
-      &:focus {
-        color: darken(@text-color, 3%);
-      }
-    }
-  }
-
-  .modal-overlay {
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.5);
-
-    &.hidden {
-      display: none;
-    }
-  }
-
-  .modal {
-    background-color: @body-bg;
-    margin: auto;
-    width: 30%;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin-top: 100px;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,.5);
-
-    &.hidden {
-      display: none;
-    }
-
-    .modal-header {
-      background-color: @text-color;
-      height: 40px;
-      line-height: 40px;
-      padding: 0 15px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-      position: relative;
-
-      a {
-        text-decoration: none;
-        position: absolute;
-        right: 8px;
-        top: 8px;      
-
-        &.modal-close {
-          padding: 12px 12px;
-          background: url(../img/form_close.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 12px 12px;
-        }
-      }
-    }
-
-    .modal-body {
-      padding: 15px;
-    }
-
-    .modal-footer {
-      height: 60px;
-      line-height: 60px;
-      padding: 0 15px;
-      text-align: center;
-
-      a {
-        margin: 0 2px
       }
     }
   }
