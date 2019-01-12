@@ -348,6 +348,7 @@ a:hover {
 }
 .form .form-wrapper .form-body input {
   margin-bottom: 15px;
+  font-weight: bold;
 }
 .form .form-wrapper .form-body input,
 .form .form-wrapper .form-body textarea {

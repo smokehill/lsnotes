@@ -2,7 +2,7 @@
   <div class="form hidden">
     <div class="form-wrapper">
       <div class="form-header">
-        <span class="text">Type [ {{ type }} ]</span>
+        <span class="text">New</span>
         <ul class="controls">
           <li><a href="#" class="form-show-hide" v-on:click="change($event, 'height')" title="Minimize"></a></li>
           <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="lg"></a></li>
@@ -33,7 +33,6 @@
     name: 'note-form',
     data() {
       return {
-        type: 'new',
         note: {
           id: '',
           type: 'notes',
@@ -44,7 +43,12 @@
           updated_at: ''
         },
         typingTimer: '',
-        typingInterval: 3000
+        typingInterval: 2000
+      }
+    },
+    filters: {
+      strupFirst: function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
       }
     },
     directives: {
@@ -94,14 +98,14 @@
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
 
-              this.type = notes[i].type;
-              $('.form-header .text').text(`Type [ ${notes[i].type} ]`);
+              const type = (notes[i].type == 'notes') ? 'Notes' : 'Trash';
+              this.__setType(type);
               $('#process').text(`Last edit was: ${this.note.updated_at}`);
               break;
             }
           }
         } else {
-          $('.form-header .text').text('Type [ new ]');
+          this.__setType('New');
           this.__empty();
         }
 
@@ -129,7 +133,7 @@
         $(this.$el).find('.controls li:nth-child(2) a').removeClass('on');
         $('.form-overlay').addClass('hidden');
         
-        this.type = 'new';
+        this.__setType('New');
         this.__empty();
       },
       save(e) {
@@ -174,6 +178,8 @@
 
         const components = this.$parent.$children;
 
+        this.__setType('Notes');
+
         setTimeout(function() {
 
           lsSet('notes', notes);
@@ -185,10 +191,9 @@
             }
           }
 
-          $('.form-header .text').text(`Type [ notes ]`);
           $('#process').text(`Last edit was: ${date}`);
 
-        }, 3000);
+        }, 2000);
       },
       change(e, type) {
         e.preventDefault();
@@ -263,6 +268,9 @@
         date = date.replace('T', ' ');
 
         return date.replace(/\.([a-zA-Z0-9]+)/, '');
+      },
+      __setType(name) {
+        $('.form-header .text').text(name);
       }
     }
   }
