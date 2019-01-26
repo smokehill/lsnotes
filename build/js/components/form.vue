@@ -5,7 +5,7 @@
         <span class="text">New</span>
         <ul class="controls">
           <li><a href="#" class="form-show-hide" v-on:click="change($event, 'height')" title="Minimize"></a></li>
-          <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="lg"></a></li>
+          <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="Full scree"></a></li>
           <li><a href="#" class="form-close" v-on:click="close($event)" title="Close"></a></li>
         </ul>
       </div>

@@ -4,40 +4,46 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 15px;
+  padding: 15px 0;
   margin-left: 220px;
   background: @body-bg;
 
   .content-header {
-    position: fixed;
-    z-index: 800;
-    top: 0;
-    left: 235px;
-    right: 15px;
-    height: 90px;
-    background: @body-bg;
-    border-bottom: 1px solid @hr-tag;
+
+    margin-top: -15px;
+
+    &.fixed {
+      position: fixed;
+      z-index: 800;
+      top: 0;
+      left: 220px;
+      right: 15px;
+      height: 90px;
+      background: @body-bg;
+      border-bottom: 1px solid @hr-tag;
+      margin-top: 0;
+    }
 
     h4.title {
       margin-top: 15px;
       margin-bottom: 8px;
+      padding-left: 20px;
       padding-bottom: 10px;
-      padding-left: 6px;
-      border-bottom: 1px solid @hr-tag;
+      border-bottom: 1px solid #eee;
     }
     
     ol.breadcrumb {
       list-style: none;
-      margin: 0;
+      margin: 0 10px;
       padding: 0;
   
       li {
         display: inline-block;
         line-height: 32px;
-  
+
         a {
           text-decoration: none;
-          padding: 8px 16px;
+          padding: 8px 18px;
           opacity: 0.6;
   
           &:hover {
@@ -78,7 +84,12 @@
   }
 
   .content-body {
-    margin-top: 76px;
+    margin-top: 10px;
+
+    &.fixed {
+      margin-top: 76px;
+    }
+
 
     ul.list {
       list-style: none;
@@ -88,17 +99,19 @@
       li {
         display: block;
         border-bottom: 1px solid @hr-tag;
-        padding: 10px 0;
+        background-color: #f5f5f5;
+        padding: 12px 0;
         color: lighten(@text-color, 15%);
         cursor: pointer;
   
         span.checkbox {
-          padding: 10px 16px;
+          padding: 10px 2px 10px 16px;
           background: url(../img/breadcramb_checkbox.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 17px 17px;
           opacity: 0.2;
+          margin-left: 20px;
   
           &:hover {
             opacity: 0.8;
@@ -114,13 +127,13 @@
   
         span.title {
           display: inline-block;
-          margin-left: 8px;
+          margin-left: 16px;
         }
   
         span.date {
           float: right;
           display: inline-block;
-          margin-right: 8px;
+          margin-right: 20px;
         }
   
         &:hover {

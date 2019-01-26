@@ -117,30 +117,34 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 15px;
+  padding: 15px 0;
   margin-left: 220px;
   background: #fff;
 }
 #content .content-header {
+  margin-top: -15px;
+}
+#content .content-header.fixed {
   position: fixed;
   z-index: 800;
   top: 0;
-  left: 235px;
+  left: 220px;
   right: 15px;
   height: 90px;
   background: #fff;
   border-bottom: 1px solid #eee;
+  margin-top: 0;
 }
 #content .content-header h4.title {
   margin-top: 15px;
   margin-bottom: 8px;
+  padding-left: 20px;
   padding-bottom: 10px;
-  padding-left: 6px;
   border-bottom: 1px solid #eee;
 }
 #content .content-header ol.breadcrumb {
   list-style: none;
-  margin: 0;
+  margin: 0 10px;
   padding: 0;
 }
 #content .content-header ol.breadcrumb li {
@@ -149,7 +153,7 @@ a:hover {
 }
 #content .content-header ol.breadcrumb li a {
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 8px 18px;
   opacity: 0.6;
 }
 #content .content-header ol.breadcrumb li a:hover {
@@ -180,6 +184,9 @@ a:hover {
   background-size: 17px 17px;
 }
 #content .content-body {
+  margin-top: 10px;
+}
+#content .content-body.fixed {
   margin-top: 76px;
 }
 #content .content-body ul.list {
@@ -190,17 +197,19 @@ a:hover {
 #content .content-body ul.list li {
   display: block;
   border-bottom: 1px solid #eee;
-  padding: 10px 0;
+  background-color: #f5f5f5;
+  padding: 12px 0;
   color: #5c5c5c;
   cursor: pointer;
 }
 #content .content-body ul.list li span.checkbox {
-  padding: 10px 16px;
+  padding: 10px 2px 10px 16px;
   background: url(img/icons/background/breadcramb_checkbox.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 17px 17px;
   opacity: 0.2;
+  margin-left: 20px;
 }
 #content .content-body ul.list li span.checkbox:hover {
   opacity: 0.8;
@@ -213,12 +222,12 @@ a:hover {
 }
 #content .content-body ul.list li span.title {
   display: inline-block;
-  margin-left: 8px;
+  margin-left: 16px;
 }
 #content .content-body ul.list li span.date {
   float: right;
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 20px;
 }
 #content .content-body ul.list li:hover {
   color: #1c1c1c;
@@ -376,4 +385,31 @@ a:hover {
 .form .form-footer #process {
   color: #767676;
   float: right;
+}
+.storage-info {
+  display: block;
+  height: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 20px 0 20px;
+}
+.storage-info .storage-info-title {
+  display: block;
+  font-size: 14px;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+.storage-info .storage-info-text {
+  display: block;
+  font-size: 13px;
+  padding: 6px 0;
+}
+.storage-info .storage-info-progress {
+  display: block;
+  background-color: #e6e6e6;
+  height: 6px;
+}
+.storage-info .storage-info-progress .storage-info-progress-bar {
+  background-color: #a6a6a6;
+  height: 6px;
 }

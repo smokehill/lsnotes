@@ -1,13 +1,13 @@
 <template>
   <div id="content">
-    <div class="content-header">
+    <div class="content-header fixed">
       <h4 class="title">Notes</h4>
       <ol class="breadcrumb">
         <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" title="Select all"></a></li>
         <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
       </ol>
     </div>
-    <div class="content-body">
+    <div class="content-body fixed">
       <ul class="list" v-if="notes.length > 0">
         <li v-for="note in notes" v-on:click="edit($event, note.id)" :data-id="note.id" >
           <span class="checkbox" v-on:click="select($event)"></span>

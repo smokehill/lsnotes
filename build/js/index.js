@@ -5,6 +5,7 @@ import { lsGet, lsSet } from './helpers.js';
 
 import NotesComponent from './components/notes.vue';
 import TrashComponent from './components/trash.vue';
+import SettingsComponent from './components/settings.vue';
 import FormComponent from './components/form.vue';
 
 
@@ -35,6 +36,11 @@ const router = new VueRouter({
       name: 'trash',
       component: TrashComponent
     },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsComponent
+    }
   ]
 });
 
@@ -54,11 +60,11 @@ const app = new Vue({
         path: '#/trash',
         image: 'dist/img/icons/sidebar_trash.png'
       },
-      // {
-      //   name: 'Settings',
-      //   path: '#/settings',
-      //   image: 'dist/img/icons/sidebar_settings.png'
-      // },
+      {
+        name: 'Settings',
+        path: '#/settings',
+        image: 'dist/img/icons/sidebar_settings.png'
+      },
     ]
   },
   components: {
