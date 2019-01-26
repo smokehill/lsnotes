@@ -10,7 +10,7 @@
         </ul>
       </div>
       <div class="form-body">
-        <input v-model="note.title" autocomplete="off">
+        <input type="text" v-model="note.title" autocomplete="off">
         <textarea v-model="note.content" v-auto-save></textarea>
         <input type="hidden" name="id" v-model="note.id">
         <input type="hidden" name="type" v-model="note.type">
@@ -73,7 +73,7 @@
                   }
                 }
                 
-                $('#process').text(`Last edit was: ${updatedAt}`);
+                $('#process').text(`Last edit: ${updatedAt}`);
                 lsSet('notes', notes);
               }, vnode.context.typingInterval);
             }
@@ -100,7 +100,7 @@
 
               const type = (notes[i].type == 'notes') ? 'Notes' : 'Trash';
               this.__setType(type);
-              $('#process').text(`Last edit was: ${this.note.updated_at}`);
+              $('#process').text(`Last edit: ${this.note.updated_at}`);
               break;
             }
           }
@@ -140,6 +140,21 @@
         e.preventDefault();
 
         if (this.note.title == '' || this.note.content == '') {
+
+          if (this.note.title == '') {
+            $('.form').find('input[type="text"]').addClass('invalid');
+            setTimeout(function() {
+              $('.form').find('input[type="text"]').removeClass('invalid');
+            }, 1000);
+          }
+
+          if (this.note.content == '') {
+            $('.form').find('textarea').addClass('invalid');
+            setTimeout(function() {
+              $('.form').find('textarea').removeClass('invalid');
+            }, 1000);
+          }
+
           return false;
         }
 
@@ -191,7 +206,7 @@
             }
           }
 
-          $('#process').text(`Last edit was: ${date}`);
+          $('#process').text(`Last edit: ${date}`);
 
         }, 2000);
       },

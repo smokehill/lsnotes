@@ -65,8 +65,10 @@ a:hover {
 #sidebar .compose img {
   vertical-align: middle;
   height: 16px;
-  padding: 8px;
+  padding: 10px;
   margin-left: 15px;
+  margin-right: 5px;
+  margin-bottom: 2px;
   text-decoration: none;
   background: #fff;
   color: #5c85d6;
@@ -77,10 +79,14 @@ a:hover {
 #sidebar .compose img:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
+#sidebar .compose span {
+  color: #fff;
+  font-weight: bold;
+}
 #sidebar ul.menu {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 #sidebar ul.menu li {
   display: block;
@@ -129,7 +135,7 @@ a:hover {
   z-index: 800;
   top: 0;
   left: 220px;
-  right: 15px;
+  right: 0;
   height: 90px;
   background: #fff;
   border-bottom: 1px solid #eee;
@@ -372,6 +378,11 @@ a:hover {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+}
+.form .form-wrapper .form-body input.invalid,
+.form .form-wrapper .form-body textarea.invalid {
+  border: 1px solid #ffcccc;
+  background-color: #ffeeee;
 }
 .form .form-wrapper .form-footer-wrapper {
   height: 60px;
