@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 import $ from 'jquery';
 import { lsGet, lsSet } from './helpers.js';
 
-import NotesComponent from './components/notes.vue';
-import TrashComponent from './components/trash.vue';
-import SettingsComponent from './components/settings.vue';
-import FormComponent from './components/form.vue';
+import Notes from './components/content/notes.vue';
+import Trash from './components/content/trash.vue';
+import Settings from './components/content/settings.vue';
+import Form from './components/form.vue';
 
 
 Vue.use(VueRouter);
 
-// filters 
 Vue.filter('tolowercase', function (str) {
   return str.toLowerCase();
 });
@@ -24,22 +24,22 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'notes',
-      component: NotesComponent
+      component: Notes
     },
     {
       path: '/notes',
       name: 'notes',
-      component: NotesComponent
+      component: Notes
     },
     {
       path: '/trash',
       name: 'trash',
-      component: TrashComponent
+      component: Trash
     },
     {
       path: '/settings',
       name: 'settings',
-      component: SettingsComponent
+      component: Settings
     }
   ]
 });
@@ -68,7 +68,7 @@ const app = new Vue({
     ]
   },
   components: {
-    'form-component': FormComponent,
+    'form-component': Form,
   },
   created: function() {
     if (lsGet('notes') == null) {
@@ -80,10 +80,12 @@ const app = new Vue({
     this.highlightMenu();
   },
   methods: {
+    /**
+     * Highlight active menu
+     */
     highlightMenu() {
       const name = this.$router.currentRoute.name;
       const items = $('.menu').find('li');
-    
       // highlight active menu
       $.each(items, function(i, item) {
         if ($(item).data('name') == name) {
@@ -91,6 +93,10 @@ const app = new Vue({
         }
       });
     },
+    /**
+     * @external
+     * Open form
+     */
     compose() {
       this.$refs.form.show();
     }

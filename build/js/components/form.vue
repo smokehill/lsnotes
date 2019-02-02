@@ -4,8 +4,8 @@
       <div class="form-header">
         <span class="text">New</span>
         <ul class="controls">
-          <li><a href="#" class="form-show-hide" v-on:click="change($event, 'height')" title="Minimize"></a></li>
-          <li><a href="#" class="form-full-screen" v-on:click="change($event, 'width')" title="Full scree"></a></li>
+          <li><a href="#" class="form-show-hide" v-on:click="changeSize($event, 'height')" title="Minimize"></a></li>
+          <li><a href="#" class="form-full-screen" v-on:click="changeSize($event, 'width')" title="Full scree"></a></li>
           <li><a href="#" class="form-close" v-on:click="close($event)" title="Close"></a></li>
         </ul>
       </div>
@@ -59,11 +59,9 @@
             if (vnode.context.note.id != '') {
               $('#process').text('Saving...');
               clearTimeout(vnode.context.typingTimer);
-
               vnode.context.typingTimer = setTimeout(function() {
                 let notes = lsGet('notes');
                 const updatedAt = vnode.context.__setDate();
-                
                 for (let i = 0; i < notes.length; i++) {
                   if (notes[i].id == vnode.context.note.id) {
                     notes[i].title = vnode.context.note.title;
@@ -72,7 +70,6 @@
                     break;
                   }
                 }
-                
                 $('#process').text(`Last edit: ${updatedAt}`);
                 lsSet('notes', notes);
               }, vnode.context.typingInterval);
@@ -84,12 +81,13 @@
       },
     },
     methods: {
+      /**
+       * Show form
+       */
       show(id = null) {
         if (id != null) {
           const notes = lsGet('notes');
-
           for (let i = 0; i < notes.length; i++) {
-
             if (notes[i].id == id) {
               this.note.id = notes[i].id;
               this.note.type = notes[i].type;
@@ -97,7 +95,6 @@
               this.note.content = notes[i].content;
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
-
               const type = (notes[i].type == 'notes') ? 'Notes' : 'Trash';
               this.__setType(type);
               $('#process').text(`Last edit: ${this.note.updated_at}`);
@@ -108,7 +105,6 @@
           this.__setType('New');
           this.__empty();
         }
-
         $(this.$el).removeClass('hidden');
         $(this.$el).removeClass('sm');
         const li1 = $(this.$el).find('.controls li:nth-child(1) a');
@@ -118,54 +114,48 @@
           $(this.$el).addClass('lg');
           $('.form-overlay').removeClass('hidden');
         }
-
         this.__fixInput();
       },
+      /**
+       * Close form
+       */
       close(e) {
         e.preventDefault();
-
         $(this.$el)
           .addClass('hidden')
           .removeClass('sm')
           .removeClass('lg');
-        
         $(this.$el).find('.controls li:nth-child(1) a').removeClass('on')
         $(this.$el).find('.controls li:nth-child(2) a').removeClass('on');
         $('.form-overlay').addClass('hidden');
-        
         this.__setType('New');
         this.__empty();
       },
+      /**
+       * Save form data
+       */
       save(e) {
         e.preventDefault();
-
         if (this.note.title == '' || this.note.content == '') {
-
           if (this.note.title == '') {
             $('.form').find('input[type="text"]').addClass('invalid');
             setTimeout(function() {
               $('.form').find('input[type="text"]').removeClass('invalid');
             }, 1000);
           }
-
           if (this.note.content == '') {
             $('.form').find('textarea').addClass('invalid');
             setTimeout(function() {
               $('.form').find('textarea').removeClass('invalid');
             }, 1000);
           }
-
           return false;
         }
-
         let notes = lsGet('notes');
         const date = this.__setDate();
-
         $('#process').text('Saving...');
-
         if (this.note.id == '') {
           const id = this.__setId();
-
           notes.push({
             id: id,
             type: 'notes',
@@ -174,7 +164,6 @@
             created_at: date,
             updated_at: date,
           });
-          
           this.note.id = id;
           this.note.type = 'notes';
           this.note.title = this.note.title;
@@ -190,27 +179,22 @@
             }
           }
         }
-
         const components = this.$parent.$children;
-
         this.__setType('Notes');
-
         setTimeout(function() {
-
           lsSet('notes', notes);
-
           for (let i = 0; i < components.length; i++) {
-            if (components[i].$options.name == 'notes'
-              || components[i].$options.name == 'trash') {
-                components[i].init();
+            if (components[i].$options.name == 'notes' || components[i].$options.name == 'trash') {
+              components[i].init();
             }
           }
-
           $('#process').text(`Last edit: ${date}`);
-
         }, 2000);
       },
-      change(e, type) {
+      /**
+       * Handle form window size
+       */
+      changeSize(e, type) {
         e.preventDefault();
         if (type == 'height') {
           const li1 = $(this.$el).find('.controls li:nth-child(1) a');
@@ -232,8 +216,7 @@
             li1.attr('title', 'Maximize');
             li1.addClass('on');
           }
-        }
-        else if (type == 'width') {
+        } else if (type == 'width') {
           const li1 = $(this.$el).find('.controls li:nth-child(2) a');
           if ($(this.$el).hasClass('lg')) {
             $(this.$el).removeClass('lg');
@@ -250,9 +233,12 @@
             $('.form-overlay').removeClass('hidden');
           }
         }
-
         this.__fixInput();
       },
+      /**
+       * @internal
+       * {...}
+       */
       __fixInput() {
         // TODO: code review
         let width = $(this.$el).width() - 50;
@@ -261,6 +247,10 @@
         $(this.$el).find('textarea').css({'width': width+'px'});
         $(this.$el).find('textarea').css({'height': (Math.abs(height) - 32) +'px'});
       },
+      /**
+       * @internal
+       * Reset form data
+       */
       __empty() {
         this.note.id = '';
         this.note.type = 'notes';
@@ -269,21 +259,30 @@
         this.note.is_deleted = false;
         this.note.created_at = '';
         this.note.updated_at = '';
-
         $('#process').text('');
       },
+      /**
+       * @internal
+       * Generate ID for a note
+       */
       __setId() {
         return Math.floor(Date.now() / 1000);
       },
+      /**
+       * @internal
+       * Convert UTC to local
+       */
       __setDate() {
-        // converts UTC to local
         let date = new Date().toLocaleString() + ' UTC';
         date = new Date(date);
         date = date.toISOString();
         date = date.replace('T', ' ');
-
         return date.replace(/\.([a-zA-Z0-9]+)/, '');
       },
+      /**
+       * @internal
+       * Set note type in header
+       */
       __setType(name) {
         $('.form-header .text').text(name);
       }

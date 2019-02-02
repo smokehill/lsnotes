@@ -17,7 +17,7 @@
 
 <script>
   import $ from 'jquery';
-  import { lsGet, lsSet } from './../helpers.js';
+  import { lsGet, lsSet } from './../../helpers.js';
 
   export default {
     name: 'settings',
@@ -35,18 +35,29 @@
       this.initStorageInfo();
     },
     methods: {
+      /**
+       * Prepare LS usage info
+       */
       initStorageInfo() {
         // approximate Chrome LS size is 10 MB
         this.storage.total = 10;
-        this.storage.used = this.calcUsedSpace();
-        this.storage.progress = this.calcProgress();
+        this.storage.used = this.__calcUsedSpace();
+        this.storage.progress = this.__calcProgress();
       },
-      calcUsedSpace() {
+      /**
+       * @internal method
+       * Calculate LS usaged space
+       */
+      __calcUsedSpace() {
         let total = JSON.stringify(localStorage).length;
         total = (total * 2) / 1024 / 1024;
         return total.toFixed(2);
       },
-      calcProgress() {
+      /**
+       * @internal method
+       * Calculate LS usaged space in perc
+       */
+      __calcProgress() {
         let total = (10 * this.calcUsedSpace()) / 100;
         total = total * 100;
         return total;

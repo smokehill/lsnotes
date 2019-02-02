@@ -1,11 +1,14 @@
-export function lsGet(key)
-{
+/**
+ * Get data from LS
+ */
+export function lsGet(key) {
     var data = JSON.parse(localStorage.getItem(key));
-
     return (data != null ) ? data : null;
 }
 
-export function lsSet(key, value)
-{
+/**
+ * Set data into LS
+ */
+export function lsSet(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
