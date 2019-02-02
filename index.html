@@ -11,8 +11,10 @@
   <div id="app">
     <div id="sidebar">
       <div class="compose">
-        <img src="dist/img/icons/sidebar_compose.png" v-on:click="compose" alt="Compose" />
-        <span>M-NOTES</span>
+        <a href="#" class="compose-btn" v-on:click="compose">
+          <img src="dist/img/icons/sidebar_compose.png" alt="Compose" />
+          <span>Compose</span>
+        </a>
       </div>
       <ul class="menu">
         <li v-for="m in menu" :data-name="m.name | tolowercase">
