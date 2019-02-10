@@ -39,7 +39,7 @@
        * Initialize base params
        */
       init() {
-        const lsNotes = lsGet('notes');
+        let lsNotes = lsGet('notes');
         this.notes = [];
         if (lsNotes != null) {
           for (let i = 0; i < lsNotes.length; i++) {
@@ -75,15 +75,14 @@
           status = 'off';
         }
         // reset checked values
-        const list = $('.list').find('li');
-        list.each(function(index, li) {
-            let el = $(li).find('.checkbox');
-            if (status == 'on' && !el.hasClass('on')) {
-              el.addClass('on');
-            }
-            if (status == 'off' && el.hasClass('on')) {
-              el.removeClass('on');
-            }
+        $('.list li').each(function() {
+          let checkbox = $(this).find('.checkbox');
+          if (status == 'on' && !checkbox.hasClass('on')) {
+            checkbox.addClass('on');
+          }
+          if (status == 'off' && checkbox.hasClass('on')) {
+            checkbox.removeClass('on');
+          }
         });
       },
       /**
@@ -91,17 +90,17 @@
        */
       deleteSelected(e) {
         e.preventDefault();
-        let deleted = [];
-        let list = $('.list').find('li');
+        let selected = [];
         let lsNotes = lsGet('notes');
-        list.each(function(index, li) {
-          if ($(li).find('.checkbox').hasClass('on')) {
-            deleted.push($(li).data('id'));
+        $('.list li').each(function() {
+          if ($(this).find('.checkbox').hasClass('on')) {
+            let id = Number($(this)[0].dataset.id);
+            selected.push(id);
           }
         });
-        if (deleted.length > 0 && lsNotes != null) {
+        if (selected.length > 0 && lsNotes != null) {
           for (let i = 0; i < lsNotes.length; i++) {
-            if ($.inArray(lsNotes[i].id, deleted) != -1) {
+            if ($.inArray(lsNotes[i].id, selected) != -1) {
               lsNotes[i].type = 'trash';
               // change note type in form header
               if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
@@ -113,8 +112,8 @@
           this.init();
         }
         $('.breadcrumb-checkbox').removeClass('on');
-        list.each(function(index, li) {
-          $(li).find('.checkbox').removeClass('on');
+        $('.list li').each(function() {
+          $(this).find('.checkbox').removeClass('on');
         });
       }
     }

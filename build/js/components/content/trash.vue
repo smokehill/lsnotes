@@ -40,7 +40,7 @@
        * Initialize base params
        */
       init() {
-        const lsNotes = lsGet('notes');
+        let lsNotes = lsGet('notes');
         this.notes = [];
         if (lsNotes != null) {
           for (let i = 0; i < lsNotes.length; i++) {
@@ -74,15 +74,14 @@
           status = 'off';
         }
         // reset checked values
-        const list = $('.list').find('li');
-        list.each(function(index, li) {
-            let el = $(li).find('.checkbox');
-            if (status == 'on' && !el.hasClass('on')) {
-              el.addClass('on');
-            }
-            if (status == 'off' && el.hasClass('on')) {
-              el.removeClass('on');
-            }
+        $('.list li').each(function() {
+          let checkbox = $(this).find('.checkbox');
+          if (status == 'on' && !checkbox.hasClass('on')) {
+            checkbox.addClass('on');
+          }
+          if (status == 'off' && checkbox.hasClass('on')) {
+            checkbox.removeClass('on');
+          }
         });
       },
       /**
@@ -91,11 +90,11 @@
       restoreSelected(e) {
         e.preventDefault();
         let selected = [];
-        let list = $('.list').find('li');
         let lsNotes = lsGet('notes');
-        list.each(function(index, li) {
-          if ($(li).find('.checkbox').hasClass('on')) {
-            selected.push($(li).data('id'));
+        $('.list li').each(function() {
+          if ($(this).find('.checkbox').hasClass('on')) {
+            let id = Number($(this)[0].dataset.id);
+            selected.push(id);
           }
         });
         if (selected.length > 0 && lsNotes != null) {
@@ -112,8 +111,8 @@
           this.init();
         }
         $('.breadcrumb-checkbox').removeClass('on');
-        list.each(function(index, li) {
-            $(li).find('.checkbox').removeClass('on');
+        $('.list li').each(function() {
+          $(this).find('.checkbox').removeClass('on');
         });
       },
       /**
@@ -122,11 +121,11 @@
       deleteSelected(e) {
         e.preventDefault();
         let selected = [];
-        let list = $('.list').find('li');
         let lsNotes = lsGet('notes');
-        list.each(function(index, li) {
-          if ($(li).find('.checkbox').hasClass('on')) {
-            selected.push($(li).data('id'));
+        $('.list li').each(function() {
+          if ($(this).find('.checkbox').hasClass('on')) {
+            let id = Number($(this)[0].dataset.id);
+            selected.push(id);
           }
         });
         if (selected.length > 0 && lsNotes != null) {
@@ -143,8 +142,8 @@
           this.init();
         }
         $('.breadcrumb-checkbox').removeClass('on');
-        list.each(function(index, li) {
-          $(li).find('.checkbox').removeClass('on');
+        $('.list li').each(function() {
+          $(this).find('.checkbox').removeClass('on');
         });
       }
     }

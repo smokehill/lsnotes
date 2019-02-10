@@ -45,7 +45,7 @@
         this.storage.progress = this.__calcProgress();
       },
       /**
-       * @internal method
+       * @internal
        * Calculate LS usaged space
        */
       __calcUsedSpace() {
@@ -54,11 +54,11 @@
         return total.toFixed(2);
       },
       /**
-       * @internal method
+       * @internal
        * Calculate LS usaged space in perc
        */
       __calcProgress() {
-        let total = (10 * this.calcUsedSpace()) / 100;
+        let total = (10 * this.__calcUsedSpace()) / 100;
         total = total * 100;
         return total;
       }

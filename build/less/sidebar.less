@@ -7,7 +7,7 @@
   width: 220px;
   overflow-x: hidden;
   overflow-y: auto;
-  background: @sidebar-bg;
+  background-color: @sidebar-bg;
 
   .compose {
     display: block;
@@ -15,12 +15,16 @@
     line-height: 80px;
 
     a.compose-btn {
-      background: @body-bg;
+      background-color: @body-bg;
       color: @sidebar-bg;
       border-radius: 4px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
       padding: 12px 16px;
       margin-left: 12px;
+
+      &:focus {
+        background-color: #f5f5f5;
+      }
 
       &:hover {
         box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
@@ -62,7 +66,7 @@
         &:hover {
           text-decoration: none;
           color: @body-bg;
-          background: darken(@sidebar-bg, 2%);
+          background-color: darken(@sidebar-bg, 2%);
         }
   
         &:focus {
@@ -81,7 +85,7 @@
       &.active {
         > a {
           color: @body-bg;
-          background: darken(@sidebar-bg, 5%);
+          background-color: darken(@sidebar-bg, 5%);
         }
       }
     }

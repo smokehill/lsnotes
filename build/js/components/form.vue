@@ -11,7 +11,7 @@
       </div>
       <div class="form-body">
         <input type="text" v-model="note.title" autocomplete="off">
-        <textarea v-model="note.content" v-auto-save></textarea>
+        <textarea v-model="note.content"></textarea>
         <input type="hidden" name="id" v-model="note.id">
         <input type="hidden" name="type" v-model="note.type">
         <input type="hidden" name="created_at" v-model="note.created_at">
@@ -51,35 +51,35 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
     },
-    directives: {
-      'auto-save': {
-        // TODO: fix autosave
-        update: (el, binding, vnode) => {
-          $(el).on('keyup', function() {
-            if (vnode.context.note.id != '') {
-              $('#process').text('Saving...');
-              clearTimeout(vnode.context.typingTimer);
-              vnode.context.typingTimer = setTimeout(function() {
-                let notes = lsGet('notes');
-                const updatedAt = vnode.context.__setDate();
-                for (let i = 0; i < notes.length; i++) {
-                  if (notes[i].id == vnode.context.note.id) {
-                    notes[i].title = vnode.context.note.title;
-                    notes[i].content = vnode.context.note.content;
-                    notes[i].updated_at = updatedAt;
-                    break;
-                  }
-                }
-                $('#process').text(`Last edit: ${updatedAt}`);
-                lsSet('notes', notes);
-              }, vnode.context.typingInterval);
-            }
-          }).on('keydown', function() {
-            clearTimeout(vnode.context.typingTimer);
-          });
-        }
-      },
-    },
+    // directives: {
+    //   'auto-save': {
+    //     // TODO: fix autosave
+    //     update: (el, binding, vnode) => {
+    //       $(el).on('keyup', function() {
+    //         if (vnode.context.note.id != '') {
+    //           $('#process').text('Saving...');
+    //           clearTimeout(vnode.context.typingTimer);
+    //           vnode.context.typingTimer = setTimeout(function() {
+    //             let notes = lsGet('notes');
+    //             const updatedAt = vnode.context.__setDate();
+    //             for (let i = 0; i < notes.length; i++) {
+    //               if (notes[i].id == vnode.context.note.id) {
+    //                 notes[i].title = vnode.context.note.title;
+    //                 notes[i].content = vnode.context.note.content;
+    //                 notes[i].updated_at = updatedAt;
+    //                 break;
+    //               }
+    //             }
+    //             $('#process').text(`Last edit: ${updatedAt}`);
+    //             lsSet('notes', notes);
+    //           }, vnode.context.typingInterval);
+    //         }
+    //       }).on('keydown', function() {
+    //         clearTimeout(vnode.context.typingTimer);
+    //       });
+    //     }
+    //   },
+    // },
     methods: {
       /**
        * Show form
