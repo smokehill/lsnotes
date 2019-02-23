@@ -67,7 +67,7 @@
       }
     },
     mounted: function() {
-      this.$parent.highlightMenu();
+      this.$parent.$refs.sidebarMenu.highlight();
       this.initStorageInfo();
       this.initExport();
     },

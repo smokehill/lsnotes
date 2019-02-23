@@ -1,49 +1,60 @@
 <template>
-  <section>
-    <div class="form-overlay" v-bind:class="{ hidden: classes.formOverlay.isHidden }"></div>
-    <div class="form" v-bind:class="{ hidden: classes.form.isHidden, sm: classes.form.isSmall, lg: classes.form.isBig  }" v-fix-form ref="modal">
-      <div class="form-wrapper">
-        <div class="form-header">
-          <span class="text">{{ headerType }}</span>
-          <ul class="controls">
-            <li><a href="#" class="form-show-hide" v-bind:class="{ on: classes.formControls.isSmall }" v-on:click="changeSize($event, 'height')"></a></li>
-            <li><a href="#" class="form-full-screen" v-bind:class="{ on: classes.formControls.isFullScreen }" v-on:click="changeSize($event, 'width')"></a></li>
-            <li><a href="#" class="form-close" v-on:click="close($event)"></a></li>
-          </ul>
-        </div>
-        <div class="form-body">
-          <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ invalid: classes.title.isInvalid }" v-bind:style="{ width: styles.titleWidth + 'px' }">
-          <textarea v-model="note.content" v-bind:class="{ invalid: classes.content.isInvalid }"  v-bind:style="{ width: styles.contentWidth + 'px', height: styles.contentHeight + 'px' }"></textarea>
-          <input type="hidden" name="id" v-model="note.id">
-          <input type="hidden" name="type" v-model="note.type">
-          <input type="hidden" name="created_at" v-model="note.created_at">
-        </div>
-        <div class="form-footer-wrapper"></div>
+  <div class="form" v-bind:class="{ hidden: classes.isHidden, sm: classes.isSmall, lg: classes.isBig  }" ref="form" v-fix-form>
+    <div class="form-wrapper">
+      <div class="form-header">
+        <span class="text">{{ headerType }}</span>
+        <ul class="controls">
+          <li><a href="#" class="form-show-hide" v-bind:class="{ on: classes.controls.isSmall }" v-on:click="changeSize($event, 'height')"></a></li>
+          <li><a href="#" class="form-full-screen" v-bind:class="{ on: classes.controls.isFullScreen }" v-on:click="changeSize($event, 'width')"></a></li>
+          <li><a href="#" class="form-close" v-on:click="close($event)"></a></li>
+        </ul>
       </div>
-      <div class="form-footer" ref="modalFooter">
-        <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
-        <span id="process">{{ processText }}</span>
+      <div class="form-body">
+        <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ invalid: classes.inputs.isTitleInvalid }" v-bind:style="{ width: styles.titleWidth + 'px' }">
+        <textarea v-model="note.content" v-bind:class="{ invalid: classes.inputs.isContentInvalid }"  v-bind:style="{ width: styles.contentWidth + 'px', height: styles.contentHeight + 'px' }"></textarea>
+        <input type="hidden" v-model="note.id">
+        <input type="hidden" v-model="note.type">
+        <input type="hidden" v-model="note.created_at">
       </div>
+      <div class="form-footer-wrapper"></div>
     </div>
-  </section>
+    <div class="form-footer" ref="formFooter">
+      <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
+      <span id="process">{{ processText }}</span>
+    </div>
+  </div>
 </template>
 
 <script>
-  import { lsGet, lsSet } from './../helpers.js';
+  import { lsGet, lsSet } from './../../helpers.js';
 
   export default {
-    name: 'note-form',
+    name: 'form-modal',
     data() {
       return {
         classes: {
-          form: { isHidden: true, isSmall: false, isBig: false },
-          formOverlay: { isHidden: true },
-          formControls: { isSmall: false, isFullScreen: false },
-          title: { isInvalid: false },
-          content: { isInvalid: false }
+          isHidden: true,
+          isSmall: false,
+          isBig: false,
+          controls: {
+            isSmall: false,
+            isFullScreen: false
+          },
+          inputs: {
+            isTitleInvalid: false,
+            isContentInvalid: false
+          },
         },
-        styles: { titleWidth: 0, contentHeight: 0, contentWidth: 0 },
-        types: { new: 'New', notes: 'Notes', trash: 'Trash'},
+        styles: {
+          titleWidth: 0,
+          contentHeight: 0,
+          contentWidth: 0
+        },
+        types: {
+          new: 'New',
+          notes: 'Notes',
+          trash: 'Trash'
+        },
         headerType: '',
         processText: '',
         note: {
@@ -65,8 +76,8 @@
     directives: {
       'fix-form': {
        update: (el, binding, vnode) => {
-          let width = vnode.context.$refs.modal.offsetWidth - 50;
-          let height = vnode.context.$refs.modalFooter.offsetTop - 140;
+          let width = vnode.context.$refs.form.offsetWidth - 50;
+          let height = vnode.context.$refs.formFooter.offsetTop - 140;
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;
           vnode.context.styles.contentWidth = width;
@@ -101,11 +112,11 @@
           this.__empty();
         }
         // handle classes
-        this.classes.form.isHidden = false;
-        this.classes.formControls.isSmall = false;
-        if (this.classes.formControls.isFullScreen) {
-          this.classes.form.isBig = true;
-          this.classes.formOverlay.isHidden = false;
+        this.classes.isHidden = false;
+        this.classes.controls.isSmall = false;
+        if (this.classes.controls.isFullScreen) {
+          this.classes.isBig = true;
+          this.$parent.$refs.formOverlay.classes.isHidden = false;
         }
         // this.__fixInput();
       },
@@ -115,12 +126,12 @@
       close(e) {
         e.preventDefault();
         // handle classes
-        this.classes.formOverlay.isHidden = true;
-        this.classes.form.isHidden = true;
-        this.classes.form.isSmall = false;
-        this.classes.form.isBig = false;
-        this.classes.formControls.isSmall = false;
-        this.classes.formControls.isFullScreen = false;
+        this.classes.isHidden = true;
+        this.classes.isSmall = false;
+        this.classes.isBig = false;
+        this.classes.controls.isSmall = false;
+        this.classes.controls.isFullScreen = false;
+        this.$parent.$refs.formOverlay.classes.isHidden = true;
         this.__setHeaderType('new');
         this.__empty();
       },
@@ -132,15 +143,15 @@
         const self = this;
         if (self.note.title == '' || self.note.content == '') {
           if (self.note.title == '') {
-            self.classes.title.isInvalid = true;
+            self.classes.inputs.isTitleInvalid = true;
             setTimeout(function() {
-              self.classes.title.isInvalid = false;
+              self.classes.inputs.isTitleInvalid = false;
             }, 1000);
           }
           if (self.note.content == '') {
-            self.classes.content.isInvalid = true;
+            self.classes.inputs.isContentInvalid = true;
             setTimeout(function() {
-             self.classes.content.isInvalid = false;
+             self.classes.inputs.isContentInvalid = false;
             }, 1000);
           }
           return false;
@@ -191,36 +202,36 @@
       changeSize(e, type) {
         e.preventDefault();
         if (type == 'height') {
-          if (this.classes.form.isSmall) {
+          if (this.classes.isSmall) {
             // size: normal
-            this.classes.form.isSmall = false;
-            this.classes.form.isBig = false;
-            this.classes.formControls.isSmall = false;
-            this.classes.formControls.isFullScreen = false;
-            this.classes.formOverlay.isHidden = true;
+            this.classes.isSmall = false;
+            this.classes.isBig = false;
+            this.classes.controls.isSmall = false;
+            this.classes.controls.isFullScreen = false;
+            this.$parent.$refs.formOverlay.classes.isHidden = true;
           } else {
             // size: mini
-            this.classes.form.isSmall = true;
-            this.classes.form.isBig = false;
-            this.classes.formControls.isSmall = true;
-            this.classes.formControls.isFullScreen = false;
-            this.classes.formOverlay.isHidden = true;
+            this.classes.isSmall = true;
+            this.classes.isBig = false;
+            this.classes.controls.isSmall = true;
+            this.classes.controls.isFullScreen = false;
+            this.$parent.$refs.formOverlay.classes.isHidden = true;
           }
         } else if (type == 'width') {
-          if (this.classes.form.isBig) {
+          if (this.classes.isBig) {
             // size: normal
-            this.classes.form.isSmall = false;
-            this.classes.form.isBig = false;
-            this.classes.formControls.isSmall = false;
-            this.classes.formControls.isFullScreen = false;
-            this.classes.formOverlay.isHidden = true;
+            this.classes.isSmall = false;
+            this.classes.isBig = false;
+            this.classes.controls.isSmall = false;
+            this.classes.controls.isFullScreen = false;
+            this.$parent.$refs.formOverlay.classes.isHidden = true;
           } else {
             // size: full-screen
-            this.classes.form.isSmall = false;
-            this.classes.form.isBig = true;
-            this.classes.formControls.isSmall = false;
-            this.classes.formControls.isFullScreen = true;
-            this.classes.formOverlay.isHidden = false;
+            this.classes.isSmall = false;
+            this.classes.isBig = true;
+            this.classes.controls.isSmall = false;
+            this.classes.controls.isFullScreen = true;
+            this.$parent.$refs.formOverlay.classes.isHidden = false;
           }
         }
       },

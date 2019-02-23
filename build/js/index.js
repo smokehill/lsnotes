@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import $ from 'jquery';
 import { lsGet, lsSet } from './helpers.js';
 
-import Notes from './components/content/notes.vue';
-import Trash from './components/content/trash.vue';
-import Settings from './components/content/settings.vue';
-import Form from './components/form.vue';
-
+import Menu from './components/Menu.vue';
+import Notes from './components/content/Notes.vue';
+import Trash from './components/content/Trash.vue';
+import Settings from './components/content/Settings.vue';
+import Form from './components/form/Form.vue';
+import FormOverlay from './components/form/FormOverlay.vue';
 
 Vue.use(VueRouter);
 
@@ -68,7 +68,9 @@ const app = new Vue({
     ]
   },
   components: {
-    'form-component': Form,
+    'sidebar-menu': Menu,
+    'form-modal': Form,
+    'form-modal-overlay': FormOverlay,
   },
   created: function() {
     if (lsGet('notes') == null) {
@@ -76,28 +78,13 @@ const app = new Vue({
       lsSet('notes', []);
     }
   },
-  mounted: function() {
-    this.highlightMenu();
-  },
   methods: {
-    /**
-     * Highlight active menu
-     */
-    highlightMenu() {
-      const name = this.$router.currentRoute.name;
-      const items = $('.menu').find('li');
-      // highlight active menu
-      $.each(items, function(i, item) {
-        if ($(item).data('name') == name) {
-          $(item).addClass('active').siblings().removeClass('active');
-        }
-      });
-    },
     /**
      * @external
      * Open form
      */
-    compose() {
+    compose(e) {
+      e.preventDefault();
       this.$refs.form.show();
     }
   }

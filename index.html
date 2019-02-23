@@ -16,17 +16,11 @@
           <span>Compose</span>
         </a>
       </div>
-      <ul class="menu">
-        <li v-for="m in menu" :data-name="m.name | tolowercase">
-          <a :href="m.path">
-            <img :src="m.image" :alt="m.name" />
-            <span class="text">{{ m.name }}</span>
-          </a>
-        </li>
-      </ul>
+      <sidebar-menu ref="sidebarMenu"></sidebar-menu>
     </div>
     <router-view></router-view>
-    <form-component ref="form"></form-component>
+    <form-modal-overlay ref="formOverlay"></form-modal-overlay>
+    <form-modal ref="form"></form-modal>
   </div>
   <script type="text/javascript" src="dist/app.js"></script>
 </body>
