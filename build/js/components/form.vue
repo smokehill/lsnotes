@@ -1,38 +1,51 @@
 <template>
-  <div class="form hidden">
-    <div class="form-wrapper">
-      <div class="form-header">
-        <span class="text">New</span>
-        <ul class="controls">
-          <li><a href="#" class="form-show-hide" v-on:click="changeSize($event, 'height')" title="Minimize"></a></li>
-          <li><a href="#" class="form-full-screen" v-on:click="changeSize($event, 'width')" title="Full scree"></a></li>
-          <li><a href="#" class="form-close" v-on:click="close($event)" title="Close"></a></li>
-        </ul>
+  <section>
+    <div class="form-overlay" v-bind:class="{ hidden: classes.formOverlay.isHidden }"></div>
+    <div class="form" v-bind:class="{ hidden: classes.form.isHidden, sm: classes.form.isSmall, lg: classes.form.isBig  }" v-fix-form ref="modal">
+      <div class="form-wrapper">
+        <div class="form-header">
+          <span class="text">{{ headerType }}</span>
+          <ul class="controls">
+            <li><a href="#" class="form-show-hide" v-bind:class="{ on: classes.formControls.isSmall }" v-on:click="changeSize($event, 'height')"></a></li>
+            <li><a href="#" class="form-full-screen" v-bind:class="{ on: classes.formControls.isFullScreen }" v-on:click="changeSize($event, 'width')"></a></li>
+            <li><a href="#" class="form-close" v-on:click="close($event)"></a></li>
+          </ul>
+        </div>
+        <div class="form-body">
+          <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ invalid: classes.title.isInvalid }" v-bind:style="{ width: styles.titleWidth + 'px' }">
+          <textarea v-model="note.content" v-bind:class="{ invalid: classes.content.isInvalid }"  v-bind:style="{ width: styles.contentWidth + 'px', height: styles.contentHeight + 'px' }"></textarea>
+          <input type="hidden" name="id" v-model="note.id">
+          <input type="hidden" name="type" v-model="note.type">
+          <input type="hidden" name="created_at" v-model="note.created_at">
+        </div>
+        <div class="form-footer-wrapper"></div>
       </div>
-      <div class="form-body">
-        <input type="text" v-model="note.title" autocomplete="off">
-        <textarea v-model="note.content"></textarea>
-        <input type="hidden" name="id" v-model="note.id">
-        <input type="hidden" name="type" v-model="note.type">
-        <input type="hidden" name="created_at" v-model="note.created_at">
+      <div class="form-footer" ref="modalFooter">
+        <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
+        <span id="process">{{ processText }}</span>
       </div>
-      <div class="form-footer-wrapper"></div>
     </div>
-    <div class="form-footer">
-      <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
-      <span id="process"></span>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
-  import $ from 'jquery';
   import { lsGet, lsSet } from './../helpers.js';
 
   export default {
     name: 'note-form',
     data() {
       return {
+        classes: {
+          form: { isHidden: true, isSmall: false, isBig: false },
+          formOverlay: { isHidden: true },
+          formControls: { isSmall: false, isFullScreen: false },
+          title: { isInvalid: false },
+          content: { isInvalid: false }
+        },
+        styles: { titleWidth: 0, contentHeight: 0, contentWidth: 0 },
+        types: { new: 'New', notes: 'Notes', trash: 'Trash'},
+        headerType: '',
+        processText: '',
         note: {
           id: '',
           type: 'notes',
@@ -41,9 +54,7 @@
           is_deleted: false,
           created_at: '',
           updated_at: ''
-        },
-        typingTimer: '',
-        typingInterval: 2000
+        }
       }
     },
     filters: {
@@ -51,35 +62,20 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
     },
-    // directives: {
-    //   'auto-save': {
-    //     // TODO: fix autosave
-    //     update: (el, binding, vnode) => {
-    //       $(el).on('keyup', function() {
-    //         if (vnode.context.note.id != '') {
-    //           $('#process').text('Saving...');
-    //           clearTimeout(vnode.context.typingTimer);
-    //           vnode.context.typingTimer = setTimeout(function() {
-    //             let notes = lsGet('notes');
-    //             const updatedAt = vnode.context.__setDate();
-    //             for (let i = 0; i < notes.length; i++) {
-    //               if (notes[i].id == vnode.context.note.id) {
-    //                 notes[i].title = vnode.context.note.title;
-    //                 notes[i].content = vnode.context.note.content;
-    //                 notes[i].updated_at = updatedAt;
-    //                 break;
-    //               }
-    //             }
-    //             $('#process').text(`Last edit: ${updatedAt}`);
-    //             lsSet('notes', notes);
-    //           }, vnode.context.typingInterval);
-    //         }
-    //       }).on('keydown', function() {
-    //         clearTimeout(vnode.context.typingTimer);
-    //       });
-    //     }
-    //   },
-    // },
+    directives: {
+      'fix-form': {
+       update: (el, binding, vnode) => {
+          let width = vnode.context.$refs.modal.offsetWidth - 50;
+          let height = vnode.context.$refs.modalFooter.offsetTop - 140;
+          vnode.context.styles.titleWidth = width;
+          vnode.context.styles.contentHeight = height;
+          vnode.context.styles.contentWidth = width;
+        }
+      },
+    },
+    mounted: function() {
+      this.__setHeaderType('new');
+    },
     methods: {
       /**
        * Show form
@@ -95,40 +91,37 @@
               this.note.content = notes[i].content;
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
-              const type = (notes[i].type == 'notes') ? 'Notes' : 'Trash';
-              this.__setType(type);
-              $('#process').text(`Last edit: ${this.note.updated_at}`);
+              this.__setHeaderType(notes[i].type);
+              this.__setProcessText(`Last edit: ${this.note.updated_at}`);
               break;
             }
           }
         } else {
-          this.__setType('New');
+          this.__setHeaderType('new');
           this.__empty();
         }
-        $(this.$el).removeClass('hidden');
-        $(this.$el).removeClass('sm');
-        const li1 = $(this.$el).find('.controls li:nth-child(1) a');
-        const li2 = $(this.$el).find('.controls li:nth-child(2) a');
-        li1.removeClass('on');
-        if (li2.hasClass('on')) {
-          $(this.$el).addClass('lg');
-          $('.form-overlay').removeClass('hidden');
+        // handle classes
+        this.classes.form.isHidden = false;
+        this.classes.formControls.isSmall = false;
+        if (this.classes.formControls.isFullScreen) {
+          this.classes.form.isBig = true;
+          this.classes.formOverlay.isHidden = false;
         }
-        this.__fixInput();
+        // this.__fixInput();
       },
       /**
        * Close form
        */
       close(e) {
         e.preventDefault();
-        $(this.$el)
-          .addClass('hidden')
-          .removeClass('sm')
-          .removeClass('lg');
-        $(this.$el).find('.controls li:nth-child(1) a').removeClass('on')
-        $(this.$el).find('.controls li:nth-child(2) a').removeClass('on');
-        $('.form-overlay').addClass('hidden');
-        this.__setType('New');
+        // handle classes
+        this.classes.formOverlay.isHidden = true;
+        this.classes.form.isHidden = true;
+        this.classes.form.isSmall = false;
+        this.classes.form.isBig = false;
+        this.classes.formControls.isSmall = false;
+        this.classes.formControls.isFullScreen = false;
+        this.__setHeaderType('new');
         this.__empty();
       },
       /**
@@ -136,51 +129,52 @@
        */
       save(e) {
         e.preventDefault();
-        if (this.note.title == '' || this.note.content == '') {
-          if (this.note.title == '') {
-            $('.form').find('input[type="text"]').addClass('invalid');
+        const self = this;
+        if (self.note.title == '' || self.note.content == '') {
+          if (self.note.title == '') {
+            self.classes.title.isInvalid = true;
             setTimeout(function() {
-              $('.form').find('input[type="text"]').removeClass('invalid');
+              self.classes.title.isInvalid = false;
             }, 1000);
           }
-          if (this.note.content == '') {
-            $('.form').find('textarea').addClass('invalid');
+          if (self.note.content == '') {
+            self.classes.content.isInvalid = true;
             setTimeout(function() {
-              $('.form').find('textarea').removeClass('invalid');
+             self.classes.content.isInvalid = false;
             }, 1000);
           }
           return false;
         }
         let notes = lsGet('notes');
-        const date = this.__setDate();
-        $('#process').text('Saving...');
-        if (this.note.id == '') {
-          const id = this.__setId();
+        const date = self.__setDate();
+        self.__setProcessText('Saving...');
+        if (self.note.id == '') {
+          const id = self.__setId();
           notes.push({
             id: id,
             type: 'notes',
-            title: this.note.title,
-            content: this.note.content,
+            title: self.note.title,
+            content: self.note.content,
             created_at: date,
             updated_at: date,
           });
-          this.note.id = id;
-          this.note.type = 'notes';
-          this.note.title = this.note.title;
-          this.note.content = this.note.content;
-          this.note.created_at = date;
+          self.note.id = id;
+          self.note.type = 'notes';
+          self.note.title = self.note.title;
+          self.note.content = self.note.content;
+          self.note.created_at = date;
         } else {
           for (let i = 0; i < notes.length; i++) {
-            if (notes[i].id == this.note.id) {
-              notes[i].title = this.note.title;
-              notes[i].content = this.note.content;
+            if (notes[i].id == self.note.id) {
+              notes[i].title = self.note.title;
+              notes[i].content = self.note.content;
               notes[i].updated_at = date;
               break;
             }
           }
         }
-        const components = this.$parent.$children;
-        this.__setType('Notes');
+        const components = self.$parent.$children;
+        self.__setHeaderType('notes');
         setTimeout(function() {
           lsSet('notes', notes);
           for (let i = 0; i < components.length; i++) {
@@ -188,64 +182,47 @@
               components[i].init();
             }
           }
-          $('#process').text(`Last edit: ${date}`);
+          self.__setProcessText(`Last edit: ${date}`);
         }, 2000);
       },
       /**
-       * Handle form window size
+       * Handle form size
        */
       changeSize(e, type) {
         e.preventDefault();
         if (type == 'height') {
-          const li1 = $(this.$el).find('.controls li:nth-child(1) a');
-          const li2 = $(this.$el).find('.controls li:nth-child(2) a');
-          if ($(this.$el).hasClass('sm')) {
-            $(this.$el).removeClass('sm');
-            if (li2.hasClass('on')) {
-              $(this.$el).addClass('lg');
-              $('.form-overlay').removeClass('hidden');
-            }
-            li1.attr('title', 'Minimize');
-            li1.removeClass('on');
+          if (this.classes.form.isSmall) {
+            // size: normal
+            this.classes.form.isSmall = false;
+            this.classes.form.isBig = false;
+            this.classes.formControls.isSmall = false;
+            this.classes.formControls.isFullScreen = false;
+            this.classes.formOverlay.isHidden = true;
           } else {
-            if ($(this.$el).hasClass('lg')) {
-              $(this.$el).removeClass('lg');
-              $('.form-overlay').addClass('hidden');
-            }
-            $(this.$el).addClass('sm');
-            li1.attr('title', 'Maximize');
-            li1.addClass('on');
+            // size: mini
+            this.classes.form.isSmall = true;
+            this.classes.form.isBig = false;
+            this.classes.formControls.isSmall = true;
+            this.classes.formControls.isFullScreen = false;
+            this.classes.formOverlay.isHidden = true;
           }
         } else if (type == 'width') {
-          const li1 = $(this.$el).find('.controls li:nth-child(2) a');
-          if ($(this.$el).hasClass('lg')) {
-            $(this.$el).removeClass('lg');
-            li1.attr('title', 'Full screen');
-            li1.removeClass('on');
-            $('.form-overlay').addClass('hidden');
+          if (this.classes.form.isBig) {
+            // size: normal
+            this.classes.form.isSmall = false;
+            this.classes.form.isBig = false;
+            this.classes.formControls.isSmall = false;
+            this.classes.formControls.isFullScreen = false;
+            this.classes.formOverlay.isHidden = true;
           } else {
-            if ($(this.$el).hasClass('sm')) {
-              $(this.$el).removeClass('sm');
-            }
-            $(this.$el).addClass('lg');
-            li1.attr('title', 'Exit full screen');
-            li1.addClass('on');
-            $('.form-overlay').removeClass('hidden');
+            // size: full-screen
+            this.classes.form.isSmall = false;
+            this.classes.form.isBig = true;
+            this.classes.formControls.isSmall = false;
+            this.classes.formControls.isFullScreen = true;
+            this.classes.formOverlay.isHidden = false;
           }
         }
-        this.__fixInput();
-      },
-      /**
-       * @internal
-       * {...}
-       */
-      __fixInput() {
-        // TODO: code review
-        let width = $(this.$el).width() - 50;
-        let height = $(this.$el).find('textarea').offset().top - $(this.$el).find('.form-footer').offset().top;
-        $(this.$el).find('input').css({'width': width+'px'});
-        $(this.$el).find('textarea').css({'width': width+'px'});
-        $(this.$el).find('textarea').css({'height': (Math.abs(height) - 32) +'px'});
       },
       /**
        * @internal
@@ -259,7 +236,7 @@
         this.note.is_deleted = false;
         this.note.created_at = '';
         this.note.updated_at = '';
-        $('#process').text('');
+        this.__setProcessText('');
       },
       /**
        * @internal
@@ -281,10 +258,15 @@
       },
       /**
        * @internal
-       * Set note type in header
        */
-      __setType(name) {
-        $('.form-header .text').text(name);
+      __setHeaderType(key) {
+        this.headerType = this.types[key];
+      },
+      /**
+       * @internal
+       */
+      __setProcessText(text) {
+        this.processText = text;
       }
     }
   }
