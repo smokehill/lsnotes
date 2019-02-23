@@ -12,6 +12,24 @@
     }
   }
 
+  .sm-message {
+    color: @text-color;
+    font-size: 13px;
+    padding: 6px 0;
+
+    &.success {
+      color: #3c763d;
+    }
+
+    &.warning {
+      color: #8a6d3b;
+    }
+
+    &.danger {
+      color: #a94442;
+    }
+  }
+
   #export-btn {
     text-decoration: none;
     padding: 8px 12px;
@@ -32,6 +50,10 @@
     span {
       margin-left: 20px;
     }
+  }
+
+  #export-content {
+    display: none;
   }
 
   .import-block {
