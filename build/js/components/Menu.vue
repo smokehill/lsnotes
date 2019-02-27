@@ -37,17 +37,18 @@
       }
     },
     methods: {
+      /**
+       * Highlight active item
+       */
       highlight() {
         const routeName = this.$router.currentRoute.name;
-        let items = this.items;
-        for (let i = 0; i < items.length; i++) {
-          if (items[i].name.toLowerCase() == routeName) {
-            items[i].isActive = true;
+        for (let i = 0; i < this.items.length; i++) {
+          if (this.items[i].name.toLowerCase() == routeName) {
+            this.items[i].isActive = true;
           } else {
-            items[i].isActive = false;
+            this.items[i].isActive = false;
           }
         }
-        this.items = items;
       }
     }
   }

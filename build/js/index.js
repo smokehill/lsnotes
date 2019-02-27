@@ -47,26 +47,6 @@ const router = new VueRouter({
 const app = new Vue({
   el: '#app',
   router: router,
-  data: {
-    bus: new Vue(),
-    menu: [
-      {
-        name: 'Notes',
-        path: '#/notes',
-        image: 'dist/img/icons/sidebar_notes.png'
-      },
-      {
-        name: 'Trash',
-        path: '#/trash',
-        image: 'dist/img/icons/sidebar_trash.png'
-      },
-      {
-        name: 'Settings',
-        path: '#/settings',
-        image: 'dist/img/icons/sidebar_settings.png'
-      },
-    ]
-  },
   components: {
     'sidebar-menu': Menu,
     'form-modal': Form,
@@ -74,7 +54,7 @@ const app = new Vue({
   },
   created: function() {
     if (lsGet('notes') == null) {
-      // init Local Storage base params
+      // init LS base params
       lsSet('notes', []);
     }
   },

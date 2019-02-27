@@ -1,10 +1,10 @@
 <template>
-  <div class="form" v-bind:class="{ hidden: classes.isHidden, sm: classes.isSmall, lg: classes.isBig  }" ref="form" v-fix-form>
+  <div class="form" v-bind:class="{ hidden: classes.isHidden, sm: classes.isMini, lg: classes.isFullScreen  }" ref="form" v-fix-form>
     <div class="form-wrapper">
       <div class="form-header">
         <span class="text">{{ headerType }}</span>
         <ul class="controls">
-          <li><a href="#" class="form-show-hide" v-bind:class="{ on: classes.controls.isSmall }" v-on:click="changeSize($event, 'height')"></a></li>
+          <li><a href="#" class="form-show-hide" v-bind:class="{ on: classes.controls.isMini }" v-on:click="changeSize($event, 'height')"></a></li>
           <li><a href="#" class="form-full-screen" v-bind:class="{ on: classes.controls.isFullScreen }" v-on:click="changeSize($event, 'width')"></a></li>
           <li><a href="#" class="form-close" v-on:click="close($event)"></a></li>
         </ul>
@@ -27,17 +27,17 @@
 
 <script>
   import { lsGet, lsSet } from './../../helpers.js';
-
+  
   export default {
     name: 'form-modal',
     data() {
       return {
         classes: {
           isHidden: true,
-          isSmall: false,
-          isBig: false,
+          isMini: false,
+          isFullScreen: false,
           controls: {
-            isSmall: false,
+            isMini: false,
             isFullScreen: false
           },
           inputs: {
@@ -62,9 +62,9 @@
           type: 'notes',
           title: '',
           content: '',
-          is_deleted: false,
           created_at: '',
-          updated_at: ''
+          updated_at: '',
+          checked: false
         }
       }
     },
@@ -78,6 +78,7 @@
        update: (el, binding, vnode) => {
           let width = vnode.context.$refs.form.offsetWidth - 50;
           let height = vnode.context.$refs.formFooter.offsetTop - 140;
+          // fix title & content sizes
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;
           vnode.context.styles.contentWidth = width;
@@ -111,11 +112,10 @@
           this.__setHeaderType('new');
           this.__empty();
         }
-        // handle classes
         this.classes.isHidden = false;
-        this.classes.controls.isSmall = false;
+        this.classes.controls.isMini = false;
         if (this.classes.controls.isFullScreen) {
-          this.classes.isBig = true;
+          this.classes.isFullScreen = true;
           this.$parent.$refs.formOverlay.classes.isHidden = false;
         }
         // this.__fixInput();
@@ -125,11 +125,10 @@
        */
       close(e) {
         e.preventDefault();
-        // handle classes
         this.classes.isHidden = true;
-        this.classes.isSmall = false;
-        this.classes.isBig = false;
-        this.classes.controls.isSmall = false;
+        this.classes.isMini = false;
+        this.classes.isFullScreen = false;
+        this.classes.controls.isMini = false;
         this.classes.controls.isFullScreen = false;
         this.$parent.$refs.formOverlay.classes.isHidden = true;
         this.__setHeaderType('new');
@@ -168,6 +167,7 @@
             content: self.note.content,
             created_at: date,
             updated_at: date,
+            checked: false
           });
           self.note.id = id;
           self.note.type = 'notes';
@@ -202,34 +202,34 @@
       changeSize(e, type) {
         e.preventDefault();
         if (type == 'height') {
-          if (this.classes.isSmall) {
+          if (this.classes.isMini) {
             // size: normal
-            this.classes.isSmall = false;
-            this.classes.isBig = false;
-            this.classes.controls.isSmall = false;
+            this.classes.isMini = false;
+            this.classes.isFullScreen = false;
+            this.classes.controls.isMini = false;
             this.classes.controls.isFullScreen = false;
             this.$parent.$refs.formOverlay.classes.isHidden = true;
           } else {
             // size: mini
-            this.classes.isSmall = true;
-            this.classes.isBig = false;
-            this.classes.controls.isSmall = true;
+            this.classes.isMini = true;
+            this.classes.isFullScreen = false;
+            this.classes.controls.isMini = true;
             this.classes.controls.isFullScreen = false;
             this.$parent.$refs.formOverlay.classes.isHidden = true;
           }
         } else if (type == 'width') {
-          if (this.classes.isBig) {
+          if (this.classes.isFullScreen) {
             // size: normal
-            this.classes.isSmall = false;
-            this.classes.isBig = false;
-            this.classes.controls.isSmall = false;
+            this.classes.isMini = false;
+            this.classes.isFullScreen = false;
+            this.classes.controls.isMini = false;
             this.classes.controls.isFullScreen = false;
             this.$parent.$refs.formOverlay.classes.isHidden = true;
           } else {
             // size: full-screen
-            this.classes.isSmall = false;
-            this.classes.isBig = true;
-            this.classes.controls.isSmall = false;
+            this.classes.isMini = false;
+            this.classes.isFullScreen = true;
+            this.classes.controls.isMini = false;
             this.classes.controls.isFullScreen = true;
             this.$parent.$refs.formOverlay.classes.isHidden = false;
           }
@@ -244,9 +244,9 @@
         this.note.type = 'notes';
         this.note.title = '';
         this.note.content = '';
-        this.note.is_deleted = false;
         this.note.created_at = '';
         this.note.updated_at = '';
+        this.note.checked = false;
         this.__setProcessText('');
       },
       /**

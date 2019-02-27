@@ -39,7 +39,6 @@
 </template>
 
 <script>
-  import $ from 'jquery';
   import { lsGet, lsSet } from './../../helpers.js';
 
   export default {
@@ -76,7 +75,7 @@
         update: (el, binding, vnode) => {
           el.addEventListener('change', function() {
             let reader = new FileReader();
-            let file = $(this)[0].files[0];
+            let file = this.files[0];
             vnode.context.__clearImportData();
             vnode.context.__disableMessage();
             if (file.type == 'application/json') {
@@ -141,7 +140,7 @@
           lsSet('notes', lsNotes);
           this.__enableMessage('success', 'Import successfully finished.');
         } else {
-          this._enableMessage('danger', 'Import has been failed.');
+          this.__enableMessage('danger', 'Import has been failed.');
         }
         this.__clearImportData();
       },
@@ -203,20 +202,22 @@
        */
       __validateImport() {
           let isValid = true;
-          const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at'];
+          const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at', 'checked'];
           const noteTypes = ['notes', 'trash'];
           const data = this.import_data.data;
           if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {
-              if (Object.keys(data[i]).length == 6
+              if (Object.keys(data[i]).length == 7
                   && data[i][noteKeys[0]] != undefined && data[i][noteKeys[0]] != '' && typeof(data[i][noteKeys[0]]) === 'number'
                   && data[i][noteKeys[1]] != undefined && data[i][noteKeys[1]] != '' && typeof(data[i][noteKeys[1]]) === 'string' && noteTypes.indexOf(data[i][noteKeys[1]]) != -1
                   && data[i][noteKeys[2]] != undefined && data[i][noteKeys[2]] != '' && typeof(data[i][noteKeys[2]]) === 'string'
                   && data[i][noteKeys[3]] != undefined && data[i][noteKeys[3]] != '' && typeof(data[i][noteKeys[3]]) === 'string'
                   && data[i][noteKeys[4]] != undefined && data[i][noteKeys[4]] != '' && typeof(data[i][noteKeys[4]]) === 'string'
-                  && data[i][noteKeys[5]] != undefined && data[i][noteKeys[5]] != '' && typeof(data[i][noteKeys[5]]) === 'string') {
+                  && data[i][noteKeys[5]] != undefined && data[i][noteKeys[5]] != '' && typeof(data[i][noteKeys[5]]) === 'string'
+                  && data[i][noteKeys[6]] != undefined && typeof(data[i][noteKeys[6]]) === 'boolean') {
                     continue;
               } else {
+                          console.log(data[i]);
                 isValid = false;
               }
             }
