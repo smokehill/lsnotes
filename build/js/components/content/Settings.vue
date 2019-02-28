@@ -44,7 +44,6 @@
 
 <script>
   import { lsGet, lsSet } from './../../helpers.js';
-
   export default {
     name: 'settings',
     data() {
@@ -228,7 +227,6 @@
                   && data[i][noteKeys[6]] != undefined && typeof(data[i][noteKeys[6]]) === 'boolean') {
                     continue;
               } else {
-                          console.log(data[i]);
                 isValid = false;
               }
             }

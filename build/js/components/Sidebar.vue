@@ -19,7 +19,6 @@
 
 <script>
   import { lsGet, lsSet } from './../helpers.js';
-
   export default {
     name: 'sidebar',
     data() {
@@ -64,6 +63,9 @@
           }
         }
       },
+      /**
+       * Open form
+       */
       compose(e) {
         e.preventDefault();
         this.$parent.$refs.form.show();

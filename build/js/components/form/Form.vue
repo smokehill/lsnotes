@@ -33,7 +33,6 @@
 
 <script>
   import { lsGet, lsSet } from './../../helpers.js';
-  
   export default {
     name: 'form-modal',
     data() {
@@ -124,7 +123,6 @@
           this.classes.isFullScreen = true;
           this.$parent.$refs.formOverlay.classes.isHidden = false;
         }
-        // this.__fixInput();
       },
       /**
        * Close form

@@ -12,64 +12,31 @@
       </ol>
     </div>
     <div class="content-body fixed">
-      <ul class="list" v-if="notes.length > 0">
-        <li v-for="(note, index) in notes" v-on:click="edit($event, note.id)" :data-id="note.id">
-          <i class="fa" v-on:click="select($event, index)" v-bind:class="{ 'fa-checkbox-o': note.checked, 'fa-checkbox': !note.checked }"></i>
-          <span class="title">{{ note.title }}</span>
-          <span class="date">{{ note.created_at }}</span>
-        </li>
-      </ul>
+      <list ref="list" v-bind:type="type"></list>
     </div>
   </div>
 </template>
 
 <script>
+  import List from './inc/List.vue';
   import { lsGet, lsSet } from './../../helpers.js';
-
   export default {
-    name: 'notes',
+    name: 'notes-list',
     data() {
       return {
-        notes: [],
+        type: 'notes',
         selectedAll: false,
         sidebarWidth: 'lg'
       }
     },
+    components: {
+      'list': List
+    },
     mounted: function() {
       this.$parent.$refs.sidebar.highlightMenu();
-      this.init();
       this.sidebarWidth = lsGet('sidebar_width');
     },
     methods: {
-      /**
-       * Initialize base params
-       */
-      init() {
-        let lsNotes = lsGet('notes');
-        this.notes = [];
-        if (lsNotes != null) {
-          for (let i = 0; i < lsNotes.length; i++) {
-            if (lsNotes[i].type == 'notes') {
-              this.notes.push(lsNotes[i]);
-            }
-          }
-        }
-      },
-      /**
-       * Edit note
-       */
-      edit(e, id) {
-        if (e.target.classList.contains('fa')) {
-          return;
-        }
-        this.$parent.$refs.form.show(id);
-      },
-      /**
-       * Select note
-       */
-      select(e, index) {
-        this.notes[index].checked = (!this.notes[index].checked) ? true : false;
-      },
       /**
        * Select all notes
        */
@@ -81,11 +48,11 @@
           status = 'off';
         }
         // reset checked values
-        for (let i = 0; i < this.notes.length; i++) {
-          if (status == 'on' && !this.notes[i].checked) {
-            this.notes[i].checked = true;
-          } else if (status == 'off' && this.notes[i].checked) {
-            this.notes[i].checked = false;
+        for (let i = 0; i < this.$refs.list.items.length; i++) {
+          if (status == 'on' && !this.$refs.list.items[i].checked) {
+            this.$refs.list.items[i].checked = true;
+          } else if (status == 'off' && this.$refs.list.items[i].checked) {
+            this.$refs.list.items[i].checked = false;
           }
         }
       },
@@ -96,9 +63,9 @@
         e.preventDefault();
         let selected = [];
         let lsNotes = lsGet('notes');
-        for (let i = 0; i < this.notes.length; i++) {
-          if (this.notes[i].checked) {
-            selected.push(this.notes[i].id);
+        for (let i = 0; i < this.$refs.list.items.length; i++) {
+          if (this.$refs.list.items[i].checked) {
+            selected.push(this.$refs.list.items[i].id);
           }
         }
         if (selected.length > 0 && lsNotes != null) {
@@ -113,7 +80,7 @@
             }
           }
           lsSet('notes', lsNotes);
-          this.init();
+          this.$refs.list.init();
         }
         this.selectedAll = false;
       }
