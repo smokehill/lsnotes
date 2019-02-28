@@ -1,34 +1,38 @@
 <template>
-  <div id="content">
+  <div class="content" v-bind:class="{ 'lg': sidebarWidth == 'sm' }">
     <div class="content-header">
       <h4 class="title">Settings</h4>
     </div>
     <div class="content-body">
       <div class="storage-info">
         <span class="storage-info-title">Local Storage</span>
-        <span class="storage-info-text"><b>Total:</b> {{ storage_info.total }} MB, <b>Usage:</b> {{ storage_info.used }} MB</span>
+        <span class="storage-info-text">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</span>
         <div class="storage-info-progress">
-          <div class="storage-info-progress-bar" :style="'width:'+storage_info.progress+'%'"></div>
+          <div class="storage-info-progress-bar" :style="'width:'+storageInfo.progress+'%'"></div>
         </div>
+      </div>
+      <div class="sidebar-settings">
+        <i class="fa" v-bind:class="{ 'fa-sidebar-sm': sidebarWidth == 'sm', 'fa-sidebar-lg': sidebarWidth == 'lg' }" v-on:click="toggleSidebarWidth($event)"></i>
+        <span>Toggle sidebar</span>
       </div>
       <div class="storage-management">
         <ul>
           <li>
             <a href="#" id="export-btn" v-on:click="exportNotes($event)">
-              <img src="dist/img/icons/settings_storage_export.png" alt="export" />
+              <i class="fa fa-export"></i>
               <span>Export</span>
             </a>
-            <a :href="export_data.href" :download="export_data.download" id="export-content" ref="exportBtn"></a>
+            <a :href="exportData.href" :download="exportData.download" id="export-content" ref="exportBtn"></a>
           </li>
           <li>
             <div class="import-block">
               <label for="import-file" id="import-btn">
-                <img src="dist/img/icons/settings_storage_import.png" alt="import" />
+                <i class="fa fa-import"></i>
                 <span>Import</span>
               </label>
               <input type="file" name="photo" id="import-file" accept="application/json" v-import-file />
               <a href="#" id="import-start-btn" v-on:click="importNotes($event)">Go</a>
-              <span>{{ import_data.name }}</span>
+              <span>{{ importData.name }}</span>
             </div>
           </li>
         </ul>
@@ -45,16 +49,17 @@
     name: 'settings',
     data() {
       return {
-        storage_info: {
+        sidebarWidth: 'lg',
+        storageInfo: {
           total: '',
           used: '',
           progress: 0
         },
-        import_data: {
+        importData: {
           name: 'No file',
           data: {},
         },
-        export_data: {
+        exportData: {
           href: '',
           download: 'ms_notes.json'
         },
@@ -66,9 +71,10 @@
       }
     },
     mounted: function() {
-      this.$parent.$refs.sidebarMenu.highlight();
+      this.$parent.$refs.sidebar.highlightMenu();
       this.initStorageInfo();
       this.initExport();
+      this.sidebarWidth = lsGet('sidebar_width');
     },
     directives: {
       'import-file': {
@@ -92,14 +98,19 @@
       }
     },
     methods: {
+      toggleSidebarWidth() {
+        this.sidebarWidth = (this.sidebarWidth == 'sm') ? 'lg' : 'sm';
+        this.$parent.$refs.sidebar.width = this.sidebarWidth;
+        lsSet('sidebar_width', this.sidebarWidth);
+      },
       /**
        * Prepare LS usage info
        */
       initStorageInfo() {
         // approximate Chrome LS size is 10 MB
-        this.storage_info.total = 10;
-        this.storage_info.used = this.__calcUsedSpace();
-        this.storage_info.progress = this.__calcProgress();
+        this.storageInfo.total = 10;
+        this.storageInfo.used = this.__calcUsedSpace();
+        this.storageInfo.progress = this.__calcProgress();
       },
       /**
        * Export notes from LS into json file
@@ -107,7 +118,7 @@
       initExport() {
         let lsNotes = JSON.stringify(lsGet('notes'));
         // save the file contents as a DataURI and write it as the href for the link
-        this.export_data.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(lsNotes);
+        this.exportData.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(lsNotes);
       },
       /**
        * Export notes from LS into json file
@@ -128,7 +139,7 @@
       importNotes(e) {
         e.preventDefault();
         let lsNotes = [];
-        let data = this.import_data.data;
+        let data = this.importData.data;
         if (data.length == undefined || data.length == 0) {
           return false;
         }
@@ -185,16 +196,16 @@
        * Set import data
        */
       __setImportData(name, data) {
-        this.import_data.name = name;
-        this.import_data.data = data;
+        this.importData.name = name;
+        this.importData.data = data;
       },
       /**
        * @internal
        * Clear import data
        */
       __clearImportData() {
-        this.import_data.name = 'No file';
-        this.import_data.data = {};
+        this.importData.name = 'No file';
+        this.importData.data = {};
       },
       /**
        * @internal
@@ -204,7 +215,7 @@
           let isValid = true;
           const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at', 'checked'];
           const noteTypes = ['notes', 'trash'];
-          const data = this.import_data.data;
+          const data = this.importData.data;
           if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {
               if (Object.keys(data[i]).length == 7

@@ -1,16 +1,20 @@
 <template>
-  <div id="content">
+  <div class="content" v-bind:class="{ 'lg': sidebarWidth == 'sm' }">
     <div class="content-header fixed">
       <h4 class="title">Notes</h4>
       <ol class="breadcrumb">
-        <li><a href="#" class="breadcrumb-checkbox" v-on:click="selectAll($event)" v-bind:class="{ on: selectedAll }" title="Select all"></a></li>
-        <li><a href="#" class="breadcrumb-trash" v-on:click="deleteSelected($event)" title="Delete selected"></a></li>
+        <li v-on:click="selectAll($event)">
+          <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }" title="Select all"></i>
+        </li>
+        <li v-on:click="deleteSelected($event)">
+          <i class="fa fa-trash"></i>
+        </li>
       </ol>
     </div>
     <div class="content-body fixed">
       <ul class="list" v-if="notes.length > 0">
         <li v-for="(note, index) in notes" v-on:click="edit($event, note.id)" :data-id="note.id">
-          <span class="checkbox" v-on:click="select($event, index)" v-bind:class="{ on: note.checked }"></span>
+          <i class="fa" v-on:click="select($event, index)" v-bind:class="{ 'fa-checkbox-o': note.checked, 'fa-checkbox': !note.checked }"></i>
           <span class="title">{{ note.title }}</span>
           <span class="date">{{ note.created_at }}</span>
         </li>
@@ -27,12 +31,14 @@
     data() {
       return {
         notes: [],
-        selectedAll: false
+        selectedAll: false,
+        sidebarWidth: 'lg'
       }
     },
     mounted: function() {
-      this.$parent.$refs.sidebarMenu.highlight();
+      this.$parent.$refs.sidebar.highlightMenu();
       this.init();
+      this.sidebarWidth = lsGet('sidebar_width');
     },
     methods: {
       /**
@@ -53,7 +59,7 @@
        * Edit note
        */
       edit(e, id) {
-        if (e.target.classList.contains('checkbox')) {
+        if (e.target.classList.contains('fa')) {
           return;
         }
         this.$parent.$refs.form.show(id);

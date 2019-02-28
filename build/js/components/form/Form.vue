@@ -1,17 +1,23 @@
 <template>
-  <div class="form" v-bind:class="{ hidden: classes.isHidden, sm: classes.isMini, lg: classes.isFullScreen  }" ref="form" v-fix-form>
+  <div class="form" v-bind:class="{ 'hidden': classes.isHidden, 'sm': classes.isMini, 'lg': classes.isFullScreen  }" ref="form" v-fix-form>
     <div class="form-wrapper">
       <div class="form-header">
         <span class="text">{{ headerType }}</span>
         <ul class="controls">
-          <li><a href="#" class="form-show-hide" v-bind:class="{ on: classes.controls.isMini }" v-on:click="changeSize($event, 'height')"></a></li>
-          <li><a href="#" class="form-full-screen" v-bind:class="{ on: classes.controls.isFullScreen }" v-on:click="changeSize($event, 'width')"></a></li>
-          <li><a href="#" class="form-close" v-on:click="close($event)"></a></li>
+          <li v-on:click="changeSize($event, 'height')">
+            <i class="fa" v-bind:class="{ 'fa-show-hide-o': classes.controls.isMini, 'fa-show-hide': !classes.controls.isMini }"></i>
+          </li>
+          <li v-on:click="changeSize($event, 'width')">
+            <i class="fa" v-bind:class="{ 'fa-full-screen-o': classes.controls.isFullScreen, 'fa-full-screen': !classes.controls.isFullScreen }"></i>
+          </li>
+          <li v-on:click="close($event)">
+              <i class="fa fa-close"></i>
+          </li>
         </ul>
       </div>
       <div class="form-body">
-        <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ invalid: classes.inputs.isTitleInvalid }" v-bind:style="{ width: styles.titleWidth + 'px' }">
-        <textarea v-model="note.content" v-bind:class="{ invalid: classes.inputs.isContentInvalid }"  v-bind:style="{ width: styles.contentWidth + 'px', height: styles.contentHeight + 'px' }"></textarea>
+        <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ 'invalid': classes.inputs.isTitleInvalid }" v-bind:style="{ 'width': styles.titleWidth + 'px' }">
+        <textarea v-model="note.content" v-bind:class="{ 'invalid': classes.inputs.isContentInvalid }"  v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }"></textarea>
         <input type="hidden" v-model="note.id">
         <input type="hidden" v-model="note.type">
         <input type="hidden" v-model="note.created_at">

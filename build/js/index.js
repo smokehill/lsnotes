@@ -3,12 +3,12 @@ import VueRouter from 'vue-router';
 
 import { lsGet, lsSet } from './helpers.js';
 
-import Menu from './components/Menu.vue';
+import Sidebar from './components/Sidebar.vue';
+import Form from './components/form/Form.vue';
+import FormOverlay from './components/form/FormOverlay.vue';
 import Notes from './components/content/Notes.vue';
 import Trash from './components/content/Trash.vue';
 import Settings from './components/content/Settings.vue';
-import Form from './components/form/Form.vue';
-import FormOverlay from './components/form/FormOverlay.vue';
 
 Vue.use(VueRouter);
 
@@ -48,24 +48,15 @@ const app = new Vue({
   el: '#app',
   router: router,
   components: {
-    'sidebar-menu': Menu,
+    'sidebar': Sidebar,
     'form-modal': Form,
-    'form-modal-overlay': FormOverlay,
+    'form-modal-overlay': FormOverlay
   },
   created: function() {
     if (lsGet('notes') == null) {
       // init LS base params
       lsSet('notes', []);
-    }
-  },
-  methods: {
-    /**
-     * @external
-     * Open form
-     */
-    compose(e) {
-      e.preventDefault();
-      this.$refs.form.show();
+      lsSet('sidebar_width', 'lg');
     }
   }
 });

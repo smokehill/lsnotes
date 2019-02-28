@@ -9,15 +9,7 @@
 </head>
 <body>
   <div id="app">
-    <div id="sidebar">
-      <div class="compose">
-        <a href="#" class="compose-btn" v-on:click="compose">
-          <img src="dist/img/icons/sidebar_compose.png" alt="Compose" />
-          <span>Compose</span>
-        </a>
-      </div>
-      <sidebar-menu ref="sidebarMenu"></sidebar-menu>
-    </div>
+    <sidebar ref="sidebar"></sidebar>
     <router-view></router-view>
     <form-modal-overlay ref="formOverlay"></form-modal-overlay>
     <form-modal ref="form"></form-modal>

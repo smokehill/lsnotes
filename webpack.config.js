@@ -39,7 +39,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'img/icons/background',
+              outputPath: 'img/icons',
               name: '[name].[ext]',
           },
           },

@@ -78,44 +78,64 @@
         padding: 0;
         margin: 0;
         float: right;
-        margin-right: 8px;
+        margin-right: 16px;
   
         li {
           display: inline-block;
+          cursor: pointer;
+          margin-left: 10px;
   
-          a {
-            text-decoration: none;
-            padding: 12px 12px;
-  
-            &.form-show-hide {
+          i.fa {
+
+            &.fa-show-hide {
+              content: "";
+              display: block;
+              width: 12px;
+              height: 12px;
               background: url(../img/form_minimize.png);
               background-repeat: no-repeat;
               background-position: center;
               background-size: 12px 12px;
-  
-              &.on {
-                background: url(../img/form_maximize.png);
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: 12px 12px;
-              }
             }
   
-            &.form-full-screen {
+            &.fa-show-hide-o {
+              content: "";
+              display: block;
+              width: 12px;
+              height: 12px;
+              background: url(../img/form_maximize.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 12px 12px;
+            }
+
+            &.fa-full-screen {
+              content: "";
+              display: block;
+              width: 12px;
+              height: 12px;
               background: url(../img/form_full_screen.png);
               background-repeat: no-repeat;
               background-position: center;
               background-size: 12px 12px;
-  
-              &.on {
-                background: url(../img/form_full_screen_exit.png);
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: 12px 12px;
-              }
             }
-  
-            &.form-close {
+
+            &.fa-full-screen-o {
+              content: "";
+              display: block;
+              width: 12px;
+              height: 12px;
+              background: url(../img/form_full_screen_exit.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 12px 12px;
+            }
+
+            &.fa-close {
+              content: "";
+              display: block;
+              width: 12px;
+              height: 12px;
               background: url(../img/form_close.png);
               background-repeat: no-repeat;
               background-position: center;

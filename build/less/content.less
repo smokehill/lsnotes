@@ -1,4 +1,4 @@
-#content {
+.content {
   position: absolute;
   top: 0;
   left: 0;
@@ -7,6 +7,17 @@
   padding: 15px 0;
   margin-left: 220px;
   background: @body-bg;
+
+  &.lg {
+    margin-left: 68px;
+
+    .content-header {
+
+      &.fixed {
+        left: 68px;
+      }
+    }
+  }
 
   .content-header {
     margin-top: -15px;
@@ -39,9 +50,9 @@
       li {
         display: inline-block;
         line-height: 32px;
+        cursor: pointer;
 
-        a {
-          text-decoration: none;
+        i.fa {
           padding: 8px 18px;
           opacity: 0.6;
   
@@ -49,28 +60,40 @@
             opacity: 0.8;
           }
   
-          &.breadcrumb-checkbox {
+          &.fa-checkbox {
+            content: "";
+            display: block;
+            height: 17px;
             background: url(../img/breadcramb_checkbox.png);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 17px 17px;
-  
-            &.on {
-              background: url(../img/breadcramb_checkbox_on.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 17px 17px;
-            }
+          }
+
+          &.fa-checkbox-o {
+            content: "";
+            display: block;
+            height: 17px;
+            background: url(../img/breadcramb_checkbox_on.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px 17px;
           }
   
-          &.breadcrumb-trash {
+          &.fa-trash {
+            content: "";
+            display: block;
+            height: 17px;
             background: url(../img/breadcramb_trash.png);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 17px 17px;
           }
 
-          &.breadcrumb-restore {
+          &.fa-restore {
+            content: "";
+            display: block;
+            height: 17px;
             background: url(../img/breadcramb_restore.png);
             background-repeat: no-repeat;
             background-position: center;
@@ -97,56 +120,254 @@
       li {
         display: block;
         border-bottom: 1px solid @hr-tag;
-        padding: 12px 0;
+        padding: 12px 20px;
         color: lighten(@text-color, 15%);
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        position: relative;
   
-        span.checkbox {
-          padding: 10px 2px 10px 16px;
-          background: url(../img/breadcramb_checkbox.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 17px 17px;
-          opacity: 0.2;
-          margin-left: 20px;
-  
-          &:hover {
-            opacity: 0.8;
+        i.fa {
+          margin-right: 16px;
+          opacity: 0.4;
+
+          &.fa-checkbox:before {
+            content: "";
+            display: block;
+            width: 17px;
+            height: 17px;
+            background-image: url(../img/breadcramb_checkbox.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px 17px;
           }
-  
-          &.on {
-            background: url(../img/breadcramb_checkbox_on.png);
+
+          &.fa-checkbox-o:before {
+            content: "";
+            display: block;
+            width: 17px;
+            height: 17px;
+            background-image: url(../img/breadcramb_checkbox_on.png);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 17px 17px;
           }
         }
   
-        span.title {
-          display: inline-block;
-          margin-left: 16px;
-        }
-  
-        span.date {
-          float: right;
-          display: inline-block;
-          margin-right: 20px;
-        }
-  
         &:hover {
           color: darken(@text-color, 10%);
 
-          span.checkbox {
-            opacity: 0.6;
+          i.fa {
+            opacity: 0.8;
           }
         }
   
         &:focus {
           color: darken(@text-color, 3%);
 
-          span.checkbox {
-            opacity: 0.6;
+          i.fa {
+            opacity: 0.8;
           }
+        }
+
+        span.date {
+          position: absolute;
+          right: 16px;
+        }
+      }
+    }
+
+    // Settings 
+
+    .sidebar-settings {
+      display: flex;
+      align-items: center;
+      margin: 10px 20px;
+
+      i.fa {
+        margin-right: 10px;
+        opacity: 0.8;
+        cursor: pointer;
+
+        &.fa-sidebar-sm:before {
+          content: "";
+          display: block;
+          width: 32px;
+          height: 32px;
+          background-image: url(../img/settings_sidebar_sm.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 32px 32px;
+        }
+
+        &.fa-sidebar-lg:before {
+          content: "";
+          display: block;
+          width: 32px;
+          height: 32px;;
+          background-image: url(../img/settings_sidebar_lg.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 32px 32px;
+        }
+      }
+    }
+
+    .storage-info {
+      display: block;
+      height: 80px;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: 0 20px 0 20px;
+    
+      .storage-info-title {
+        display: block;
+        font-size: 14px;
+        padding-top: 10px;
+        text-transform: uppercase;
+      }
+    
+      .storage-info-text {
+        display: block;
+        font-size: 13px;
+        padding: 6px 0;
+      }
+    
+      .storage-info-progress {
+        display: block;
+        background-color: #e6e6e6;
+        height: 6px;
+    
+        .storage-info-progress-bar {
+          background-color: #a6a6a6;
+          height: 6px;
+        }
+      }
+    }
+
+    .storage-management {
+      margin: 20px;
+
+      > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          margin-right: 5px;
+        }
+      }
+
+      .sm-message {
+        color: @text-color;
+        font-size: 13px;
+        padding: 6px 0;
+
+        &.success {
+          color: #3c763d;
+        }
+
+        &.warning {
+          color: #8a6d3b;
+        }
+
+        &.danger {
+          color: #a94442;
+        }
+      }
+
+      #export-btn {
+        text-decoration: none;
+        padding: 8px 12px;
+        background-color: #f5f5f5;
+        border: 1px solid #dcdcdc;
+        border-radius: 3px;
+        color: @text-color;
+        font-weight: bold;
+        font-size: 13px;
+        position: relative;
+
+        i.fa {
+          margin-right: 10px;
+          opacity: 0.8;
+          position: absolute;
+
+          &.fa-export:before {
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            background-image: url(../img/settings_export.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 16px 16px;
+          }
+        }
+
+        span {
+          margin-left: 20px;
+        }
+      }
+
+      #export-content {
+        display: none;
+      }
+
+      .import-block {
+        display: inline-block;
+
+        input[type='file'] {
+          display: none;
+        }
+
+        #import-btn {
+          padding: 8px 12px;
+          background-color: #f5f5f5;
+          border: 1px solid #dcdcdc;
+          color: @text-color;
+          font-weight: bold;
+          font-size: 13px;
+          position: relative;
+          cursor: pointer;
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+
+          i.fa {
+            margin-right: 10px;
+            opacity: 0.8;
+            position: absolute;
+
+            &.fa-import:before {
+              content: "";
+              display: block;
+              width: 16px;
+              height: 16px;
+              background-image: url(../img/settings_import.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 16px 16px;
+            }
+          }
+      
+          span {
+            margin-left: 20px;
+          }
+        }
+
+        #import-start-btn {
+          text-decoration: none;
+          padding: 8px 12px;
+          background-color: #f5f5f5;
+          border: 1px solid #dcdcdc;
+          color: @text-color;
+          font-weight: bold;
+          font-size: 13px;
+          position: relative;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+          margin-left: -5px;
+          margin-right: 5px;
         }
       }
     }
