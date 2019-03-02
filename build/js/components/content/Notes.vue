@@ -4,7 +4,7 @@
       <h4 class="title">Notes</h4>
       <ol class="breadcrumb">
         <li v-on:click="selectAll($event)">
-          <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }" title="Select all"></i>
+          <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }"></i>
         </li>
         <li v-on:click="deleteSelected($event)">
           <i class="fa fa-trash"></i>

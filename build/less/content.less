@@ -6,7 +6,7 @@
   bottom: 0;
   padding: 15px 0;
   margin-left: 220px;
-  background: @body-bg;
+  background: #f5f5f5;
 
   &.lg {
     margin-left: 68px;
@@ -21,6 +21,7 @@
 
   .content-header {
     margin-top: -15px;
+    background: @body-bg;
 
     &.fixed {
       position: fixed;
@@ -28,28 +29,23 @@
       top: 0;
       left: 220px;
       right: 0;
-      height: 90px;
-      background: @body-bg;
       border-bottom: 1px solid @hr-tag;
       margin-top: 0;
     }
 
     h4.title {
-      margin-top: 15px;
-      margin-bottom: 8px;
-      padding-left: 20px;
-      padding-bottom: 10px;
+      margin: 0;
+      padding: 12px 20px;
       border-bottom: 1px solid #eee;
     }
     
     ol.breadcrumb {
       list-style: none;
-      margin: 0 10px;
+      margin: 6px 10px;
       padding: 0;
   
       li {
         display: inline-block;
-        line-height: 32px;
         cursor: pointer;
 
         i.fa {
@@ -63,7 +59,7 @@
           &.fa-checkbox {
             content: "";
             display: block;
-            height: 17px;
+            height: 10px;
             background: url(../img/breadcramb_checkbox.png);
             background-repeat: no-repeat;
             background-position: center;
@@ -73,7 +69,7 @@
           &.fa-checkbox-o {
             content: "";
             display: block;
-            height: 17px;
+            height: 10px;
             background: url(../img/breadcramb_checkbox_on.png);
             background-repeat: no-repeat;
             background-position: center;
@@ -83,7 +79,7 @@
           &.fa-trash {
             content: "";
             display: block;
-            height: 17px;
+            height: 10px;
             background: url(../img/breadcramb_trash.png);
             background-repeat: no-repeat;
             background-position: center;
@@ -93,7 +89,7 @@
           &.fa-restore {
             content: "";
             display: block;
-            height: 17px;
+            height: 10px;
             background: url(../img/breadcramb_restore.png);
             background-repeat: no-repeat;
             background-position: center;
@@ -108,7 +104,7 @@
     margin-top: 10px;
 
     &.fixed {
-      margin-top: 76px;
+      margin-top: 68px;
     }
 
 
@@ -121,7 +117,7 @@
         display: block;
         border-bottom: 1px solid @hr-tag;
         padding: 12px 20px;
-        color: lighten(@text-color, 15%);
+        color: @text-color;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -129,7 +125,7 @@
   
         i.fa {
           margin-right: 16px;
-          opacity: 0.4;
+          opacity: 0.2;
 
           &.fa-checkbox:before {
             content: "";
@@ -154,26 +150,37 @@
           }
         }
   
+        span.date {
+          position: absolute;
+          right: 16px;
+          opacity: 0.4;
+        }
+
         &:hover {
-          color: darken(@text-color, 10%);
+          background-color: #f0f0f0;
 
           i.fa {
-            opacity: 0.8;
+            opacity: 0.6;
+          }
+
+          span.date {
+            opacity: 1;
           }
         }
   
         &:focus {
-          color: darken(@text-color, 3%);
+          background-color: #f0f0f0;
 
           i.fa {
-            opacity: 0.8;
+            opacity: 0.6;
+          }
+
+          span.date {
+            opacity: 1;
           }
         }
 
-        span.date {
-          position: absolute;
-          right: 16px;
-        }
+
       }
     }
     
@@ -190,7 +197,7 @@
           float: left;
           display: inline-block;
           width: 140px;
-          color: lighten(@text-color, 25%);
+          color: @text-color;
         }
 
         .settings-item-content {

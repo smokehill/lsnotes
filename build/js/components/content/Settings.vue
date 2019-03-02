@@ -6,7 +6,7 @@
     <div class="content-body">
       <div class="settings-items">
         <div class="settings-item-row">
-          <div class="settings-item-lable">Local Storage:</div>
+          <div class="settings-item-lable">Local storage:</div>
           <div class="settings-item-content">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</div>
         </div>
         <div class="settings-item-row">
