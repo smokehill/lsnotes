@@ -1,42 +1,39 @@
 <template>
-  <div class="content" v-bind:class="{ 'lg': sidebarWidth == 'sm' }">
+  <div class="content" v-bind:class="{ 'lg': isSidebarMini }">
     <div class="content-header">
       <h4 class="title">Settings</h4>
     </div>
     <div class="content-body">
-      <div class="storage-info">
-        <span class="storage-info-title">Local Storage</span>
-        <span class="storage-info-text">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</span>
-        <div class="storage-info-progress">
-          <div class="storage-info-progress-bar" :style="'width:'+storageInfo.progress+'%'"></div>
+      <div class="settings-items">
+        <div class="settings-item-row">
+          <div class="settings-item-lable">Local Storage:</div>
+          <div class="settings-item-content">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</div>
         </div>
-      </div>
-      <div class="sidebar-settings">
-        <i class="fa" v-bind:class="{ 'fa-sidebar-sm': sidebarWidth == 'sm', 'fa-sidebar-lg': sidebarWidth == 'lg' }" v-on:click="toggleSidebarWidth($event)"></i>
-        <span>Toggle sidebar</span>
-      </div>
-      <div class="storage-management">
-        <ul>
-          <li>
-            <a href="#" id="export-btn" v-on:click="exportNotes($event)">
-              <i class="fa fa-export"></i>
-              <span>Export</span>
-            </a>
-            <a :href="exportData.href" :download="exportData.download" id="export-content" ref="exportBtn"></a>
-          </li>
-          <li>
+        <div class="settings-item-row">
+          <div class="settings-item-lable">Sidebar mini:</div>
+          <div class="settings-item-content">
+              <a href="#" class="sidebar-mini-btn" v-bind:class="{ 'active': isSidebarMini }" v-on:click="toggleIsSidebarMini($event)">ON</a>
+              <a href="#" class="sidebar-mini-btn" v-bind:class="{ 'active': !isSidebarMini }" v-on:click="toggleIsSidebarMini($event)">OFF</a>
+          </div>
+        </div>
+        <div class="settings-item-row">
+          <div class="settings-item-lable">Export:</div>
+          <div class="settings-item-content">
+            <a :href="exportData.href" class="export-btn" :download="exportData.download" v-on:click="exportNotes($event)">Go</a>
+          </div>
+        </div>
+        <div class="settings-item-row">
+          <div class="settings-item-lable">Import:</div>
+          <div class="settings-item-content">
             <div class="import-block">
-              <label for="import-file" id="import-btn">
-                <i class="fa fa-import"></i>
-                <span>Import</span>
-              </label>
+              <label for="import-file" class="import-btn">Chose file</label>
               <input type="file" name="photo" id="import-file" accept="application/json" v-import-file />
-              <a href="#" id="import-start-btn" v-on:click="importNotes($event)">Go</a>
+              <a href="#" class="import-start-btn" v-on:click="importNotes($event)">Go</a>
               <span>{{ importData.name }}</span>
             </div>
-          </li>
-        </ul>
-        <p v-if="message.on" :class="'sm-message ' + message.type">{{message.text}}</p>
+          </div>
+        </div>
+        <p v-if="message.on" :class="message.type">{{ message.text }}</p>
       </div>
     </div>
   </div>
@@ -48,11 +45,10 @@
     name: 'settings',
     data() {
       return {
-        sidebarWidth: 'lg',
+        isSidebarMini: false,
         storageInfo: {
           total: '',
-          used: '',
-          progress: 0
+          used: ''
         },
         importData: {
           name: 'No file',
@@ -73,7 +69,7 @@
       this.$parent.$refs.sidebar.highlightMenu();
       this.initStorageInfo();
       this.initExport();
-      this.sidebarWidth = lsGet('sidebar_width');
+      this.isSidebarMini = lsGet('sidebar_mini');
     },
     directives: {
       'import-file': {
@@ -86,21 +82,22 @@
             if (file.type == 'application/json') {
               reader.onload = function() {
                 vnode.context.__setImportData(file.name, JSON.parse(reader.result));
-                vnode.context.__enableMessage('success', 'File is ready for upload. Press "Go" to continue.');
+                vnode.context.__enableMessage('success', 'File is ready for import. Press "Go" to continue.');
               };
               reader.readAsText(file);
             } else {
-              vnode.context.__enableMessage('danger', 'Unable to upload a file.');
+              vnode.context.__enableMessage('danger', 'Unable to import a file.');
             }
           });
         }
       }
     },
     methods: {
-      toggleSidebarWidth() {
-        this.sidebarWidth = (this.sidebarWidth == 'sm') ? 'lg' : 'sm';
-        this.$parent.$refs.sidebar.width = this.sidebarWidth;
-        lsSet('sidebar_width', this.sidebarWidth);
+      toggleIsSidebarMini(e) {
+        e.preventDefault();
+        this.isSidebarMini = (this.isSidebarMini) ? false : true;
+        this.$parent.$refs.sidebar.isMini= this.isSidebarMini;
+        lsSet('sidebar_mini', this.isSidebarMini);
       },
       /**
        * Prepare LS usage info
@@ -109,7 +106,6 @@
         // approximate Chrome LS size is 10 MB
         this.storageInfo.total = 10;
         this.storageInfo.used = this.__calcUsedSpace();
-        this.storageInfo.progress = this.__calcProgress();
       },
       /**
        * Export notes from LS into json file
@@ -118,19 +114,6 @@
         let lsNotes = JSON.stringify(lsGet('notes'));
         // save the file contents as a DataURI and write it as the href for the link
         this.exportData.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(lsNotes);
-      },
-      /**
-       * Export notes from LS into json file
-       */
-      exportNotes(e) {
-        e.preventDefault();
-        const self = this;
-        self.__disableMessage();
-        self.__enableMessage('warning', 'Processing...');
-        setTimeout(function() {
-          self.$refs.exportBtn.click();
-          self.__enableMessage('success', 'Export successfully finished.');
-        }, 2000);
       },
       /**
        * Import notes into LS from json file
@@ -142,17 +125,22 @@
         if (data.length == undefined || data.length == 0) {
           return false;
         }
-        this.__enableMessage('warning', 'Processing...');
         if (this.__validateImport()) {
           for (let i = 0; i < data.length; i++) {
             lsNotes.push(data[i]);
           }
           lsSet('notes', lsNotes);
-          this.__enableMessage('success', 'Import successfully finished.');
+          this.__enableMessage('success', 'Import finished.');
         } else {
-          this.__enableMessage('danger', 'Import has been failed.');
+          this.__enableMessage('danger', 'Import failed.');
         }
         this.__clearImportData();
+      },
+      /**
+       * Export notes from LS into json file
+       */
+      exportNotes(e) {
+        this.__enableMessage('success', 'Export finished.');
       },
       /**
        * @internal
@@ -161,16 +149,7 @@
       __calcUsedSpace() {
         let total = JSON.stringify(localStorage).length;
         total = (total * 2) / 1024 / 1024;
-        return total.toFixed(2);
-      },
-      /**
-       * @internal
-       * Calculate LS usaged space in perc
-       */
-      __calcProgress() {
-        let total = (10 * this.__calcUsedSpace()) / 100;
-        total = total * 100;
-        return total;
+        return total.toFixed(0);
       },
       /**
        * @internal

@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" v-bind:class="{ 'sm': width == 'sm' }">
+  <div class="sidebar" v-bind:class="{ 'sm': isMini }">
     <div class="compose">
       <a href="#" class="compose-btn" v-on:click="compose">
         <i class="fa fa-compose"></i>
@@ -23,31 +23,28 @@
     name: 'sidebar',
     data() {
       return {
-        width: 'lg',
+        isMini: false,
         menu: [
           {
             name: 'Notes',
             path: '#/notes',
-            image: 'dist/img/icons/sidebar_notes.png',
             isActive: false
           },
           {
             name: 'Trash',
             path: '#/trash',
-            image: 'dist/img/icons/sidebar_trash.png',
             isActive: false
           },
           {
             name: 'Settings',
             path: '#/settings',
-            image: 'dist/img/icons/sidebar_settings.png',
             isActive: false
           },
         ]
       }
     },
     mounted: function() {
-      this.width = lsGet('sidebar_width');
+      this.isMini = lsGet('sidebar_mini');
     },
     methods: {
       /**

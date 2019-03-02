@@ -1,5 +1,5 @@
 <template>
-  <div class="content" v-bind:class="{ 'lg': sidebarWidth == 'sm' }">
+  <div class="content" v-bind:class="{ 'lg': isSidebarMini }">
     <div class="content-header fixed">
       <h4 class="title">Notes</h4>
       <ol class="breadcrumb">
@@ -26,7 +26,7 @@
       return {
         type: 'notes',
         selectedAll: false,
-        sidebarWidth: 'lg'
+        isSidebarMini: false
       }
     },
     components: {
@@ -34,7 +34,7 @@
     },
     mounted: function() {
       this.$parent.$refs.sidebar.highlightMenu();
-      this.sidebarWidth = lsGet('sidebar_width');
+      this.isSidebarMini = lsGet('sidebar_mini');
     },
     methods: {
       /**

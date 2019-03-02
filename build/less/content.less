@@ -176,198 +176,126 @@
         }
       }
     }
-
-    // Settings 
-
-    .sidebar-settings {
-      display: flex;
-      align-items: center;
-      margin: 10px 20px;
-
-      i.fa {
-        margin-right: 10px;
-        opacity: 0.8;
-        cursor: pointer;
-
-        &.fa-sidebar-sm:before {
-          content: "";
-          display: block;
-          width: 32px;
-          height: 32px;
-          background-image: url(../img/settings_sidebar_sm.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 32px 32px;
-        }
-
-        &.fa-sidebar-lg:before {
-          content: "";
-          display: block;
-          width: 32px;
-          height: 32px;;
-          background-image: url(../img/settings_sidebar_lg.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 32px 32px;
-        }
-      }
-    }
-
-    .storage-info {
-      display: block;
-      height: 80px;
-      white-space: nowrap;
-      overflow: hidden;
-      margin: 0 20px 0 20px;
     
-      .storage-info-title {
+    .settings-items {
+
+      .settings-item-row {
         display: block;
-        font-size: 14px;
-        padding-top: 10px;
-        text-transform: uppercase;
-      }
-    
-      .storage-info-text {
-        display: block;
-        font-size: 13px;
-        padding: 6px 0;
-      }
-    
-      .storage-info-progress {
-        display: block;
-        background-color: #e6e6e6;
-        height: 6px;
-    
-        .storage-info-progress-bar {
-          background-color: #a6a6a6;
-          height: 6px;
-        }
-      }
-    }
+        border-bottom: 1px solid #eee;
+        height: 46px;
+        line-height: 46px;
+        margin: 0 20px;
 
-    .storage-management {
-      margin: 20px;
-
-      > ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-
-        li {
+        .settings-item-lable {
+          float: left;
           display: inline-block;
-          margin-right: 5px;
+          width: 140px;
+          color: lighten(@text-color, 25%);
+        }
+
+        .settings-item-content {
+          display: inline-block;
+
+          .sidebar-mini-btn {
+            text-decoration: none;
+            padding: 2px 8px;
+            background-color: #4d4d4d;
+            border: 1px solid #4d4d4d;
+            color: @body-bg;
+            font-weight: bold;
+            font-size: 12px;
+
+            &:first-child {
+              border-top-left-radius: 3px;
+              border-bottom-left-radius: 3px;
+            }
+
+            &:last-child {
+              margin-left: -5px;
+              border-top-right-radius: 3px;
+              border-bottom-right-radius: 3px;
+            }
+
+            &.active {
+              background-color: #5c85d6;
+              border: 1px solid #5c85d6;
+              color: @body-bg;
+            }
+          }
+
+          .export-btn {
+            text-decoration: none;
+            padding: 6px 12px;
+            background-color: #f5f5f5;
+            border: 1px solid #dcdcdc;
+            border-radius: 3px;
+            color: @text-color;
+            font-weight: bold;
+            font-size: 13px;
+
+            &:hover {
+              color: @text-color;
+              background: darken(@body-bg, 5%);
+            }
+          }
+    
+          .export-content {
+            display: none;
+          }
+    
+          .import-block {
+            display: inline-block;
+    
+            input[type='file'] {
+              display: none;
+            }
+    
+            .import-btn {
+              padding: 6px 12px;
+              background-color: #f5f5f5;
+              border: 1px solid #dcdcdc;
+              color: @text-color;
+              font-weight: bold;
+              cursor: pointer;
+              border-radius: 3px;
+              font-size: 13px;
+
+              &:hover {
+                color: @text-color;
+                background: darken(@body-bg, 5%);
+              }
+            }
+    
+            .import-start-btn {
+              text-decoration: none;
+              padding: 6px 12px;
+              background-color: #f5f5f5;
+              border: 1px solid #dcdcdc;
+              color: @text-color;
+              font-weight: bold;
+              border-radius: 3px;
+              margin-right: 5px;
+              font-size: 13px;
+
+              &:hover {
+                color: @text-color;
+                background: darken(@body-bg, 5%);
+              }
+            }
+          }
         }
       }
 
-      .sm-message {
-        color: @text-color;
-        font-size: 13px;
-        padding: 6px 0;
+      p {
+
+        padding: 0 20px;
 
         &.success {
           color: #3c763d;
         }
 
-        &.warning {
-          color: #8a6d3b;
-        }
-
         &.danger {
           color: #a94442;
-        }
-      }
-
-      #export-btn {
-        text-decoration: none;
-        padding: 8px 12px;
-        background-color: #f5f5f5;
-        border: 1px solid #dcdcdc;
-        border-radius: 3px;
-        color: @text-color;
-        font-weight: bold;
-        font-size: 13px;
-        position: relative;
-
-        i.fa {
-          margin-right: 10px;
-          opacity: 0.8;
-          position: absolute;
-
-          &.fa-export:before {
-            content: "";
-            display: block;
-            width: 16px;
-            height: 16px;
-            background-image: url(../img/settings_export.png);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 16px 16px;
-          }
-        }
-
-        span {
-          margin-left: 20px;
-        }
-      }
-
-      #export-content {
-        display: none;
-      }
-
-      .import-block {
-        display: inline-block;
-
-        input[type='file'] {
-          display: none;
-        }
-
-        #import-btn {
-          padding: 8px 12px;
-          background-color: #f5f5f5;
-          border: 1px solid #dcdcdc;
-          color: @text-color;
-          font-weight: bold;
-          font-size: 13px;
-          position: relative;
-          cursor: pointer;
-          border-top-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-
-          i.fa {
-            margin-right: 10px;
-            opacity: 0.8;
-            position: absolute;
-
-            &.fa-import:before {
-              content: "";
-              display: block;
-              width: 16px;
-              height: 16px;
-              background-image: url(../img/settings_import.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 16px 16px;
-            }
-          }
-      
-          span {
-            margin-left: 20px;
-          }
-        }
-
-        #import-start-btn {
-          text-decoration: none;
-          padding: 8px 12px;
-          background-color: #f5f5f5;
-          border: 1px solid #dcdcdc;
-          color: @text-color;
-          font-weight: bold;
-          font-size: 13px;
-          position: relative;
-          border-top-right-radius: 3px;
-          border-bottom-right-radius: 3px;
-          margin-left: -5px;
-          margin-right: 5px;
         }
       }
     }

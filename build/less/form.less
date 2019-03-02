@@ -71,6 +71,7 @@
   
       .text {
         margin-left: 15px;
+        font-size: 13px;
       }
   
       ul.controls {
@@ -171,7 +172,6 @@
 
         &.invalid {
           border: 1px solid #ffcccc;
-          background-color: #ffeeee;
         }
       }
     }
@@ -187,9 +187,25 @@
     line-height: 60px;
     padding: 0 15px;
 
+    .btn-primary {
+      text-decoration: none;
+      color: @body-bg;
+      background: @sidebar-bg;
+      padding: 8px 15px;
+      border-radius: 3px;
+      font-weight: bold;
+      font-size: 13px;
+    
+      &:hover {
+        color: @body-bg;
+        background: darken(@sidebar-bg, 5%);
+      }
+    }
+
     #process {
       color: lighten(@text-color, 25%);
       float: right;
+      font-size: 13px;
     }
   }
 }

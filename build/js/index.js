@@ -56,7 +56,7 @@ const app = new Vue({
     if (lsGet('notes') == null) {
       // init LS base params
       lsSet('notes', []);
-      lsSet('sidebar_width', 'lg');
+      lsSet('sidebar_mini', false);
     }
   }
 });
