@@ -36,7 +36,7 @@
     h4.title {
       margin: 0;
       padding: 12px 20px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid @hr-tag;
     }
     
     ol.breadcrumb {
@@ -125,7 +125,7 @@
   
         i.fa {
           margin-right: 16px;
-          opacity: 0.2;
+          opacity: 0.6;
 
           &.fa-checkbox:before {
             content: "";
@@ -149,35 +149,23 @@
             background-size: 17px 17px;
           }
         }
-  
+
+        span.title {
+          opacity: 0.9;
+        }
+
         span.date {
           position: absolute;
           right: 16px;
-          opacity: 0.4;
+          opacity: 0.9;
         }
 
         &:hover {
           background-color: #f0f0f0;
-
-          i.fa {
-            opacity: 0.6;
-          }
-
-          span.date {
-            opacity: 1;
-          }
         }
   
         &:focus {
           background-color: #f0f0f0;
-
-          i.fa {
-            opacity: 0.6;
-          }
-
-          span.date {
-            opacity: 1;
-          }
         }
 
 
@@ -188,7 +176,7 @@
 
       .settings-item-row {
         display: block;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid @hr-tag;
         height: 46px;
         line-height: 46px;
         margin: 0 20px;
@@ -198,35 +186,66 @@
           display: inline-block;
           width: 140px;
           color: @text-color;
+          opacity: 0.9;
         }
 
         .settings-item-content {
           display: inline-block;
 
-          .sidebar-mini-btn {
-            text-decoration: none;
-            padding: 2px 8px;
-            background-color: #4d4d4d;
-            border: 1px solid #4d4d4d;
-            color: @body-bg;
-            font-weight: bold;
-            font-size: 12px;
+          span.text {
+            opacity: 0.9;
+          }
 
-            &:first-child {
-              border-top-left-radius: 3px;
-              border-bottom-left-radius: 3px;
+          .radio-btn {
+            display: inline-block;
+            position: relative;
+            padding: 2px 10px 0 25px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+      
+            input {
+              position: absolute;
+              opacity: 0;
+              cursor: pointer;
             }
-
-            &:last-child {
-              margin-left: -5px;
-              border-top-right-radius: 3px;
-              border-bottom-right-radius: 3px;
+      
+            .checkmark {
+              position: absolute;
+              top: 14px;
+              left: 0;
+              height: 16px;
+              width: 16px;
+              border-radius: 50%; 
+              background-color: #fff;
+              border: 2px solid #dcdcdc;
+      
+              &:after {
+                content: "";
+                position: absolute;
+                display: none;
+                top: 3px;
+                left: 3px;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #5c85d6;
+              }
             }
-
-            &.active {
-              background-color: #5c85d6;
-              border: 1px solid #5c85d6;
-              color: @body-bg;
+      
+            &:hover input ~ .checkmark {
+              background-color: #fff;
+              border: 2px solid #ccc;
+            }
+      
+            input:checked ~ .checkmark {
+              border: 2px solid #5c85d6;
+            }
+      
+            input:checked ~ .checkmark:after {
+              display: block;
             }
           }
 

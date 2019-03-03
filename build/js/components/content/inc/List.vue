@@ -29,6 +29,7 @@
         const lsNotes = lsGet('notes');
         this.items = [];
         if (lsNotes != null) {
+          lsNotes.reverse();
           for (let i = 0; i < lsNotes.length; i++) {
             if (lsNotes[i].type == this.type) {
               this.items.push(lsNotes[i]);

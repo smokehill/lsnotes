@@ -7,13 +7,21 @@
       <div class="settings-items">
         <div class="settings-item-row">
           <div class="settings-item-lable">Local storage:</div>
-          <div class="settings-item-content">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</div>
+          <div class="settings-item-content"><span class="text">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</span></div>
         </div>
         <div class="settings-item-row">
           <div class="settings-item-lable">Sidebar mini:</div>
           <div class="settings-item-content">
-              <a href="#" class="sidebar-mini-btn" v-bind:class="{ 'active': isSidebarMini }" v-on:click="toggleIsSidebarMini($event)">ON</a>
-              <a href="#" class="sidebar-mini-btn" v-bind:class="{ 'active': !isSidebarMini }" v-on:click="toggleIsSidebarMini($event)">OFF</a>
+            <label class="radio-btn" v-on:click="toggleIsSidebarMini($event)">
+              <span class="text">on</span>
+              <input type="radio" :checked="isSidebarMini" name="radio">
+              <span class="checkmark"></span>
+            </label>
+            <label class="radio-btn" v-on:click="toggleIsSidebarMini($event)">
+              <span class="text">off</span>
+              <input type="radio" :checked="!isSidebarMini" name="radio">
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
         <div class="settings-item-row">
@@ -29,7 +37,7 @@
               <label for="import-file" class="import-btn">Chose file</label>
               <input type="file" name="photo" id="import-file" accept="application/json" v-import-file />
               <a href="#" class="import-start-btn" v-on:click="importNotes($event)">Go</a>
-              <span>{{ importData.name }}</span>
+              <span class="text">{{ importData.name }}</span>
             </div>
           </div>
         </div>
@@ -51,7 +59,7 @@
           used: ''
         },
         importData: {
-          name: 'No file',
+          name: 'no file',
           data: {},
         },
         exportData: {
@@ -182,7 +190,7 @@
        * Clear import data
        */
       __clearImportData() {
-        this.importData.name = 'No file';
+        this.importData.name = 'no file';
         this.importData.data = {};
       },
       /**
