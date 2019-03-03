@@ -193,8 +193,8 @@
         setTimeout(function() {
           lsSet('notes', notes);
           for (let i = 0; i < components.length; i++) {
-            if (components[i].$options.name == 'notes' || components[i].$options.name == 'trash') {
-              components[i].init();
+            if (components[i].$options.name == 'notes-list' || components[i].$options.name == 'trash-list') {
+              components[i].$refs.list.init();
             }
           }
           self.__setProcessText(`Last edit: ${date}`);
