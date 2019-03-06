@@ -39,63 +39,74 @@
       border-bottom: 1px solid @hr-tag;
     }
     
-    ol.breadcrumb {
-      list-style: none;
-      margin: 6px 10px;
-      padding: 0;
-  
-      li {
-        display: inline-block;
-        cursor: pointer;
+    .controls {
+      display: flex;
+      justify-content: space-between;
 
-        i.fa {
-          padding: 8px 18px;
-          opacity: .6;
+      ol.breadcrumb {
+        list-style: none;
+        margin: 6px 10px;
+        padding: 0;
+    
+        li {
+          display: inline-block;
+          cursor: pointer;
   
-          &:hover {
-            opacity: .8;
-          }
+          i.fa {
+            padding: 8px 18px;
+            opacity: .6;
+    
+            &:hover {
+              opacity: .8;
+            }
+    
+            &.fa-checkbox {
+              content: "";
+              display: block;
+              height: 10px;
+              background: url(../img/breadcramb_checkbox.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 17px 17px;
+            }
   
-          &.fa-checkbox {
-            content: "";
-            display: block;
-            height: 10px;
-            background: url(../img/breadcramb_checkbox.png);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 17px 17px;
-          }
-
-          &.fa-checkbox-o {
-            content: "";
-            display: block;
-            height: 10px;
-            background: url(../img/breadcramb_checkbox_on.png);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 17px 17px;
-          }
+            &.fa-checkbox-o {
+              content: "";
+              display: block;
+              height: 10px;
+              background: url(../img/breadcramb_checkbox_on.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 17px 17px;
+            }
+    
+            &.fa-trash {
+              content: "";
+              display: block;
+              height: 10px;
+              background: url(../img/breadcramb_trash.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 17px 17px;
+            }
   
-          &.fa-trash {
-            content: "";
-            display: block;
-            height: 10px;
-            background: url(../img/breadcramb_trash.png);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 17px 17px;
-          }
-
-          &.fa-restore {
-            content: "";
-            display: block;
-            height: 10px;
-            background: url(../img/breadcramb_restore.png);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 17px 17px;
+            &.fa-restore {
+              content: "";
+              display: block;
+              height: 10px;
+              background: url(../img/breadcramb_restore.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 17px 17px;
+            }
           }
         }
+      }
+
+      span.total {
+        margin: auto 20px;
+        font-size: 13px;
+        opacity: .9;
       }
     }
   }
@@ -151,13 +162,18 @@
         }
 
         span.title {
+          width: 500px;
           opacity: .9;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
 
         span.date {
           position: absolute;
           right: 16px;
-          opacity: .9;
+          font-size: 13px;
+          opacity: .6;
         }
 
         &:hover {
@@ -165,6 +181,10 @@
 
           i.fa {
             opacity: .6;
+          }
+
+          span.date {
+            opacity: .9;
           }
         }
   
@@ -174,9 +194,11 @@
           i.fa {
             opacity: .6;
           }
+
+          span.date {
+            opacity: .9;
+          }
         }
-
-
       }
     }
     

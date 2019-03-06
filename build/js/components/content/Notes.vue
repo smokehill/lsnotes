@@ -2,14 +2,17 @@
   <div class="content" v-bind:class="{ 'lg': isSidebarMini }">
     <div class="content-header fixed">
       <h4 class="title">Notes</h4>
-      <ol class="breadcrumb">
-        <li v-on:click="selectAll($event)">
-          <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }"></i>
-        </li>
-        <li v-on:click="deleteSelected($event)">
-          <i class="fa fa-trash"></i>
-        </li>
-      </ol>
+      <div class="controls">
+        <ol class="breadcrumb">
+          <li v-on:click="selectAll($event)">
+            <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }"></i>
+          </li>
+          <li v-on:click="deleteSelected($event)">
+            <i class="fa fa-trash"></i>
+          </li>
+        </ol>
+        <span class="total">Total: {{ total }}</span>
+      </div>
     </div>
     <div class="content-body fixed">
       <list ref="list" v-bind:type="type"></list>
@@ -25,6 +28,7 @@
     data() {
       return {
         type: 'notes',
+        total: 0,
         selectedAll: false,
         isSidebarMini: false
       }
@@ -35,6 +39,7 @@
     mounted: function() {
       this.$parent.$refs.sidebar.highlightMenu();
       this.isSidebarMini = lsGet('sidebar_mini');
+      this.total = this.$refs.list.count(this.type);
     },
     methods: {
       /**
@@ -83,6 +88,7 @@
           this.$refs.list.init();
         }
         this.selectedAll = false;
+        this.total = this.$refs.list.count(this.type);
       }
     }
   }

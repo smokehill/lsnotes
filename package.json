@@ -1,7 +1,7 @@
 {
-    "name": "ms-notes",
+    "name": "LSNotes",
     "version": "1.0.0",
-    "description": "My simple notes",
+    "description": "Local Storage Notes",
     "main": "index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"

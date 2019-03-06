@@ -51,7 +51,22 @@
           return;
         }
         this.$parent.$root.$refs.form.show(id);
-      }
+      },
+      /**
+       * Count total notes by type
+       */
+      count(type) {
+        const lsNotes = lsGet('notes');
+        let total = 0;
+        if (lsNotes != null) {
+          for (let i = 0; i < lsNotes.length; i++) {
+            if (lsNotes[i].type == type) {
+              total = total + 1;
+            }
+          }
+        }
+        return total;
+      },
     }
   }
 </script>
