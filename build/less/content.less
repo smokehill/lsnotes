@@ -6,7 +6,7 @@
   bottom: 0;
   padding: 15px 0;
   margin-left: 220px;
-  background: #f5f5f5;
+  background: @body-bg;
 
   &.lg {
     margin-left: 68px;
@@ -37,6 +37,8 @@
       margin: 0;
       padding: 12px 20px;
       border-bottom: 1px solid @hr-tag;
+      font-size: 16px;
+      font-weight: normal;
     }
     
     .controls {
@@ -115,7 +117,7 @@
     margin-top: 10px;
 
     &.fixed {
-      margin-top: 68px;
+      margin-top: 70px;
     }
 
 
@@ -127,7 +129,7 @@
       li {
         display: block;
         border-bottom: 1px solid @hr-tag;
-        padding: 12px 20px;
+        padding: 10px 20px;
         color: @text-color;
         cursor: pointer;
         display: flex;
@@ -177,7 +179,7 @@
         }
 
         &:hover {
-          background-color: #f0f0f0;
+          background-color: #ebf0fa;
 
           i.fa {
             opacity: .6;
@@ -189,7 +191,7 @@
         }
   
         &:focus {
-          background-color: #f0f0f0;
+          background-color: #ebf0fa;
 
           i.fa {
             opacity: .6;
@@ -207,8 +209,8 @@
       .settings-item-row {
         display: block;
         border-bottom: 1px solid @hr-tag;
-        height: 46px;
-        line-height: 46px;
+        height: 60px;
+        line-height: 60px;
         margin: 0 20px;
 
         .settings-item-lable {
@@ -217,6 +219,7 @@
           width: 140px;
           color: @text-color;
           opacity: .9;
+          font-weight: bold;
         }
 
         .settings-item-content {
@@ -244,7 +247,7 @@
       
             .checkmark {
               position: absolute;
-              top: 14px;
+              top: 22px;
               left: 0;
               height: 16px;
               width: 16px;

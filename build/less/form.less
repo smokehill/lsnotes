@@ -79,68 +79,51 @@
         padding: 0;
         margin: 0;
         float: right;
-        margin-right: 16px;
+        margin-right: 10px;
+        height: inherit;
+        line-height: inherit;
   
         li {
           display: inline-block;
           cursor: pointer;
-          margin-left: 10px;
+          height: inherit;
+          line-height: inherit;
   
           i.fa {
+            margin-top: 10px;
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            padding: 5px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 10px 10px;
+
+            &:hover {
+              background-color: #737373;
+              border-radius: 2px;
+            }
 
             &.fa-show-hide {
-              content: "";
-              display: block;
-              width: 12px;
-              height: 12px;
-              background: url(../img/form_minimize.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 12px 12px;
+              background-image: url(../img/form_minimize.png);
+
             }
   
             &.fa-show-hide-o {
-              content: "";
-              display: block;
-              width: 12px;
-              height: 12px;
-              background: url(../img/form_maximize.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 12px 12px;
+              background-image: url(../img/form_maximize.png);
             }
 
             &.fa-full-screen {
-              content: "";
-              display: block;
-              width: 12px;
-              height: 12px;
-              background: url(../img/form_full_screen.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 12px 12px;
+              background-image: url(../img/form_full_screen.png);
             }
 
             &.fa-full-screen-o {
-              content: "";
-              display: block;
-              width: 12px;
-              height: 12px;
-              background: url(../img/form_full_screen_exit.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 12px 12px;
+              background-image: url(../img/form_full_screen_exit.png);
             }
 
             &.fa-close {
-              content: "";
-              display: block;
-              width: 12px;
-              height: 12px;
-              background: url(../img/form_close.png);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: 12px 12px;
+              background-image: url(../img/form_close.png);
             }
           }
         }

@@ -189,7 +189,6 @@
           }
         }
         const components = self.$parent.$children;
-        self.__setHeaderType('notes');
         setTimeout(function() {
           lsSet('notes', notes);
           for (let i = 0; i < components.length; i++) {
@@ -197,8 +196,9 @@
               components[i].$refs.list.init();
             }
           }
+          self.__setHeaderType(self.note.type);
           self.__setProcessText(`Last edit: ${date}`);
-        }, 2000);
+        }, 1000);
       },
       /**
        * Handle form size
