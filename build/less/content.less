@@ -91,6 +91,16 @@
               background-position: center;
               background-size: 17px 17px;
             }
+
+            &.fa-trash-r {
+              content: "";
+              display: block;
+              height: 10px;
+              background: url(../img/breadcramb_trash_remove.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 17px 17px;
+            }
   
             &.fa-restore {
               content: "";
@@ -134,11 +144,11 @@
         cursor: pointer;
         display: flex;
         align-items: center;
-        position: relative;
   
         i.fa {
           margin-right: 16px;
           opacity: .2;
+          flex: 0;
 
           &.fa-checkbox:before {
             content: "";
@@ -164,16 +174,15 @@
         }
 
         span.title {
-          width: 500px;
           opacity: .9;
-          text-overflow: ellipsis;
+          margin-right: 16px;
           overflow: hidden;
           white-space: nowrap;
+          text-overflow: ellipsis;
+          flex: 1;
         }
 
         span.date {
-          position: absolute;
-          right: 16px;
           font-size: 13px;
           opacity: .6;
         }

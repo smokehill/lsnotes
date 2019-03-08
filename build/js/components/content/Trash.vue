@@ -11,7 +11,7 @@
             <i class="fa fa-restore"></i>
           </li>
           <li v-on:click="deleteSelected($event)">
-            <i class="fa fa-trash"></i>
+            <i class="fa fa-trash-r"></i>
           </li>
         </ol>
         <span class="total">Total: {{ total }}</span>
@@ -82,6 +82,7 @@
               lsNotes[i].type = 'notes';
               // change note type in form header
               if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
+                this.$parent.$refs.form.note.type = lsNotes[i].type;
                 this.$parent.$refs.form.__setHeaderType('notes');
               }
             }

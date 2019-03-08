@@ -11,7 +11,7 @@
             <i class="fa" v-bind:class="{ 'fa-full-screen-o': classes.controls.isFullScreen, 'fa-full-screen': !classes.controls.isFullScreen }"></i>
           </li>
           <li v-on:click="close($event)">
-              <i class="fa fa-close"></i>
+            <i class="fa fa-close"></i>
           </li>
         </ul>
       </div>
@@ -22,7 +22,6 @@
         <input type="hidden" v-model="note.type">
         <input type="hidden" v-model="note.created_at">
       </div>
-      <div class="form-footer-wrapper"></div>
     </div>
     <div class="form-footer" ref="formFooter">
       <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
@@ -81,8 +80,8 @@
     directives: {
       'fix-form': {
        update: (el, binding, vnode) => {
-          let width = vnode.context.$refs.form.offsetWidth - 50;
-          let height = vnode.context.$refs.formFooter.offsetTop - 140;
+          let width = vnode.context.$refs.form.offsetWidth - 48;
+          let height = vnode.context.$refs.form.offsetHeight - 187;
           // fix title & content sizes
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;

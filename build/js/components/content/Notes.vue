@@ -80,6 +80,7 @@
               lsNotes[i].checked = false;
               // change note type in form header
               if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
+                this.$parent.$refs.form.note.type = lsNotes[i].type;
                 this.$parent.$refs.form.__setHeaderType('trash');
               }
             }
