@@ -3,7 +3,7 @@
     <li v-for="(item, index) in items" v-on:click="edit($event, item.id)" :data-id="item.id">
       <i class="fa" v-on:click="select($event, index)" v-bind:class="{ 'fa-checkbox-o': item.checked, 'fa-checkbox': !item.checked }"></i>
       <span class="title">{{ item.title }}</span>
-      <span class="date">{{ item.created_at }}</span>
+      <span class="date">{{ item.created_at | date_to_human }}</span>
     </li>
   </ul>
 </template>

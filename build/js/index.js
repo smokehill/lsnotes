@@ -8,15 +8,20 @@ import Notes from './components/content/Notes.vue';
 import Trash from './components/content/Trash.vue';
 import Settings from './components/content/Settings.vue';
 
-import { lsGet, lsSet } from './helpers.js';
+import { lsGet, lsSet, dateToHuman } from './helpers.js';
 
 Vue.use(VueRouter);
 
 Vue.filter('tolowercase', function (str) {
   return str.toLowerCase();
 });
+
 Vue.filter('json_stringify', function (obj) {
   return JSON.stringify(obj);
+});
+
+Vue.filter('date_to_human', function (time) {
+  return dateToHuman(time);
 });
 
 const router = new VueRouter({

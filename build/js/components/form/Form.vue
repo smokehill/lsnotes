@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { lsGet, lsSet } from './../../helpers.js';
+  import { lsGet, lsSet, dateToHuman } from './../../helpers.js';
   export default {
     name: 'form-modal',
     data() {
@@ -108,7 +108,7 @@
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
               this.__setHeaderType(notes[i].type);
-              this.__setProcessText(`Last edit: ${this.note.updated_at}`);
+              this.__setProcessText(`Last edit: ${dateToHuman(this.note.updated_at)}`);
               break;
             }
           }
@@ -148,21 +148,21 @@
             self.classes.inputs.isTitleInvalid = true;
             setTimeout(function() {
               self.classes.inputs.isTitleInvalid = false;
-            }, 1000);
+            }, 500);
           }
           if (self.note.content == '') {
             self.classes.inputs.isContentInvalid = true;
             setTimeout(function() {
              self.classes.inputs.isContentInvalid = false;
-            }, 1000);
+            }, 500);
           }
           return false;
         }
         let notes = lsGet('notes');
-        const date = self.__setDate();
+        const date = new Date().getTime();
         self.__setProcessText('Saving...');
         if (self.note.id == '') {
-          const id = self.__setId();
+          const id = Math.floor(Date.now() / 1000);
           notes.push({
             id: id,
             type: 'notes',
@@ -196,7 +196,7 @@
             }
           }
           self.__setHeaderType(self.note.type);
-          self.__setProcessText(`Last edit: ${date}`);
+          self.__setProcessText(`Last edit: ${dateToHuman(date)}`);
         }, 1000);
       },
       /**
@@ -251,24 +251,6 @@
         this.note.updated_at = '';
         this.note.checked = false;
         this.__setProcessText('');
-      },
-      /**
-       * @internal
-       * Generate ID for a note
-       */
-      __setId() {
-        return Math.floor(Date.now() / 1000);
-      },
-      /**
-       * @internal
-       * Convert UTC to local
-       */
-      __setDate() {
-        let date = new Date().toLocaleString() + ' UTC';
-        date = new Date(date);
-        date = date.toISOString();
-        date = date.replace('T', ' ');
-        return date.replace(/\.([a-zA-Z0-9]+)/, '');
       },
       /**
        * @internal
