@@ -4,10 +4,10 @@
       <h4 class="title">Notes</h4>
       <div class="controls">
         <ol class="breadcrumb">
-          <li v-on:click="selectAll($event)" data-t-title="Select">
+          <li v-on:click="selectAll($event)" data-tooltip="Select">
             <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }"></i>
           </li>
-          <li v-on:click="deleteSelected($event)" data-t-title="Delete">
+          <li v-on:click="deleteSelected($event)" data-tooltip="Delete">
             <i class="fa fa-trash"></i>
           </li>
         </ol>

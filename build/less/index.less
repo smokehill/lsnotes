@@ -35,13 +35,13 @@ a {
   }
 }
 
-// custom title tooltip
+// custom tooltip
 
-[data-t-title] {
+[data-tooltip] {
   position: relative;
 
   &:hover::before {
-    content: attr(data-t-title);
+    content: attr(data-tooltip);
     position: absolute;
     bottom: -26px;
     display: inline-block;
@@ -57,7 +57,7 @@ a {
     content: '';
     position: absolute;
     bottom: -10px;
-    left: 8px;
+    left: 10px;
     display: inline-block;
     color: #fff;
     border: 8px solid transparent;	
