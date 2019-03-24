@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { lsGet, lsSet, dateToHuman } from './../../helpers.js';
+  import { lsGet, lsSet, formDateFormat } from './../../helpers.js';
   export default {
     name: 'form-modal',
     data() {
@@ -108,7 +108,7 @@
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
               this.__setHeaderType(notes[i].type);
-              this.__setProcessText(`Last edit: ${dateToHuman(this.note.updated_at)}`);
+              this.__setProcessText(formDateFormat(this.note.updated_at));
               break;
             }
           }
@@ -196,7 +196,7 @@
             }
           }
           self.__setHeaderType(self.note.type);
-          self.__setProcessText(`Last edit: ${dateToHuman(date)}`);
+          self.__setProcessText(formDateFormat(date));
         }, 1000);
       },
       /**

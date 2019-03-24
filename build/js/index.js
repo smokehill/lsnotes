@@ -8,7 +8,7 @@ import Notes from './components/content/Notes.vue';
 import Trash from './components/content/Trash.vue';
 import Settings from './components/content/Settings.vue';
 
-import { lsGet, lsSet, dateToHuman } from './helpers.js';
+import { lsGet, lsSet, listingDateFormat } from './helpers.js';
 
 Vue.use(VueRouter);
 
@@ -20,8 +20,8 @@ Vue.filter('json_stringify', function (obj) {
   return JSON.stringify(obj);
 });
 
-Vue.filter('date_to_human', function (time) {
-  return dateToHuman(time);
+Vue.filter('listing_date_format', function (time) {
+  return listingDateFormat(time);
 });
 
 const router = new VueRouter({
