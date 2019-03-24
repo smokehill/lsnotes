@@ -4,13 +4,13 @@
       <h4 class="title">Trash</h4>
       <div class="controls">
         <ol class="breadcrumb">
-          <li v-on:click="selectAll($event)">
+          <li v-on:click="selectAll($event)" data-t-title="Select">
             <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }"></i>
           </li>
-          <li v-on:click="restoreSelected($event)">
+          <li v-on:click="restoreSelected($event)" data-t-title="Restore">
             <i class="fa fa-restore"></i>
           </li>
-          <li v-on:click="deleteSelected($event)">
+          <li v-on:click="deleteSelected($event)" data-t-title="Delete forever">
             <i class="fa fa-trash-r"></i>
           </li>
         </ol>

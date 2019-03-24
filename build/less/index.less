@@ -35,6 +35,36 @@ a {
   }
 }
 
+// custom title tooltip
+
+[data-t-title] {
+  position: relative;
+
+  &:hover::before {
+    content: attr(data-t-title);
+    position: absolute;
+    bottom: -26px;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 2px;
+    background: @text-color;
+    color: #fff;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  &:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 8px;
+    display: inline-block;
+    color: #fff;
+    border: 8px solid transparent;	
+    border-bottom: 8px solid @text-color;
+  }
+}
+
 // imports
 
 @import 'sidebar.less';

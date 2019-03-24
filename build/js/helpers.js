@@ -17,9 +17,9 @@ export function lsSet(key, value) {
  * Date format for a notes listing
  */
 export function listingDateFormat(time) {
+  const currentYear = new Date().getFullYear().toString();
   let date = new Date(time).toDateString();
   date = date.split(' ');
-  const currentYear = new Date().getFullYear().toString();
   let [month, day, year] = [date[1], Number(date[2]), date[3]];
   return (year == currentYear) ? `${month} ${day}` : `${month} ${day}, ${year}`;
 }
@@ -42,14 +42,13 @@ export function formDateFormat(time) {
     'Jul': 'July',
     'Aug': 'August'
   };
+  const currentYear = new Date().getFullYear().toString();
   let cDate, iDate, iSDate; // current date, incoming date, incoming date string
   cDate = new Date(); 
   iDate = new Date(time);
   iSDate = iDate.toDateString();
   iSDate = iSDate.split(' ');
-  const currentYear = new Date().getFullYear().toString();
-  let [month, day, year] = [iSDate[1], Number(iSDate[2]), iSDate[3]];
-  month = mNames[month];
+  let [month, day, year] = [mNames[iSDate[1]], Number(iSDate[2]), iSDate[3]];
   if (year == currentYear) {
     let h, i; // hours, minutes
     i = Math.abs(Math.round(((cDate.getTime() - iDate.getTime()) / 1000) / 60));
