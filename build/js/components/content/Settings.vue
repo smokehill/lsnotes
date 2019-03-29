@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <p v-if="message.on" :class="message.type">{{ message.text }}</p>
+        <p v-if="message.on" id="process">{{ message.text }}</p>
       </div>
     </div>
   </div>
@@ -68,7 +68,6 @@
         },
         message: {
           on: false,
-          type: '', // success|danger
           text: ''
         },
       }
@@ -90,11 +89,11 @@
             if (file.type == 'application/json') {
               reader.onload = function() {
                 vnode.context.__setImportData(file.name, JSON.parse(reader.result));
-                vnode.context.__enableMessage('success', 'File is ready for import. Press "Go" to continue.');
+                vnode.context.__enableMessage('File is ready for import, press "Go" to continue');
               };
               reader.readAsText(file);
             } else {
-              vnode.context.__enableMessage('danger', 'Unable to import a file.');
+              vnode.context.__enableMessage('Unable to import a file');
             }
           });
         }
@@ -128,19 +127,16 @@
        */
       importNotes(e) {
         e.preventDefault();
-        let lsNotes = [];
-        let data = this.importData.data;
-        if (data.length == undefined || data.length == 0) {
-          return false;
-        }
         if (this.__validateImport()) {
+          let lsNotes = [];
+          let data = this.importData.data;
           for (let i = 0; i < data.length; i++) {
             lsNotes.push(data[i]);
           }
           lsSet('notes', lsNotes);
-          this.__enableMessage('success', 'Import finished.');
+          this.__enableMessage('Import finished');
         } else {
-          this.__enableMessage('danger', 'Import failed.');
+          this.__enableMessage('Import failed');
         }
         this.__clearImportData();
       },
@@ -148,7 +144,7 @@
        * Export notes from LS into json file
        */
       exportNotes(e) {
-        this.__enableMessage('success', 'Export finished.');
+        this.__enableMessage('Export finished');
       },
       /**
        * @internal
@@ -163,8 +159,7 @@
        * @internal
        * Enable import/export Message message
        */
-      __enableMessage(type, text) {
-        this.message.type = type;
+      __enableMessage(text) {
         this.message.text = text;
         this.message.on = true;
       },
@@ -173,7 +168,6 @@
        * Disable import/export Message message
        */
       __disableMessage() {
-        this.message.type = '';
         this.message.text = '';
         this.message.on = false;
       },
@@ -202,7 +196,8 @@
           const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at', 'checked'];
           const noteTypes = ['notes', 'trash'];
           const data = this.importData.data;
-          if (data.length > 0) {
+
+          if (data.length != undefined && data.length > 0) {
             for (let i = 0; i < data.length; i++) {
               if (Object.keys(data[i]).length == 7
                   && data[i][noteKeys[0]] != undefined && data[i][noteKeys[0]] != '' && typeof(data[i][noteKeys[0]]) === 'number'
@@ -217,6 +212,8 @@
                 isValid = false;
               }
             }
+          } else {
+            isValid = false;
           }
           return isValid;
       }
