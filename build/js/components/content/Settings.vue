@@ -98,7 +98,7 @@
               } else {
                 vnode.context.__enableMessage('Unable to import a file');
               }
-            }, 500);
+            }, vnode.context.$timeout);
           });
         }
       }
@@ -107,7 +107,7 @@
       toggleIsSidebarMini(e) {
         e.preventDefault();
         this.isSidebarMini = (this.isSidebarMini) ? false : true;
-        this.$parent.$refs.sidebar.isMini= this.isSidebarMini;
+        this.$parent.$refs.sidebar.isMini = this.isSidebarMini;
         lsSet('sidebar_mini', this.isSidebarMini);
       },
       /**
@@ -146,7 +146,7 @@
             self.__enableMessage('Import failed');
           }
           self.__clearImportData();
-        }, 500);
+        }, self.$timeout);
       },
       /**
        * Export notes from LS into json file
@@ -158,7 +158,7 @@
         setTimeout(function() {
           self.$refs.exportBtn.click();
           self.__enableMessage('Export finished');  
-        }, 500);
+        }, self.$timeout);
       },
       /**
        * @internal

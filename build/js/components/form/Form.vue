@@ -148,13 +148,13 @@
             self.classes.inputs.isTitleInvalid = true;
             setTimeout(function() {
               self.classes.inputs.isTitleInvalid = false;
-            }, 500);
+            }, self.$timeout);
           }
           if (self.note.content == '') {
             self.classes.inputs.isContentInvalid = true;
             setTimeout(function() {
              self.classes.inputs.isContentInvalid = false;
-            }, 500);
+            }, self.$timeout);
           }
           return false;
         }
@@ -197,7 +197,7 @@
           }
           self.__setHeaderType(self.note.type);
           self.__setProcessText(formDateFormat(date));
-        }, 1000);
+        }, self.$timeout);
       },
       /**
        * Handle form size

@@ -12,6 +12,9 @@ import { lsGet, lsSet, listingDateFormat } from './helpers.js';
 
 Vue.use(VueRouter);
 
+// setTimeout delay
+Vue.prototype.$timeout = 500;
+
 Vue.filter('tolowercase', function (str) {
   return str.toLowerCase();
 });
