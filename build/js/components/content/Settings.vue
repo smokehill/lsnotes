@@ -24,10 +24,12 @@
             </label>
           </div>
         </div>
+        <p class="export-import-info">Export, Import options provides notes management via JSON format.<br>NOTE: after Import all previous notes will be removed.</p>
         <div class="settings-item-row">
           <div class="settings-item-lable">Export:</div>
           <div class="settings-item-content">
-            <a :href="exportData.href" class="export-btn" :download="exportData.download" v-on:click="exportNotes($event)">Go</a>
+            <a href="#" class="export-btn" v-on:click="exportNotes($event)">Go</a>
+            <a :href="exportData.href" :download="exportData.download" ref="exportBtn"></a>
           </div>
         </div>
         <div class="settings-item-row">
@@ -41,7 +43,7 @@
             </div>
           </div>
         </div>
-        <p v-if="message.on" id="process">{{ message.text }}</p>
+        <p v-if="message.on" class="export-import-process">{{ message.text }}</p>
       </div>
     </div>
   </div>
@@ -85,16 +87,18 @@
             let reader = new FileReader();
             let file = this.files[0];
             vnode.context.__clearImportData();
-            vnode.context.__disableMessage();
-            if (file.type == 'application/json') {
-              reader.onload = function() {
-                vnode.context.__setImportData(file.name, JSON.parse(reader.result));
-                vnode.context.__enableMessage('File is ready for import, press "Go" to continue');
-              };
-              reader.readAsText(file);
-            } else {
-              vnode.context.__enableMessage('Unable to import a file');
-            }
+            vnode.context.__enableMessage('Processing...');
+            setTimeout(function() {
+              if (file.type == 'application/json') {
+                reader.onload = function() {
+                  vnode.context.__setImportData(file.name, JSON.parse(reader.result));
+                  vnode.context.__enableMessage('File is ready for import, press "Go" to continue');
+                };
+                reader.readAsText(file);
+              } else {
+                vnode.context.__enableMessage('Unable to import a file');
+              }
+            }, 500);
           });
         }
       }
@@ -127,24 +131,34 @@
        */
       importNotes(e) {
         e.preventDefault();
-        if (this.__validateImport()) {
-          let lsNotes = [];
-          let data = this.importData.data;
-          for (let i = 0; i < data.length; i++) {
-            lsNotes.push(data[i]);
+        const self = this;
+        self.__enableMessage('Processing...');
+        setTimeout(function() {
+          if (self.__validateImport()) {
+            let lsNotes = [];
+            let data = self.importData.data;
+            for (let i = 0; i < data.length; i++) {
+              lsNotes.push(data[i]);
+            }
+            lsSet('notes', lsNotes);
+            self.__enableMessage('Import finished');
+          } else {
+            self.__enableMessage('Import failed');
           }
-          lsSet('notes', lsNotes);
-          this.__enableMessage('Import finished');
-        } else {
-          this.__enableMessage('Import failed');
-        }
-        this.__clearImportData();
+          self.__clearImportData();
+        }, 500);
       },
       /**
        * Export notes from LS into json file
        */
       exportNotes(e) {
-        this.__enableMessage('Export finished');
+        e.preventDefault();
+        const self = this;
+        self.__enableMessage('Processing...');
+        setTimeout(function() {
+          self.$refs.exportBtn.click();
+          self.__enableMessage('Export finished');  
+        }, 500);
       },
       /**
        * @internal
@@ -153,7 +167,7 @@
       __calcUsedSpace() {
         let total = JSON.stringify(localStorage).length;
         total = (total * 2) / 1024 / 1024;
-        return total.toFixed(0);
+        return total.toFixed(2);
       },
       /**
        * @internal
