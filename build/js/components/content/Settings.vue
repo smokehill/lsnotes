@@ -91,8 +91,12 @@
             setTimeout(function() {
               if (file.type == 'application/json') {
                 reader.onload = function() {
-                  vnode.context.__setImportData(file.name, JSON.parse(reader.result));
-                  vnode.context.__enableMessage('File is ready for import, press "Go" to continue');
+                  try {
+                    vnode.context.__setImportData(file.name, JSON.parse(reader.result));
+                    vnode.context.__enableMessage('File is ready for import, press "Go" to continue');
+                  } catch {
+                    vnode.context.__enableMessage('Unable to import a file');
+                  }
                 };
                 reader.readAsText(file);
               } else {
@@ -211,7 +215,7 @@
           const noteTypes = ['notes', 'trash'];
           const data = this.importData.data;
 
-          if (data.length != undefined && data.length > 0) {
+          if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {
               if (Object.keys(data[i]).length == 7
                   && data[i][noteKeys[0]] != undefined && data[i][noteKeys[0]] != '' && typeof(data[i][noteKeys[0]]) === 'number'
