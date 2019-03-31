@@ -10,7 +10,7 @@
       <li v-for="m in menu" v-bind:class="{ active: m.isActive }">
         <a :href="m.path">
           <i :class="'fa fa-'+m.icon"></i>
-          <span class="text">{{ m.lsKey|i18n }}</span>
+          <span class="text">{{ m.iKey|i18n }}</span>
         </a>
       </li>
     </ul>
@@ -26,19 +26,19 @@
         isMini: false,
         menu: [
           {
-            lsKey: 'sidebar.menu_notes',
+            iKey: 'sidebar.menu_notes',
             icon: 'notes',
             path: '#/notes',
             isActive: false
           },
           {
-            lsKey: 'sidebar.menu_trash',
+            iKey: 'sidebar.menu_trash',
             icon: 'trash',
             path: '#/trash',
             isActive: false
           },
           {
-            lsKey: 'sidebar.menu_settings',
+            iKey: 'sidebar.menu_settings',
             icon: 'settings',
             path: '#/settings',
             isActive: false

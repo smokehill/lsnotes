@@ -1,7 +1,7 @@
 <template>
   <div class="content" v-bind:class="{ 'lg': isSidebarMini }">
     <div class="content-header">
-      <h4 class="title">{{ "list.title_settigs"|i18n }}</h4>
+      <h4 class="title">{{ "list.title_settings"|i18n }}</h4>
     </div>
     <div class="content-body">
       <div class="settings-items">
@@ -80,8 +80,11 @@
     },
     watch: {
       sysLang: function (val) {
-        lsSet('language', val);
-        this.sysLang = val;
+        if (lsGet('language') != val) {
+          lsSet('language', val);
+          this.sysLang = val;
+          location.reload();
+        }
       }
     },
     mounted: function() {
@@ -120,6 +123,9 @@
       }
     },
     methods: {
+      /**
+       * Toggle sidebar
+       */
       toggleIsSidebarMini(e) {
         e.preventDefault();
         this.isSidebarMini = (this.isSidebarMini) ? false : true;

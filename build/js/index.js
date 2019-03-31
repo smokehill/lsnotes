@@ -12,8 +12,7 @@ import { lsGet, lsSet, listingDateFormat, i18n } from './helpers.js';
 
 Vue.use(VueRouter);
 
-// setTimeout delay
-Vue.prototype.$timeout = 500;
+Vue.prototype.$timeout = 500; // setTimeout delay
 
 Vue.filter('tolowercase', function (str) {
   return str.toLowerCase();
@@ -33,26 +32,11 @@ Vue.filter('i18n', function (str) {
 
 const router = new VueRouter({
   routes: [
-    {
-      path: '/',
-      name: 'notes',
-      component: Notes
-    },
-    {
-      path: '/notes',
-      name: 'notes',
-      component: Notes
-    },
-    {
-      path: '/trash',
-      name: 'trash',
-      component: Trash
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: Settings
-    }
+    { path: '*', redirect: '/' },
+    { path: '/', redirect: '/notes' },
+    { path: '/notes', name: 'notes', component: Notes },
+    { path: '/trash', name: 'trash', component: Trash },
+    { path: '/settings', name: 'settings', component: Settings }
   ]
 });
 
