@@ -24,14 +24,14 @@
       </div>
     </div>
     <div class="form-footer" ref="formFooter">
-      <a href="#" class="btn-primary" v-on:click="save($event)">Save</a>
+      <a href="#" class="btn-primary" v-on:click="save($event)">{{ "form.save_btn"|i18n }}</a>
       <span id="process">{{ processText }}</span>
     </div>
   </div>
 </template>
 
 <script>
-  import { lsGet, lsSet, formDateFormat } from './../../helpers.js';
+  import { lsGet, lsSet, formDateFormat, i18n } from './../../helpers.js';
   export default {
     name: 'form-modal',
     data() {
@@ -90,7 +90,7 @@
       },
     },
     mounted: function() {
-      this.__setHeaderType('new');
+      this.__setHeaderType(i18n('form.title_new'));
     },
     methods: {
       /**
@@ -107,13 +107,13 @@
               this.note.content = notes[i].content;
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
-              this.__setHeaderType(notes[i].type);
+              this.__setHeaderType(i18n(`form.title_${notes[i].type}`));
               this.__setProcessText(formDateFormat(this.note.updated_at));
               break;
             }
           }
         } else {
-          this.__setHeaderType('new');
+          this.__setHeaderType(i18n('form.title_new'));
           this.__empty();
         }
         this.classes.isHidden = false;
@@ -134,7 +134,7 @@
         this.classes.controls.isMini = false;
         this.classes.controls.isFullScreen = false;
         this.$parent.$refs.formOverlay.classes.isHidden = true;
-        this.__setHeaderType('new');
+        this.__setHeaderType(i18n('form.title_new'));
         this.__empty();
       },
       /**
@@ -160,7 +160,7 @@
         }
         let notes = lsGet('notes');
         const date = new Date().getTime();
-        self.__setProcessText('Saving...');
+        self.__setProcessText(i18n(`form.status_processing`));
         if (self.note.id == '') {
           const id = Math.floor(Date.now() / 1000);
           notes.push({
@@ -195,7 +195,7 @@
               components[i].$refs.list.init();
             }
           }
-          self.__setHeaderType(self.note.type);
+          self.__setHeaderType(i18n(`form.title_${self.note.type}`));
           self.__setProcessText(formDateFormat(date));
         }, self.$timeout);
       },
@@ -255,8 +255,8 @@
       /**
        * @internal
        */
-      __setHeaderType(key) {
-        this.headerType = this.types[key];
+      __setHeaderType(value) {
+        this.headerType = value;
       },
       /**
        * @internal

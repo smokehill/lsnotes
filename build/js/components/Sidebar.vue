@@ -3,14 +3,14 @@
     <div class="compose">
       <a href="#" class="compose-btn" v-on:click="compose">
         <i class="fa fa-compose"></i>
-        <span>Compose</span>
+        <span>{{ "sidebar.compose_btn"|i18n }}</span>
       </a>
     </div>
     <ul class="menu">
       <li v-for="m in menu" v-bind:class="{ active: m.isActive }">
         <a :href="m.path">
-          <i :class="'fa fa-'+m.name|tolowercase"></i>
-          <span class="text">{{ m.name }}</span>
+          <i :class="'fa fa-'+m.icon"></i>
+          <span class="text">{{ m.lsKey|i18n }}</span>
         </a>
       </li>
     </ul>
@@ -26,17 +26,20 @@
         isMini: false,
         menu: [
           {
-            name: 'Notes',
+            lsKey: 'sidebar.menu_notes',
+            icon: 'notes',
             path: '#/notes',
             isActive: false
           },
           {
-            name: 'Trash',
+            lsKey: 'sidebar.menu_trash',
+            icon: 'trash',
             path: '#/trash',
             isActive: false
           },
           {
-            name: 'Settings',
+            lsKey: 'sidebar.menu_settings',
+            icon: 'settings',
             path: '#/settings',
             isActive: false
           },
@@ -53,7 +56,7 @@
       highlightMenu() {
         const routeName = this.$router.currentRoute.name;
         for (let i = 0; i < this.menu.length; i++) {
-          if (this.menu[i].name.toLowerCase() == routeName) {
+          if (this.menu[i].icon == routeName) {
             this.menu[i].isActive = true;
           } else {
             this.menu[i].isActive = false;

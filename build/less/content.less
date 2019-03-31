@@ -218,8 +218,8 @@
       .settings-item-row {
         display: block;
         border-bottom: 1px solid @hr-tag;
-        height: 60px;
-        line-height: 60px;
+        height: 40px;
+        line-height: 40px;
         margin: 0 20px;
 
         .settings-item-lable {
@@ -237,118 +237,22 @@
           span.text {
             opacity: .9;
           }
-
-          .radio-btn {
-            display: inline-block;
-            position: relative;
-            padding: 2px 10px 0 25px;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-      
-            input {
-              position: absolute;
-              opacity: 0;
-              cursor: pointer;
-            }
-      
-            .checkmark {
-              position: absolute;
-              top: 22px;
-              left: 0;
-              height: 16px;
-              width: 16px;
-              border-radius: 50%; 
-              background-color: @body-bg;
-              border: 2px solid #dcdcdc;
-      
-              &:after {
-                content: "";
-                position: absolute;
-                display: none;
-                top: 3px;
-                left: 3px;
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: #5c85d6;
-              }
-            }
-      
-            &:hover input ~ .checkmark {
-              background-color: @body-bg;
-              border: 2px solid #ccc;
-            }
-      
-            input:checked ~ .checkmark {
-              border: 2px solid #5c85d6;
-            }
-      
-            input:checked ~ .checkmark:after {
-              display: block;
-            }
-          }
-
-          .export-btn {
-            text-decoration: none;
-            padding: 6px 12px;
-            background-color: @body-bg;
-            border: 1px solid #dcdcdc;
-            border-radius: 3px;
-            color: @text-color;
-            font-weight: bold;
-            font-size: 13px;
-
-            &:hover {
-              color: @text-color;
-              background: darken(@body-bg, 5%);
-            }
-          }
     
-          .export-content {
+          input[type="file"] {
             display: none;
           }
-    
-          .import-block {
-            display: inline-block;
-    
-            input[type='file'] {
-              display: none;
-            }
-    
-            .import-btn {
-              padding: 6px 12px;
-              background-color: @body-bg;
-              border: 1px solid #dcdcdc;
-              color: @text-color;
-              font-weight: bold;
-              cursor: pointer;
-              border-radius: 3px;
-              font-size: 13px;
 
-              &:hover {
-                color: @text-color;
-                background: darken(@body-bg, 5%);
-              }
-            }
-    
-            .import-start-btn {
-              text-decoration: none;
-              padding: 6px 12px;
-              background-color: @body-bg;
-              border: 1px solid #dcdcdc;
-              color: @text-color;
-              font-weight: bold;
-              border-radius: 3px;
-              margin-right: 5px;
-              font-size: 13px;
+          label.radio-btn {
+            position: relative;
+            margin-right: 4px;
 
-              &:hover {
-                color: @text-color;
-                background: darken(@body-bg, 5%);
-              }
+            input[type="radio"] {
+              position: absolute;
+              top: 0;
+            }
+
+            span {
+              margin-left: 21px;
             }
           }
         }

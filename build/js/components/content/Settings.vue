@@ -1,46 +1,48 @@
 <template>
   <div class="content" v-bind:class="{ 'lg': isSidebarMini }">
     <div class="content-header">
-      <h4 class="title">Settings</h4>
+      <h4 class="title">{{ "list.title_settigs"|i18n }}</h4>
     </div>
     <div class="content-body">
       <div class="settings-items">
         <div class="settings-item-row">
-          <div class="settings-item-lable">Local storage:</div>
-          <div class="settings-item-content"><span class="text">{{ storageInfo.used }} MB of {{ storageInfo.total }} MB used</span></div>
+          <div class="settings-item-lable">{{ "settings.label_local_storage"|i18n }}:</div>
+          <div class="settings-item-content"><span class="text">{{ storageInfo.used }} MB {{ "settings.local_storage_size_of"|i18n }} {{ storageInfo.total }} MB {{ "settings.local_storage_size_used"|i18n }}</span></div>
         </div>
         <div class="settings-item-row">
-          <div class="settings-item-lable">Sidebar mini:</div>
+          <div class="settings-item-lable">{{ "settings.label_sidebar_mini"|i18n }}:</div>
           <div class="settings-item-content">
-            <label class="radio-btn" v-on:click="toggleIsSidebarMini($event)">
-              <span class="text">on</span>
-              <input type="radio" :checked="isSidebarMini" name="radio">
-              <span class="checkmark"></span>
+            <label class="radio-btn" for="radio-on" v-on:click="toggleIsSidebarMini($event)">
+              <input type="radio" id="radio-on" :checked="isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_on"|i18n }}</span>
             </label>
-            <label class="radio-btn" v-on:click="toggleIsSidebarMini($event)">
-              <span class="text">off</span>
-              <input type="radio" :checked="!isSidebarMini" name="radio">
-              <span class="checkmark"></span>
+            <label class="radio-btn" for="radio-off" v-on:click="toggleIsSidebarMini($event)">
+              <input type="radio" id="radio-off" :checked="!isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_off"|i18n }}</span>
             </label>
           </div>
         </div>
-        <p class="export-import-info">Export, Import options provides notes management via JSON format.<br>NOTE: after Import all previous notes will be removed.</p>
         <div class="settings-item-row">
-          <div class="settings-item-lable">Export:</div>
+          <div class="settings-item-lable">{{ "settings.label_language"|i18n }}:</div>
           <div class="settings-item-content">
-            <a href="#" class="export-btn" v-on:click="exportNotes($event)">Go</a>
+            <select v-model="sysLang">
+              <option v-for="lang in langs" :checked="sysLang == lang">{{ lang }}</option>
+            </select>
+          </div>
+        </div>
+        <p class="export-import-info">{{ "settings.export_import_info_1"|i18n }}<br>{{ "settings.export_import_info_2"|i18n }}</p>
+        <div class="settings-item-row">
+          <div class="settings-item-lable">{{ "settings.label_export"|i18n }}:</div>
+          <div class="settings-item-content">
+            <button v-on:click="exportNotes($event)">{{ "settings.import_btn_go"|i18n }}</button>
             <a :href="exportData.href" :download="exportData.download" ref="exportBtn"></a>
           </div>
         </div>
         <div class="settings-item-row">
-          <div class="settings-item-lable">Import:</div>
+          <div class="settings-item-lable">{{ "settings.label_import"|i18n }}:</div>
           <div class="settings-item-content">
-            <div class="import-block">
-              <label for="import-file" class="import-btn">Chose file</label>
-              <input type="file" name="photo" id="import-file" accept="application/json" v-import-file />
-              <a href="#" class="import-start-btn" v-on:click="importNotes($event)">Go</a>
-              <span class="text">{{ importData.name }}</span>
-            </div>
+            <button v-on:click="chooseFile($event)">{{ "settings.export_btn_choose_file"|i18n }}</button>
+            <input type="file" name="photo" accept="application/json" v-import-file  ref="importFile" />
+            <button v-on:click="importNotes($event)">{{ "settings.export_btn_go"|i18n }}</button>
+            <span class="text">{{ importData.name }}</span>
           </div>
         </div>
         <p v-if="message.on" class="export-import-process">{{ message.text }}</p>
@@ -50,35 +52,45 @@
 </template>
 
 <script>
-  import { lsGet, lsSet } from './../../helpers.js';
+  import { lsGet, lsSet, i18n } from './../../helpers.js';
   export default {
     name: 'settings',
     data() {
       return {
         isSidebarMini: false,
         storageInfo: {
-          total: '',
-          used: ''
+          total: "",
+          used: ""
         },
+        sysLang: "en",
+        langs: ['en', 'ru'],
         importData: {
-          name: 'no file',
+          name: "",
           data: {},
         },
         exportData: {
-          href: '',
-          download: 'ms_notes.json'
+          href: "",
+          download: "lsnotes.json"
         },
         message: {
           on: false,
-          text: ''
+          text: ""
         },
       }
     },
+    watch: {
+      sysLang: function (val) {
+        lsSet('language', val);
+        this.sysLang = val;
+      }
+    },
     mounted: function() {
+      this.sysLang = lsGet('language');
+      this.isSidebarMini = lsGet('sidebar_mini');
+      this.importData.name = i18n('settings.export_empty_file');
       this.$parent.$refs.sidebar.highlightMenu();
       this.initStorageInfo();
       this.initExport();
-      this.isSidebarMini = lsGet('sidebar_mini');
     },
     directives: {
       'import-file': {
@@ -87,20 +99,20 @@
             let reader = new FileReader();
             let file = this.files[0];
             vnode.context.__clearImportData();
-            vnode.context.__enableMessage('Processing...');
+            vnode.context.__enableMessage(i18n('settings.status_processing'));
             setTimeout(function() {
               if (file.type == 'application/json') {
                 reader.onload = function() {
                   try {
                     vnode.context.__setImportData(file.name, JSON.parse(reader.result));
-                    vnode.context.__enableMessage('File is ready for import, press "Go" to continue');
+                    vnode.context.__enableMessage(i18n('settings.status_import_file_ready'));
                   } catch {
-                    vnode.context.__enableMessage('Unable to import a file');
+                    vnode.context.__enableMessage(i18n('settings.status_import_file_unable'));
                   }
                 };
                 reader.readAsText(file);
               } else {
-                vnode.context.__enableMessage('Unable to import a file');
+                vnode.context.__enableMessage(i18n('settings.status_import_file_unable'));
               }
             }, vnode.context.$timeout);
           });
@@ -136,7 +148,7 @@
       importNotes(e) {
         e.preventDefault();
         const self = this;
-        self.__enableMessage('Processing...');
+        self.__enableMessage(i18n('settings.status_processing'));
         setTimeout(function() {
           if (self.__validateImport()) {
             let lsNotes = [];
@@ -145,12 +157,18 @@
               lsNotes.push(data[i]);
             }
             lsSet('notes', lsNotes);
-            self.__enableMessage('Import finished');
+            self.__enableMessage(i18n('settings.status_import_finished'));
           } else {
-            self.__enableMessage('Import failed');
+            self.__enableMessage(i18n('settings.status_import_failed'));
           }
           self.__clearImportData();
         }, self.$timeout);
+      },
+      /**
+       * Trigger event on file input
+       */
+      chooseFile(e) {
+        this.$refs.importFile.click();
       },
       /**
        * Export notes from LS into json file
@@ -158,10 +176,10 @@
       exportNotes(e) {
         e.preventDefault();
         const self = this;
-        self.__enableMessage('Processing...');
+        self.__enableMessage(i18n('settings.status_processing'));
         setTimeout(function() {
           self.$refs.exportBtn.click();
-          self.__enableMessage('Export finished');  
+          self.__enableMessage(i18n('settings.status_export_finished'));  
         }, self.$timeout);
       },
       /**
@@ -202,7 +220,7 @@
        * Clear import data
        */
       __clearImportData() {
-        this.importData.name = 'no file';
+        this.importData.name = i18n('settings.export_empty_file');
         this.importData.data = {};
       },
       /**

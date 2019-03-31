@@ -1,20 +1,20 @@
 <template>
   <div class="content" v-bind:class="{ 'lg': isSidebarMini }">
     <div class="content-header fixed">
-      <h4 class="title">Trash</h4>
+      <h4 class="title">{{ "list.title_trash"|i18n }}</h4>
       <div class="controls">
         <ol class="breadcrumb">
-          <li v-on:click="selectAll($event)" data-tooltip="Select">
+          <li v-on:click="selectAll($event)" :data-tooltip="'list.breadcrumb_select'|i18n">
             <i class="fa" v-bind:class="{ 'fa-checkbox-o': selectedAll, 'fa-checkbox': !selectedAll }"></i>
           </li>
-          <li v-on:click="restoreSelected($event)" data-tooltip="Restore">
+          <li v-on:click="restoreSelected($event)" :data-tooltip="'list.breadcrumb_restore'|i18n">
             <i class="fa fa-restore"></i>
           </li>
-          <li v-on:click="deleteSelected($event)" data-tooltip="Delete forever">
+          <li v-on:click="deleteSelected($event)" :data-tooltip="'list.breadcrumb_delete_forever'|i18n">
             <i class="fa fa-trash-r"></i>
           </li>
         </ol>
-        <span class="total">Total: {{ total }}</span>
+        <span class="total">{{ "list.breadcrumb_total"|i18n }}: {{ total }}</span>
       </div>
     </div>
     <div class="content-body fixed">
@@ -25,7 +25,7 @@
 
 <script>
   import List from './inc/List.vue';
-  import { lsGet, lsSet } from './../../helpers.js';
+  import { lsGet, lsSet, i18n } from './../../helpers.js';
   export default {
     name: 'trash-list',
     data() {
@@ -83,7 +83,7 @@
               // change note type in form header
               if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
                 this.$parent.$refs.form.note.type = lsNotes[i].type;
-                this.$parent.$refs.form.__setHeaderType('notes');
+                this.$parent.$refs.form.__setHeaderType(i18n('form.title_notes'));
               }
             }
           }

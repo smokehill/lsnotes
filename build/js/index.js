@@ -8,7 +8,7 @@ import Notes from './components/content/Notes.vue';
 import Trash from './components/content/Trash.vue';
 import Settings from './components/content/Settings.vue';
 
-import { lsGet, lsSet, listingDateFormat } from './helpers.js';
+import { lsGet, lsSet, listingDateFormat, i18n } from './helpers.js';
 
 Vue.use(VueRouter);
 
@@ -25,6 +25,10 @@ Vue.filter('json_stringify', function (obj) {
 
 Vue.filter('listing_date_format', function (time) {
   return listingDateFormat(time);
+});
+
+Vue.filter('i18n', function (str) {
+  return i18n(str);
 });
 
 const router = new VueRouter({
@@ -65,6 +69,7 @@ const app = new Vue({
       // init LS base params
       lsSet('notes', []);
       lsSet('sidebar_mini', false);
+      lsSet('language', 'en');
     }
   }
 });
