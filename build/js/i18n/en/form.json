@@ -7,5 +7,6 @@
   "status_last_edit": "Last edit",
   "status_minutes_ago": "min. ago",
   "status_hours_ago": "h. ago",
-  "status_changes_saved": "All changes saved"
+  "status_changes_saved": "All changes saved",
+  "status_size_limit": "Error: сontent max size 100kb"
 }

@@ -143,25 +143,37 @@
       save(e) {
         e.preventDefault();
         const self = this;
+        self.__setProcessText('');
         if (self.note.title == '' || self.note.content == '') {
+          // validate form data (title, content)
           if (self.note.title == '') {
             self.classes.inputs.isTitleInvalid = true;
             setTimeout(function() {
               self.classes.inputs.isTitleInvalid = false;
             }, self.$timeout);
-          }
-          if (self.note.content == '') {
+          } else if (self.note.content == '') {
             self.classes.inputs.isContentInvalid = true;
             setTimeout(function() {
              self.classes.inputs.isContentInvalid = false;
             }, self.$timeout);
           }
           return false;
+        } else if (self.note.content != '' && self.note.content.length > 102400) {
+          // validate content size (max: 100kb)
+          self.classes.inputs.isContentInvalid = true;
+          setTimeout(function() {
+            self.classes.inputs.isContentInvalid = false;
+          }, self.$timeout);
+          self.__setProcessText(i18n(`form.status_size_limit`));
+          return false;
         }
+
+        // update notes
         let notes = lsGet('notes');
         const date = new Date().getTime();
         self.__setProcessText(i18n(`form.status_processing`));
         if (self.note.id == '') {
+          // add new
           const id = Math.floor(Date.now() / 1000);
           notes.push({
             id: id,
@@ -178,6 +190,7 @@
           self.note.content = self.note.content;
           self.note.created_at = date;
         } else {
+          // update old
           for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == self.note.id) {
               notes[i].title = self.note.title;
@@ -187,6 +200,7 @@
             }
           }
         }
+        // save notes and update list
         const components = self.$parent.$children;
         setTimeout(function() {
           lsSet('notes', notes);
@@ -254,12 +268,14 @@
       },
       /**
        * @internal
+       * Set form header type
        */
       __setHeaderType(value) {
         this.headerType = value;
       },
       /**
        * @internal
+       * Set form process text
        */
       __setProcessText(text) {
         this.processText = text;

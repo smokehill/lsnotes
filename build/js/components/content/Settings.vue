@@ -59,22 +59,22 @@
       return {
         isSidebarMini: false,
         storageInfo: {
-          total: "",
-          used: ""
+          total: '',
+          used: ''
         },
-        sysLang: "en",
+        sysLang: 'en',
         langs: ['en', 'ru'],
         importData: {
-          name: "",
+          name: '',
           data: {},
         },
         exportData: {
-          href: "",
-          download: "lsnotes.json"
+          href: '',
+          download: 'lsnotes.json'
         },
         message: {
           on: false,
-          text: ""
+          text: ''
         },
       }
     },
@@ -144,7 +144,7 @@
        * Export notes from LS into json file
        */
       initExport() {
-        let lsNotes = JSON.stringify(lsGet('notes'));
+        const lsNotes = JSON.stringify(lsGet('notes'));
         // save the file contents as a DataURI and write it as the href for the link
         this.exportData.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(lsNotes);
       },

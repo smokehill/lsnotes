@@ -7,5 +7,6 @@
   "status_last_edit": "Поcледние правки",
   "status_minutes_ago": "мин. назад",
   "status_hours_ago": "ч. назад",
-  "status_changes_saved": "Данные сохранены"
+  "status_changes_saved": "Данные сохранены",
+  "status_size_limit": "Ошибка: максим. объем контента 100kb"
 }

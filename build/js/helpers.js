@@ -17,7 +17,7 @@ const months = {
  * Get data from Local Storage
  */
 export function lsGet(key) {
-  var data = JSON.parse(localStorage.getItem(key));
+  const data = JSON.parse(localStorage.getItem(key));
   return (data != null ) ? data : null;
 }
 
@@ -56,7 +56,7 @@ export function listingDateFormat(time) {
 export function formDateFormat(time) {
   const currentYear = new Date().getFullYear().toString();
   let cDate, iDate, iSDate; // current date, incoming date, incoming date string
-  cDate = new Date(); 
+  cDate = new Date();
   iDate = new Date(time);
   iSDate = iDate.toISOString().slice(0,10);
   iSDate = iSDate.split('-');
