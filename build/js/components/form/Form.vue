@@ -143,6 +143,8 @@
       save(e) {
         e.preventDefault();
         const self = this;
+        const date = new Date().getTime();
+        const id = Math.floor(Date.now() / 1000);
         self.__setProcessText('');
         if (self.note.title == '' || self.note.content == '') {
           // validate form data (title, content)
@@ -158,23 +160,45 @@
             }, self.$timeout);
           }
           return false;
-        } else if (self.note.content != '' && self.note.content.length > 102400) {
+        } else if (self.note.content.length > 102400) {
           // validate content size (max: 100kb)
           self.classes.inputs.isContentInvalid = true;
           setTimeout(function() {
             self.classes.inputs.isContentInvalid = false;
           }, self.$timeout);
-          self.__setProcessText(i18n(`form.status_size_limit`));
+          self.__setProcessText(i18n(`form.status_сontent_size_limit`));
           return false;
+        } else {
+          // validate LS lsTotal size
+          let lsTotal = JSON.stringify(localStorage).length;
+          let tmpNote = {
+            id: id,
+            type: 'notes',
+            title: self.note.title,
+            content: self.note.content,
+            created_at: date,
+            updated_at: date,
+            checked: false
+          }
+          lsTotal = lsTotal + JSON.stringify(tmpNote).length;
+          lsTotal = (lsTotal * 2) / 1024;
+          lsTotal = Number(lsTotal.toFixed(0));
+          if (lsTotal > 10240) {
+            self.classes.inputs.isTitleInvalid = true;
+            self.classes.inputs.isContentInvalid = true;
+            setTimeout(function() {
+              self.classes.inputs.isTitleInvalid = false;
+              self.classes.inputs.isContentInvalid = false;
+            }, self.$timeout);
+            self.__setProcessText(i18n(`form.status_storage_size_limit`));
+            return false;
+          }
         }
-
         // update notes
         let notes = lsGet('notes');
-        const date = new Date().getTime();
         self.__setProcessText(i18n(`form.status_processing`));
         if (self.note.id == '') {
           // add new
-          const id = Math.floor(Date.now() / 1000);
           notes.push({
             id: id,
             type: 'notes',

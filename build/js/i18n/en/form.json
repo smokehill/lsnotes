@@ -8,5 +8,6 @@
   "status_minutes_ago": "min. ago",
   "status_hours_ago": "h. ago",
   "status_changes_saved": "All changes saved",
-  "status_size_limit": "Error: сontent max size 100kb"
+  "status_сontent_size_limit": "Error: сontent size exceeded (100kb)",
+  "status_storage_size_limit": "Error: storage size exceeded"
 }
