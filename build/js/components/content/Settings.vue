@@ -70,7 +70,7 @@
         },
         exportData: {
           href: '',
-          download: 'lsnotes.json'
+          download: 'LSNotes.json'
         },
         message: {
           on: false,
@@ -136,7 +136,7 @@
        * Prepare LS usage info
        */
       initStorageInfo() {
-        // approximate Chrome LS size is 10 MB
+        // Chrome LS size is 10 MB
         this.storageInfo.total = 10;
         this.storageInfo.used = this.__calcUsedSpace();
       },
@@ -145,8 +145,8 @@
        */
       initExport() {
         const lsNotes = JSON.stringify(lsGet('notes'));
-        // save the file contents as a DataURI and write it as the href for the link
-        this.exportData.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(lsNotes);
+        const blobData = new Blob([lsNotes], {type: "octet/stream"});
+        this.exportData.href = window.URL.createObjectURL(blobData);
       },
       /**
        * Import notes into LS from json file
