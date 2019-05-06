@@ -153,7 +153,8 @@
             setTimeout(function() {
               self.classes.inputs.isTitleInvalid = false;
             }, self.$timeout);
-          } else if (self.note.content == '') {
+          }
+          if (self.note.content == '') {
             self.classes.inputs.isContentInvalid = true;
             setTimeout(function() {
              self.classes.inputs.isContentInvalid = false;
