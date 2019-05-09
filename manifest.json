@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
   "name": "LSNotes",
-  "version": "0.1",
+  "version": "1.0",
+  "author": "valera.padolochniy@gmail.com",
   "description": "Local Storage Notes",
   "background": {
     "scripts": ["background.js"],
