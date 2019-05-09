@@ -4,7 +4,6 @@
 
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -56,10 +55,6 @@ module.exports = {
       filename: 'app.css',
       allChunks: true
     }),
-    // new CopyWebpackPlugin([
-    //   { from: 'node_modules/bootstrap', to: 'libs/bootstrap' },
-    //   { from: 'node_modules/jquery', to: 'libs/jquery' },
-    // ], { debug: true }),
     new VueLoaderPlugin()
   ],
   resolve: {
