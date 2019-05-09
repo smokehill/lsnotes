@@ -33,9 +33,9 @@ export function lsSet(key, value) {
  */
 export function i18n(str) {
   const lang = lsGet('language');
-  const [file, key] =  str.split('.');
-  const dict = require(`./i18n/${lang}/${file}.json`);
-  return dict[key];
+  const [key1, key2] =  str.split('.');
+  const dict = require(`./i18n/${lang}.json`);
+  return dict[key1][key2];
 }
 
 /**
