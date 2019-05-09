@@ -19,6 +19,7 @@
 
 <script>
   import { lsGet, lsSet } from './../helpers.js';
+  
   export default {
     name: 'sidebar',
     data() {

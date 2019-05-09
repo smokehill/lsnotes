@@ -12,7 +12,8 @@ import { lsGet, lsSet, listingDateFormat, i18n } from './helpers.js';
 
 Vue.use(VueRouter);
 
-Vue.prototype.$timeout = 500; // setTimeout delay
+// setTimeout delay
+Vue.prototype.$timeout = 500;
 
 Vue.filter('tolowercase', function (str) {
   return str.toLowerCase();
@@ -52,8 +53,8 @@ const app = new Vue({
     if (lsGet('notes') == null) {
       // init LS base params
       lsSet('notes', []);
-      lsSet('sidebar_mini', false);
       lsSet('language', 'en');
+      lsSet('sidebar_mini', false);
     }
   }
 });

@@ -10,6 +10,7 @@
 
 <script>
   import { lsGet } from './../../../helpers.js';
+  
   export default {
     name: 'list',
     props: ['type'],

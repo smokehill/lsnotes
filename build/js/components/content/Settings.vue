@@ -53,6 +53,7 @@
 
 <script>
   import { lsGet, lsSet, i18n } from './../../helpers.js';
+
   export default {
     name: 'settings',
     data() {
@@ -136,7 +137,7 @@
        * Prepare LS usage info
        */
       initStorageInfo() {
-        // Chrome LS size is 10 MB
+        // Chrome LS total size is 10 MB
         this.storageInfo.total = 10;
         this.storageInfo.used = this.__calcUsedSpace();
       },

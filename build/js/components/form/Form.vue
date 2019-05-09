@@ -32,6 +32,7 @@
 
 <script>
   import { lsGet, lsSet, formDateFormat, i18n } from './../../helpers.js';
+  
   export default {
     name: 'form-modal',
     data() {
@@ -170,7 +171,7 @@
           self.__setProcessText(i18n(`form.status_сontent_size_limit`));
           return false;
         } else {
-          // validate LS lsTotal size
+          // validate LS total size
           let lsTotal = JSON.stringify(localStorage).length;
           let tmpNote = {
             id: id,

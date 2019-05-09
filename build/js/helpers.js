@@ -55,7 +55,8 @@ export function listingDateFormat(time) {
  */
 export function formDateFormat(time) {
   const currentYear = new Date().getFullYear().toString();
-  let cDate, iDate, iSDate; // current date, incoming date, incoming date string
+  // current date, incoming date, incoming date string
+  let cDate, iDate, iSDate; 
   cDate = new Date();
   iDate = new Date(time);
   iSDate = iDate.toISOString().slice(0,10);
@@ -64,7 +65,8 @@ export function formDateFormat(time) {
   month = month.toLowerCase().substr(0,3);
   month = i18n(`months.${month}_l`);
   if (year == currentYear) {
-    let h, i; // hours, minutes
+    // hours, minutes
+    let h, i;
     i = Math.abs(Math.round(((cDate.getTime() - iDate.getTime()) / 1000) / 60));
     h = Math.round(i / 60);
     if (i == 0) {

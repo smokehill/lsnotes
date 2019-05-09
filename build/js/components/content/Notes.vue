@@ -23,6 +23,7 @@
 <script>
   import List from './inc/List.vue';
   import { lsGet, lsSet, i18n } from './../../helpers.js';
+  
   export default {
     name: 'notes-list',
     data() {
