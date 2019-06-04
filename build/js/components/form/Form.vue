@@ -16,8 +16,8 @@
         </ul>
       </div>
       <div class="form-body">
-        <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ 'invalid': classes.inputs.isTitleInvalid }" v-bind:style="{ 'width': styles.titleWidth + 'px' }">
-        <textarea v-model="note.content" v-bind:class="{ 'invalid': classes.inputs.isContentInvalid }"  v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }"></textarea>
+        <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ 'invalid': classes.inputs.isTitleInvalid }" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
+        <textarea v-model="note.content" v-bind:class="{ 'invalid': classes.inputs.isContentInvalid }"  v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" spellcheck="false"></textarea>
         <input type="hidden" v-model="note.id">
         <input type="hidden" v-model="note.type">
         <input type="hidden" v-model="note.created_at">
@@ -82,7 +82,7 @@
       'fix-form': {
        update: (el, binding, vnode) => {
           let width = vnode.context.$refs.form.offsetWidth - 48;
-          let height = vnode.context.$refs.form.offsetHeight - 187;
+          let height = vnode.context.$refs.form.offsetHeight - 184;
           // fix title & content sizes
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;
