@@ -82,7 +82,7 @@
       'fix-form': {
        update: (el, binding, vnode) => {
           let width = vnode.context.$refs.form.offsetWidth - 48;
-          let height = vnode.context.$refs.form.offsetHeight - 184;
+          let height = vnode.context.$refs.form.offsetHeight - 187;
           // fix title & content sizes
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;
@@ -91,6 +91,7 @@
       },
     },
     mounted: function() {
+      window.addEventListener('resize', this.minimize);
       this.__setHeaderType(i18n('form.title_new'));
     },
     methods: {
@@ -276,6 +277,18 @@
             this.classes.controls.isFullScreen = true;
             this.$parent.$refs.formOverlay.classes.isHidden = false;
           }
+        }
+      },
+      /**
+      * Minimize on browser window resize
+      */
+      minimize() {
+        if (this.classes.isHidden == false) {
+          this.classes.isMini = true;
+          this.classes.isFullScreen = false;
+          this.classes.controls.isMini = true;
+          this.classes.controls.isFullScreen = false;
+          this.$parent.$refs.formOverlay.classes.isHidden = true;
         }
       },
       /**
