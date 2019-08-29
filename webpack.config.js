@@ -1,7 +1,3 @@
-// DEV:
-// ./node_modules/.bin/webpack -d --watch
-// ./node_modules/.bin/webpack -p
-
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader');

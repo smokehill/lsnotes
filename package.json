@@ -4,7 +4,8 @@
     "description": "Local Storage Notes",
     "main": "index.html",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "webpack --hide-modules -p",
+        "watch": "webpack --hide-modules --watch"
     },
     "author": "",
     "license": "ISC",
