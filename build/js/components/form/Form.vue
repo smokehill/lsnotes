@@ -118,11 +118,12 @@
           this.__setHeaderType(i18n('form.title_new'));
           this.__empty();
         }
-        this.classes.isHidden = false;
-        this.classes.controls.isMini = false;
-        if (this.classes.controls.isFullScreen) {
-          this.classes.isFullScreen = true;
-          this.$parent.$refs.formOverlay.classes.isHidden = false;
+        if (this.classes.isHidden) {
+          this.classes.isHidden = false;
+          if (this.classes.controls.isFullScreen) {
+            this.classes.isFullScreen = true;
+            this.$parent.$refs.formOverlay.classes.isHidden = false;
+          }
         }
       },
       /**
