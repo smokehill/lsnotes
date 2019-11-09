@@ -55,7 +55,7 @@
   "months": {
     "sep_s": "Sep",
     "oct_s": "Oct",
-    "now_s": "Nov",
+    "nov_s": "Nov",
     "dec_s": "Dec",
     "jan_s": "Jan",
     "feb_s": "Feb",
@@ -67,7 +67,7 @@
     "aug_s": "Aug",
     "sep_l": "September",
     "oct_l": "October",
-    "now_l": "November",
+    "nov_l": "November",
     "dec_l": "December",
     "jan_l": "January",
     "feb_l": "February",
