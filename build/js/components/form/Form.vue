@@ -69,7 +69,8 @@
           content: '',
           created_at: '',
           updated_at: '',
-          checked: false
+          is_checked: false,
+          is_hidden: false
         }
       }
     },
@@ -182,7 +183,8 @@
             content: self.note.content,
             created_at: date,
             updated_at: date,
-            checked: false
+            is_checked: false,
+            is_hidden: false
           }
           lsTotal = lsTotal + JSON.stringify(tmpNote).length;
           lsTotal = (lsTotal * 2) / 1024;
@@ -210,7 +212,8 @@
             content: self.note.content,
             created_at: date,
             updated_at: date,
-            checked: false
+            is_checked: false,
+            is_hidden: false
           });
           self.note.id = id;
           self.note.type = 'notes';
@@ -303,7 +306,8 @@
         this.note.content = '';
         this.note.created_at = '';
         this.note.updated_at = '';
-        this.note.checked = false;
+        this.note.is_checked = false;
+        this.note.is_hidden = false;
         this.__setProcessText('');
       },
       /**

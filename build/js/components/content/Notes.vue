@@ -10,6 +10,11 @@
           <li v-on:click="deleteSelected($event)" :data-tooltip="'list.breadcrumb_delete'|i18n">
             <i class="fa fa-trash"></i>
           </li>
+          <li>
+            <div class="search">
+              <input type="text" v-on:keyup="search($event)" v-model="searchValue" :placeholder="'list.breadcrumb_search'|i18n">
+            </div>
+          </li>
         </ol>
         <span class="total">{{ "list.breadcrumb_total"|i18n }}: {{ total }}</span>
       </div>
@@ -30,6 +35,7 @@
       return {
         type: 'notes',
         total: 0,
+        searchValue: '',
         selectedAll: false,
         isSidebarMini: false
       }
@@ -44,6 +50,26 @@
     },
     methods: {
       /**
+       * Search notes
+       */
+      search(e) {
+        if (this.searchValue == '') {
+          for (let i = 0; i < this.$refs.list.items.length; i++) {
+              this.$refs.list.items[i].is_hidden = false;
+          }
+          return false;
+        } else {
+          var reg = new RegExp(`^${this.searchValue}(.*)`, 'ig');
+          for (let i = 0; i < this.$refs.list.items.length; i++) {
+            if (this.$refs.list.items[i].title.match(reg) !== null) {
+              this.$refs.list.items[i].is_hidden = false;
+            } else {
+              this.$refs.list.items[i].is_hidden = true;
+            }
+          }
+        }
+      },
+      /**
        * Select all notes
        */
       selectAll(e) {
@@ -55,10 +81,10 @@
         }
         // reset checked values
         for (let i = 0; i < this.$refs.list.items.length; i++) {
-          if (status == 'on' && !this.$refs.list.items[i].checked) {
-            this.$refs.list.items[i].checked = true;
-          } else if (status == 'off' && this.$refs.list.items[i].checked) {
-            this.$refs.list.items[i].checked = false;
+          if (status == 'on' && !this.$refs.list.items[i].is_checked) {
+            this.$refs.list.items[i].is_checked = true;
+          } else if (status == 'off' && this.$refs.list.items[i].is_checked) {
+            this.$refs.list.items[i].is_checked = false;
           }
         }
       },
@@ -70,7 +96,7 @@
         let selected = [];
         let lsNotes = lsGet('notes');
         for (let i = 0; i < this.$refs.list.items.length; i++) {
-          if (this.$refs.list.items[i].checked) {
+          if (this.$refs.list.items[i].is_checked) {
             selected.push(this.$refs.list.items[i].id);
           }
         }
@@ -78,7 +104,7 @@
           for (let i = 0; i < lsNotes.length; i++) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
               lsNotes[i].type = 'trash';
-              lsNotes[i].checked = false;
+              lsNotes[i].is_checked = false;
               // change note type in form header
               if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
                 this.$parent.$refs.form.note.type = lsNotes[i].type;

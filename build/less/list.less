@@ -53,7 +53,7 @@
         li {
           display: inline-block;
           cursor: pointer;
-  
+
           i.fa {
             padding: 8px 18px;
             opacity: .6;
@@ -115,6 +115,28 @@
         }
       }
 
+      .search {
+        position: relative;
+      
+        > input {
+          position: absolute;
+          top: -24px;
+          left: 12px;
+          width: 280px;
+          padding: 4px 8px;
+          border: 1px solid #f2f2f2;
+          border-radius: 3px;
+          background: #f5f5f5;
+          outline: none;
+          color: @text-color;
+          font-size: 14px;
+      
+          &::placeholder {
+            color: #b3b3b3;
+          }
+        }
+      }
+
       span.total {
         margin: auto 20px;
         font-size: 13px;
@@ -145,6 +167,10 @@
         display: flex;
         align-items: center;
   
+        &.hidden {
+          display: none;
+        }
+        
         i.fa {
           margin-right: 16px;
           opacity: .2;
