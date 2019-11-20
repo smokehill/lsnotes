@@ -48,6 +48,7 @@
     },
     watch: {
       search: function (val) {
+        this.selectedAll = false;
         this.$refs.list.search(val);
       }
     },
@@ -69,9 +70,9 @@
         }
         // reset checked values
         for (let i = 0; i < this.$refs.list.items.length; i++) {
-          if (status == 'on' && !this.$refs.list.items[i].is_checked) {
+          if (status == 'on' && !this.$refs.list.items[i].is_hidden && !this.$refs.list.items[i].is_checked) {
             this.$refs.list.items[i].is_checked = true;
-          } else if (status == 'off' && this.$refs.list.items[i].is_checked) {
+          } else if (status == 'off' && !this.$refs.list.items[i].is_hidden && this.$refs.list.items[i].is_checked) {
             this.$refs.list.items[i].is_checked = false;
           }
         }
@@ -83,6 +84,7 @@
         e.preventDefault();
         let selected = [];
         let lsNotes = lsGet('notes');
+        this.search = '';
         for (let i = 0; i < this.$refs.list.items.length; i++) {
           if (this.$refs.list.items[i].is_checked) {
             selected.push(this.$refs.list.items[i].id);
@@ -112,6 +114,7 @@
         e.preventDefault();
         let selected = [];
         let lsNotes = lsGet('notes');
+        this.search = '';
         for (let i = 0; i < this.$refs.list.items.length; i++) {
           if (this.$refs.list.items[i].is_checked) {
             selected.push(this.$refs.list.items[i].id);

@@ -46,11 +46,13 @@
         if (value == '') {
           for (let i = 0; i < this.items.length; i++) {
             this.items[i].is_hidden = false;
+            this.items[i].is_checked = false;
           }
           return false;
         } else {
           var reg = new RegExp(`^${value}(.*)`, 'ig');
           for (let i = 0; i < this.items.length; i++) {
+            this.items[i].is_checked = false;
             if (this.items[i].title.match(reg) !== null) {
               this.items[i].is_hidden = false;
             } else {
