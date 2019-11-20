@@ -12,7 +12,7 @@
           </li>
           <li>
             <div class="search">
-              <input type="text" v-on:keyup="search($event)" v-model="searchValue" :placeholder="'list.breadcrumb_search'|i18n">
+              <input type="text" v-model="search" :placeholder="'list.breadcrumb_search'|i18n">
             </div>
           </li>
         </ol>
@@ -35,7 +35,7 @@
       return {
         type: 'notes',
         total: 0,
-        searchValue: '',
+        search: '',
         selectedAll: false,
         isSidebarMini: false
       }
@@ -43,51 +43,17 @@
     components: {
       'list': List
     },
+    watch: {
+      search: function (val) {
+        this.$refs.list.search(val);
+      }
+    },
     mounted: function() {
       this.$parent.$refs.sidebar.highlightMenu();
       this.isSidebarMini = lsGet('sidebar_mini');
       this.total = this.$refs.list.count(this.type);
     },
     methods: {
-      /**
-       * Search notes
-       */
-      search(e) {
-        if (this.searchValue == '') {
-          for (let i = 0; i < this.$refs.list.items.length; i++) {
-              this.$refs.list.items[i].is_hidden = false;
-          }
-          return false;
-        } else {
-          var reg = new RegExp(`^${this.searchValue}(.*)`, 'ig');
-          for (let i = 0; i < this.$refs.list.items.length; i++) {
-            if (this.$refs.list.items[i].title.match(reg) !== null) {
-              this.$refs.list.items[i].is_hidden = false;
-            } else {
-              this.$refs.list.items[i].is_hidden = true;
-            }
-          }
-        }
-      },
-      /**
-       * Select all notes
-       */
-      selectAll(e) {
-        e.preventDefault();
-        let status = 'on';
-        this.selectedAll = (!this.selectedAll) ? true : false;
-        if (!this.selectedAll) {
-          status = 'off';
-        }
-        // reset checked values
-        for (let i = 0; i < this.$refs.list.items.length; i++) {
-          if (status == 'on' && !this.$refs.list.items[i].is_checked) {
-            this.$refs.list.items[i].is_checked = true;
-          } else if (status == 'off' && this.$refs.list.items[i].is_checked) {
-            this.$refs.list.items[i].is_checked = false;
-          }
-        }
-      },
       /**
        * Move selected notes to trash
        */

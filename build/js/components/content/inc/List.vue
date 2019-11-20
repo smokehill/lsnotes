@@ -39,6 +39,27 @@
         }
       },
       /**
+       * @shared
+       * Search notes
+       */
+      search(value) {
+        if (value == '') {
+          for (let i = 0; i < this.items.length; i++) {
+            this.items[i].is_hidden = false;
+          }
+          return false;
+        } else {
+          var reg = new RegExp(`^${value}(.*)`, 'ig');
+          for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].title.match(reg) !== null) {
+              this.items[i].is_hidden = false;
+            } else {
+              this.items[i].is_hidden = true;
+            }
+          }
+        }
+      },
+      /**
        * Select note
        */
       select(e, index) {
