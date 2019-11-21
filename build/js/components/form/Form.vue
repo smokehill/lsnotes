@@ -161,7 +161,7 @@
           if (self.note.content == '') {
             self.classes.inputs.isContentInvalid = true;
             setTimeout(function() {
-             self.classes.inputs.isContentInvalid = false;
+              self.classes.inputs.isContentInvalid = false;
             }, self.$timeout);
           }
           return false;
