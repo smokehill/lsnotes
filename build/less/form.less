@@ -18,8 +18,8 @@
   position: fixed;
   right: 18px;
   bottom: 10px;
-  width: 500px;
-  height: 500px;
+  width: 452px;
+  height: 452px;
   z-index: 900;
   background: #4d4d4d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -130,31 +130,31 @@
 
     .form-body {
       background: @body-bg;
-      padding: 14px 14px 0 13px;
-
-
-      input {
-        margin-bottom: 14px;
-        font-weight: bold;
-      }
+      padding: 12px 14px 0 13px;
 
       input, textarea {
         display: block;
-        border: 1px solid #dcdcdc;
+        border: 1px solid #ffffff;
         border-radius: 0;
         box-shadow: none;
-        padding: 10px;
-        color: @text-color;
         resize: none;
         outline: none;
-        font-size: 14px;
         font-family: @font-family;
-        line-height: 1.4;
+        font-size: 14px;
+        color: @text-color;
+      }
 
-        &.invalid {
-          border: 1px solid #ffcccc;
-          background-color: #ffe6e6;
-        }
+      input {
+        // margin-bottom: 14px;
+        border-bottom-color: @hr-tag;
+        padding: 0px 0px 10px 0px;
+        line-height: 1.4;
+      }
+
+      textarea {
+        padding: 10px 0px;
+        font-size: 13px;
+        line-height: 1.4;
       }
     }
   }

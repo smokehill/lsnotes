@@ -16,8 +16,8 @@
         </ul>
       </div>
       <div class="form-body">
-        <input type="text" v-model="note.title" autocomplete="off" v-bind:class="{ 'invalid': classes.inputs.isTitleInvalid }" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
-        <textarea v-model="note.content" v-bind:class="{ 'invalid': classes.inputs.isContentInvalid }"  v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" spellcheck="false"></textarea>
+        <input type="text" v-model="note.title" autocomplete="off" :placeholder="'form.input_title_placeholder'|i18n" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
+        <textarea v-model="note.content" v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" spellcheck="false"></textarea>
         <input type="hidden" v-model="note.id">
         <input type="hidden" v-model="note.type">
         <input type="hidden" v-model="note.created_at">
@@ -44,11 +44,7 @@
           controls: {
             isMini: false,
             isFullScreen: false
-          },
-          inputs: {
-            isTitleInvalid: false,
-            isContentInvalid: false
-          },
+          }
         },
         styles: {
           titleWidth: 0,
@@ -82,8 +78,8 @@
     directives: {
       'fix-form': {
        update: (el, binding, vnode) => {
-          let width = vnode.context.$refs.form.offsetWidth - 48;
-          let height = vnode.context.$refs.form.offsetHeight - 187;
+          let width = vnode.context.$refs.form.offsetWidth - 28;
+          let height = vnode.context.$refs.form.offsetHeight - 159;
           // fix title & content sizes
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;
@@ -150,27 +146,12 @@
         const date = new Date().getTime();
         const id = Math.floor(Date.now() / 1000);
         self.__setProcessText('');
-        if (self.note.title == '' || self.note.content == '') {
-          // validate form data (title, content)
-          if (self.note.title == '') {
-            self.classes.inputs.isTitleInvalid = true;
-            setTimeout(function() {
-              self.classes.inputs.isTitleInvalid = false;
-            }, self.$timeout);
-          }
-          if (self.note.content == '') {
-            self.classes.inputs.isContentInvalid = true;
-            setTimeout(function() {
-              self.classes.inputs.isContentInvalid = false;
-            }, self.$timeout);
-          }
+        if (self.note.title == '') {
+          // validate form data
+          self.__setProcessText(i18n(`form.status_title_required`));
           return false;
         } else if (self.note.content.length > 102400) {
           // validate content size (max: 100kb)
-          self.classes.inputs.isContentInvalid = true;
-          setTimeout(function() {
-            self.classes.inputs.isContentInvalid = false;
-          }, self.$timeout);
           self.__setProcessText(i18n(`form.status_сontent_size_limit`));
           return false;
         } else {
@@ -190,12 +171,6 @@
           lsTotal = (lsTotal * 2) / 1024;
           lsTotal = Number(lsTotal.toFixed(0));
           if (lsTotal > 10240) {
-            self.classes.inputs.isTitleInvalid = true;
-            self.classes.inputs.isContentInvalid = true;
-            setTimeout(function() {
-              self.classes.inputs.isTitleInvalid = false;
-              self.classes.inputs.isContentInvalid = false;
-            }, self.$timeout);
             self.__setProcessText(i18n(`form.status_storage_size_limit`));
             return false;
           }
