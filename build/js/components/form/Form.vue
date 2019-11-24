@@ -25,13 +25,12 @@
     </div>
     <div class="form-footer" ref="formFooter">
       <a href="#" class="btn-primary" v-on:click="save($event)">{{ "form.save_btn"|i18n }}</a>
-      <a href="#" class="btn-text-format" v-on:click="toogleTextFormatList($event)">
+      <a href="#" class="btn-text-format fa fa-text-format" v-on:click="toogleTextFormatList($event)">
         <ul v-bind:class="{ 'hidden': classes.textFormatList.isHidden }">
-            <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "form.text_format_small"|i18n }}</li>
-            <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "form.text_format_normal"|i18n }}</li>
-            <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "form.text_format_big"|i18n }}</li>
+          <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "form.text_format_small"|i18n }}</li>
+          <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "form.text_format_normal"|i18n }}</li>
+          <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "form.text_format_big"|i18n }}</li>
         </ul>
-        <i class="fa fa-text-format"></i>
       </a>
       <span id="process">{{ processText }}</span>
     </div>
@@ -98,9 +97,18 @@
       },
     },
     mounted: function() {
-      window.addEventListener('resize', this.minimize);
-      this.__setHeaderType(i18n('form.title_new'));
-      this.textFormat = lsGet('text_format');
+      const self = this;
+      window.addEventListener('resize', self.minimize);
+      window.addEventListener('click', function(e){
+          // check if click was outside text-format popup
+          if (!e.target.classList.contains('fa-text-format')) {
+            if (!self.classes.textFormatList.isHidden) {
+              self.classes.textFormatList.isHidden = true;
+            }
+          }
+      });
+      self.__setHeaderType(i18n('form.title_new'));
+      self.textFormat = lsGet('text_format');
     },
     methods: {
       /**
@@ -277,7 +285,7 @@
       */
       toogleTextFormatList(e) {
         e.preventDefault();
-        if (e.target.localName == 'i') {
+        if (e.target.classList.contains('fa-text-format')) {
           if (this.classes.textFormatList.isHidden) {
             this.classes.textFormatList.isHidden = false;
           } else {

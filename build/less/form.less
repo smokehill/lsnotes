@@ -191,9 +191,24 @@
       }
     }
 
-    .btn-text-format {
+    a.btn-text-format {
       position: relative;
-      padding: 8px 10px 8px 2px;
+      padding: 8px 10px;
+
+      &.fa {
+        
+        &.fa-text-format:before {
+          content: "";
+          display: inline-block;
+          width: 17px;
+          height: 14px;
+          background-image: url(../img/form_text_format.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 17px 17px;
+          opacity: .7;
+        }
+      }
 
       ul {
         position: absolute;
@@ -223,23 +238,6 @@
           &.active {
             font-weight: bold;
           }
-        }
-      }
-
-      i.fa {
-        margin-left: 10px;
-        opacity: .7;
-        flex: 0;
-  
-        &.fa-text-format:before {
-          content: "";
-          display: inline-block;
-          width: 17px;
-          height: 14px;
-          background-image: url(../img/form_text_format.png);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 17px 17px;
         }
       }
     }
