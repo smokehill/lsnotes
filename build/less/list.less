@@ -166,10 +166,6 @@
         cursor: pointer;
         display: flex;
         align-items: center;
-  
-        &.hidden {
-          display: none;
-        }
         
         i.fa {
           margin-right: 16px;
@@ -211,6 +207,18 @@
         span.date {
           font-size: 13px;
           opacity: .6;
+        }
+
+        &.hidden {
+          display: none;
+        }
+
+        &.active {
+          background-color: @hr-tag;
+        }
+
+        &.active:hover {
+          background-color: @hr-tag;
         }
 
         &:hover {

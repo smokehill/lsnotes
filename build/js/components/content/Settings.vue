@@ -236,13 +236,13 @@
        */
       __validateImport() {
           let isValid = true;
-          const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at', 'is_checked', 'is_hidden'];
+          const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at', 'is_checked', 'is_hidden', 'is_active'];
           const noteTypes = ['notes', 'trash'];
           const data = this.importData.data;
 
           if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {
-              if (Object.keys(data[i]).length == 8
+              if (Object.keys(data[i]).length == 9
                   && data[i][noteKeys[0]] != undefined && data[i][noteKeys[0]] != '' && typeof(data[i][noteKeys[0]]) === 'number'
                   && data[i][noteKeys[1]] != undefined && data[i][noteKeys[1]] != '' && typeof(data[i][noteKeys[1]]) === 'string' && noteTypes.indexOf(data[i][noteKeys[1]]) != -1
                   && data[i][noteKeys[2]] != undefined && data[i][noteKeys[2]] != '' && typeof(data[i][noteKeys[2]]) === 'string'
@@ -250,7 +250,8 @@
                   && data[i][noteKeys[4]] != undefined && data[i][noteKeys[4]] != '' && typeof(data[i][noteKeys[4]]) === 'number'
                   && data[i][noteKeys[5]] != undefined && data[i][noteKeys[5]] != '' && typeof(data[i][noteKeys[5]]) === 'number'
                   && data[i][noteKeys[6]] != undefined && typeof(data[i][noteKeys[6]]) === 'boolean'
-                  && data[i][noteKeys[7]] != undefined && typeof(data[i][noteKeys[7]]) === 'boolean') {
+                  && data[i][noteKeys[7]] != undefined && typeof(data[i][noteKeys[7]]) === 'boolean'
+                  && data[i][noteKeys[8]] != undefined && typeof(data[i][noteKeys[8]]) === 'boolean') {
                     continue;
               } else {
                 isValid = false;

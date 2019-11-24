@@ -1,6 +1,6 @@
 <template>
   <ul class="list" v-if="items.length > 0">
-    <li v-for="(item, index) in items" v-on:click="edit($event, item.id)" :data-id="item.id" v-bind:class="{ 'hidden': item.is_hidden, '': !item.is_hidden }">
+    <li v-for="(item, index) in items" v-on:click="edit($event, item.id)" :data-id="item.id" v-bind:class="{ 'hidden': item.is_hidden, 'active': item.is_active }">
       <i class="fa" v-on:click="select($event, index)" v-bind:class="{ 'fa-checkbox-o': item.is_checked, 'fa-checkbox': !item.is_checked }"></i>
       <span class="title">{{ item.title }}</span>
       <span class="date">{{ item.created_at | listing_date_format }}</span>
@@ -20,7 +20,13 @@
       }
     },
     mounted: function() {
-      this.init();
+      const self = this;
+      self.init();
+      self.$eventBus.$on('form_close', function(){
+        for (let i = 0; i < self.items.length; i++) {
+          self.items[i].is_active = false;
+        }
+      });
     },
     methods: {
       /**
@@ -33,6 +39,9 @@
           lsNotes.reverse();
           for (let i = 0; i < lsNotes.length; i++) {
             if (lsNotes[i].type == this.type) {
+              if (lsNotes[i].id == this.$parent.$root.$refs.form.note.id) {
+                lsNotes[i].is_active = true;
+              }
               this.items.push(lsNotes[i]);
             }
           }
@@ -75,6 +84,14 @@
           return;
         }
         this.$parent.$root.$refs.form.show(id);
+        // highlight active
+        for (let i = 0; i < this.items.length; i++) {
+          if (this.items[i].id == id) {
+            this.items[i].is_active = true;
+          } else {
+            this.items[i].is_active = false;
+          }
+        }
       },
       /**
        * Count total notes by type

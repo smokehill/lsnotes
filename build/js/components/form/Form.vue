@@ -64,9 +64,7 @@
           title: '',
           content: '',
           created_at: '',
-          updated_at: '',
-          is_checked: false,
-          is_hidden: false
+          updated_at: ''
         }
       }
     },
@@ -136,6 +134,7 @@
         this.$parent.$refs.formOverlay.classes.isHidden = true;
         this.__setHeaderType(i18n('form.title_new'));
         this.__empty();
+        this.$eventBus.$emit('form_close');
       },
       /**
        * Save form data
@@ -165,7 +164,8 @@
             created_at: date,
             updated_at: date,
             is_checked: false,
-            is_hidden: false
+            is_hidden: false,
+            is_active: false
           }
           lsTotal = lsTotal + JSON.stringify(tmpNote).length;
           lsTotal = (lsTotal * 2) / 1024;
@@ -188,7 +188,8 @@
             created_at: date,
             updated_at: date,
             is_checked: false,
-            is_hidden: false
+            is_hidden: false,
+            is_active: false
           });
           self.note.id = id;
           self.note.type = 'notes';
@@ -281,8 +282,6 @@
         this.note.content = '';
         this.note.created_at = '';
         this.note.updated_at = '';
-        this.note.is_checked = false;
-        this.note.is_hidden = false;
         this.__setProcessText('');
       },
       /**
