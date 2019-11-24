@@ -22,7 +22,7 @@
     mounted: function() {
       const self = this;
       self.init();
-      self.$eventBus.$on('form_close', function(){
+      self.$eventBus.$on('form_close', function() {
         for (let i = 0; i < self.items.length; i++) {
           self.items[i].is_active = false;
         }

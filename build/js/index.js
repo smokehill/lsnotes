@@ -15,21 +15,10 @@ Vue.use(VueRouter);
 Vue.prototype.$eventBus = new Vue(); // events
 Vue.prototype.$timeout = 500; // setTimeout delay
 
-Vue.filter('tolowercase', function (str) {
-  return str.toLowerCase();
-});
-
-Vue.filter('json_stringify', function (obj) {
-  return JSON.stringify(obj);
-});
-
-Vue.filter('listing_date_format', function (time) {
-  return listingDateFormat(time);
-});
-
-Vue.filter('i18n', function (str) {
-  return i18n(str);
-});
+Vue.filter('tolowercase', function(str) { return str.toLowerCase(); });
+Vue.filter('json_stringify', function(obj) { return JSON.stringify(obj); });
+Vue.filter('listing_date_format', function(time) { return listingDateFormat(time); });
+Vue.filter('i18n', function(str) { return i18n(str); });
 
 const router = new VueRouter({
   routes: [
