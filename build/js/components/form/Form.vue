@@ -17,7 +17,7 @@
       </div>
       <div class="form-body">
         <input type="text" v-model="note.title" autocomplete="off" :placeholder="'form.input_title_placeholder'|i18n" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
-        <textarea v-model="note.content" v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" spellcheck="false"></textarea>
+        <textarea v-model="note.content" v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" v-bind:class="{ 'text-small': textFormat == 'small', 'text-normal': textFormat == 'normal', 'text-big': textFormat == 'big' }" spellcheck="false"></textarea>
         <input type="hidden" v-model="note.id">
         <input type="hidden" v-model="note.type">
         <input type="hidden" v-model="note.created_at">
@@ -25,6 +25,14 @@
     </div>
     <div class="form-footer" ref="formFooter">
       <a href="#" class="btn-primary" v-on:click="save($event)">{{ "form.save_btn"|i18n }}</a>
+      <a href="#" class="btn-text-format" v-on:click="toogleTextFormatList($event)">
+        <ul v-bind:class="{ 'hidden': classes.textFormatList.isHidden }">
+            <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "form.text_format_small"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "form.text_format_normal"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "form.text_format_big"|i18n }}</li>
+        </ul>
+        <i class="fa fa-text-format"></i>
+      </a>
       <span id="process">{{ processText }}</span>
     </div>
   </div>
@@ -44,6 +52,9 @@
           controls: {
             isMini: false,
             isFullScreen: false
+          },
+          textFormatList: {
+            isHidden: true
           }
         },
         styles: {
@@ -58,6 +69,7 @@
         },
         headerType: '',
         processText: '',
+        textFormat: 'small',
         note: {
           id: '',
           type: 'notes',
@@ -88,6 +100,7 @@
     mounted: function() {
       window.addEventListener('resize', this.minimize);
       this.__setHeaderType(i18n('form.title_new'));
+      this.textFormat = lsGet('text_format');
     },
     methods: {
       /**
@@ -258,6 +271,27 @@
             this.$parent.$refs.formOverlay.classes.isHidden = false;
           }
         }
+      },
+      /**
+      * Toogle text formats list
+      */
+      toogleTextFormatList(e) {
+        e.preventDefault();
+        if (e.target.localName == 'i') {
+          if (this.classes.textFormatList.isHidden) {
+            this.classes.textFormatList.isHidden = false;
+          } else {
+            this.classes.textFormatList.isHidden = true;
+          }
+        }
+      },
+      /**
+      * Set text format for a note content
+      */
+      setTextFormat(type) {
+        this.textFormat = type;
+        this.classes.textFormatList.isHidden = true;
+        lsSet('text_format', type);
       },
       /**
       * Minimize on browser window resize

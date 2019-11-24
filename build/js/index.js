@@ -44,6 +44,7 @@ const app = new Vue({
       lsSet('notes', []);
       lsSet('language', 'en');
       lsSet('sidebar_mini', false);
+      lsSet('text_format', 'small');
     }
   }
 });

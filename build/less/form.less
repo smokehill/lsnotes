@@ -153,8 +153,19 @@
 
       textarea {
         padding: 10px 0px;
-        font-size: 13px;
         line-height: 1.4;
+
+        &.text-small {
+          font-size: 13px;
+        }
+
+        &.text-normal {
+          font-size: 14px;
+        }
+
+        &.text-big {
+          font-size: 16px;
+        }
       }
     }
   }
@@ -177,6 +188,59 @@
       &:hover {
         color: @body-bg;
         background: darken(@sidebar-bg, 5%);
+      }
+    }
+
+    .btn-text-format {
+      position: relative;
+      padding: 8px 10px 8px 2px;
+
+      ul {
+        position: absolute;
+        bottom: 16px;
+        left: 10px;
+        list-style: none;
+        margin-left: 0;
+        padding: 12px 0;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 4px;
+        background: @body-bg;
+
+        &.hidden {
+          display: none;
+        }
+
+        li {
+          line-height: 0;
+          padding: 12px 24px;
+          font-size: 13px;
+          color: lighten(@text-color, 5%);
+
+          &:hover {
+            background-color: @hr-tag;
+          }
+
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+
+      i.fa {
+        margin-left: 10px;
+        opacity: .7;
+        flex: 0;
+  
+        &.fa-text-format:before {
+          content: "";
+          display: inline-block;
+          width: 17px;
+          height: 14px;
+          background-image: url(../img/form_text_format.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 17px 17px;
+        }
       }
     }
 
