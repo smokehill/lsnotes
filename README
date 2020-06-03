@@ -1,13 +1,12 @@
 
 LSNotes (Local Storage Notes)
 
-(c) valera.padolochniy@gmail.com
-This app is released under the MIT License (MIT)
-
 DESCRIPTION
 
 Extension for Google Chrome.
-Helps to create and manage simple notes in a browser window.
+
+Helps to create and manage simple notes in a browser window. As a storage
+used Local Storage and implemented export/import mechanism for notes backup.
 
 Screenshots:
 https://db.tt/kta4NHX0cn
@@ -18,4 +17,4 @@ INSTALL
 
 Until I didn't create Google Play account :)
 Upload archive https://github.com/smokehill/lsnotes/archive/master.zip
-And in Chrome go to the chrome://extensions and click "Load unpacked"
+In Chrome go to the chrome://extensions and click "Load unpacked".
