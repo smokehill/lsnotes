@@ -2,8 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Sidebar from './components/Sidebar.vue';
-import Form from './components/form/Form.vue';
-import FormOverlay from './components/form/FormOverlay.vue';
+import Form from './components/Form.vue';
 import Notes from './components/content/Notes.vue';
 import Trash from './components/content/Trash.vue';
 import Settings from './components/content/Settings.vue';
@@ -35,8 +34,7 @@ const app = new Vue({
   router: router,
   components: {
     'sidebar': Sidebar,
-    'form-modal': Form,
-    'form-modal-overlay': FormOverlay
+    'form-modal': Form
   },
   created: function() {
     if (lsGet('notes') == null) {

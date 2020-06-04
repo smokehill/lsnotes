@@ -1,50 +1,54 @@
 <template>
-  <div class="form" v-bind:class="{ 'hidden': classes.isHidden, 'sm': classes.isMini, 'lg': classes.isFullScreen  }" ref="form" v-fix-form>
-    <div class="form-wrapper">
-      <div class="form-header">
-        <span class="text">{{ headerType }}</span>
-        <ul class="controls">
-          <li v-on:click="changeSize($event, 'height')">
-            <i class="fa" v-bind:class="{ 'fa-show-hide-o': classes.controls.isMini, 'fa-show-hide': !classes.controls.isMini }"></i>
-          </li>
-          <li v-on:click="changeSize($event, 'width')">
-            <i class="fa" v-bind:class="{ 'fa-full-screen-o': classes.controls.isFullScreen, 'fa-full-screen': !classes.controls.isFullScreen }"></i>
-          </li>
-          <li v-on:click="close($event)">
-            <i class="fa fa-close"></i>
-          </li>
-        </ul>
+  <div>
+    <div class="form-overlay" v-bind:class="{ hidden: classes.overlayIsHidden }"></div>
+    <div class="form" v-bind:class="{ 'hidden': classes.isHidden, 'sm': classes.isMini, 'lg': classes.isFullScreen  }" ref="form" v-fix-form>
+      <div class="form-wrapper">
+        <div class="form-header">
+          <span class="text">{{ headerType }}</span>
+          <ul class="controls">
+            <li v-on:click="changeSize($event, 'height')">
+              <i class="fa" v-bind:class="{ 'fa-show-hide-o': classes.controls.isMini, 'fa-show-hide': !classes.controls.isMini }"></i>
+            </li>
+            <li v-on:click="changeSize($event, 'width')">
+              <i class="fa" v-bind:class="{ 'fa-full-screen-o': classes.controls.isFullScreen, 'fa-full-screen': !classes.controls.isFullScreen }"></i>
+            </li>
+            <li v-on:click="close($event)">
+              <i class="fa fa-close"></i>
+            </li>
+          </ul>
+        </div>
+        <div class="form-body">
+          <input type="text" v-model="note.title" autocomplete="off" :placeholder="'form.input_title_placeholder'|i18n" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
+          <textarea v-model="note.content" v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" v-bind:class="{ 'text-small': textFormat == 'small', 'text-normal': textFormat == 'normal', 'text-big': textFormat == 'big' }" spellcheck="false"></textarea>
+          <input type="hidden" v-model="note.id">
+          <input type="hidden" v-model="note.type">
+          <input type="hidden" v-model="note.created_at">
+        </div>
       </div>
-      <div class="form-body">
-        <input type="text" v-model="note.title" autocomplete="off" :placeholder="'form.input_title_placeholder'|i18n" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
-        <textarea v-model="note.content" v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" v-bind:class="{ 'text-small': textFormat == 'small', 'text-normal': textFormat == 'normal', 'text-big': textFormat == 'big' }" spellcheck="false"></textarea>
-        <input type="hidden" v-model="note.id">
-        <input type="hidden" v-model="note.type">
-        <input type="hidden" v-model="note.created_at">
+      <div class="form-footer" ref="formFooter">
+        <a href="#" class="btn-primary" v-on:click="save($event)">{{ "form.save_btn"|i18n }}</a>
+        <a href="#" class="btn-text-format fa fa-text-format" v-on:click="toogleTextFormatList($event)">
+          <ul v-bind:class="{ 'hidden': classes.textFormatList.isHidden }">
+            <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "form.text_format_small"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "form.text_format_normal"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "form.text_format_big"|i18n }}</li>
+          </ul>
+        </a>
+        <span id="process">{{ processText }}</span>
       </div>
-    </div>
-    <div class="form-footer" ref="formFooter">
-      <a href="#" class="btn-primary" v-on:click="save($event)">{{ "form.save_btn"|i18n }}</a>
-      <a href="#" class="btn-text-format fa fa-text-format" v-on:click="toogleTextFormatList($event)">
-        <ul v-bind:class="{ 'hidden': classes.textFormatList.isHidden }">
-          <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "form.text_format_small"|i18n }}</li>
-          <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "form.text_format_normal"|i18n }}</li>
-          <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "form.text_format_big"|i18n }}</li>
-        </ul>
-      </a>
-      <span id="process">{{ processText }}</span>
     </div>
   </div>
 </template>
 
 <script>
-  import { lsGet, lsSet, formDateFormat, i18n } from './../../helpers.js';
+  import { lsGet, lsSet, formDateFormat, i18n } from './../helpers.js';
   
   export default {
     name: 'form-modal',
     data() {
       return {
         classes: {
+          overlayIsHidden: true,
           isHidden: true,
           isMini: false,
           isFullScreen: false,
@@ -138,7 +142,7 @@
           this.classes.isHidden = false;
           if (this.classes.controls.isFullScreen) {
             this.classes.isFullScreen = true;
-            this.$parent.$refs.formOverlay.classes.isHidden = false;
+            this.classes.overlayIsHidden = false;
           }
         }
       },
@@ -152,7 +156,7 @@
         this.classes.isFullScreen = false;
         this.classes.controls.isMini = false;
         this.classes.controls.isFullScreen = false;
-        this.$parent.$refs.formOverlay.classes.isHidden = true;
+        this.classes.overlayIsHidden = true;
         this.__setHeaderType(i18n('form.title_new'));
         this.__empty();
         this.$eventBus.$emit('form_close');
@@ -253,14 +257,14 @@
             this.classes.isFullScreen = false;
             this.classes.controls.isMini = false;
             this.classes.controls.isFullScreen = false;
-            this.$parent.$refs.formOverlay.classes.isHidden = true;
+            this.classes.overlayIsHidden = true;
           } else {
             // size: mini
             this.classes.isMini = true;
             this.classes.isFullScreen = false;
             this.classes.controls.isMini = true;
             this.classes.controls.isFullScreen = false;
-            this.$parent.$refs.formOverlay.classes.isHidden = true;
+            this.classes.overlayIsHidden = true;
           }
         } else if (type == 'width') {
           if (this.classes.isFullScreen) {
@@ -269,14 +273,14 @@
             this.classes.isFullScreen = false;
             this.classes.controls.isMini = false;
             this.classes.controls.isFullScreen = false;
-            this.$parent.$refs.formOverlay.classes.isHidden = true;
+            this.classes.overlayIsHidden = true;
           } else {
             // size: full-screen
             this.classes.isMini = false;
             this.classes.isFullScreen = true;
             this.classes.controls.isMini = false;
             this.classes.controls.isFullScreen = true;
-            this.$parent.$refs.formOverlay.classes.isHidden = false;
+            this.classes.overlayIsHidden = false;
           }
         }
       },
@@ -310,7 +314,7 @@
           this.classes.isFullScreen = false;
           this.classes.controls.isMini = true;
           this.classes.controls.isFullScreen = false;
-          this.$parent.$refs.formOverlay.classes.isHidden = true;
+          this.classes.overlayIsHidden = true;
         }
       },
       /**
