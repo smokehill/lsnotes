@@ -8,7 +8,7 @@
     </div>
     <ul class="menu">
       <router-link
-        tag="li" v-for="m in menu" :to="m.route" :key="m.title">
+        tag="li" v-for="m in menu" :to="m.path" :key="m.title">
         <i :class="'fa fa-'+m.icon"></i>
         <span class="text">{{ m.title|i18n }}</span>
       </router-link>
@@ -26,17 +26,17 @@
         isMini: false,
         menu: [
           {
-            route: '/notes',
+            path: '/notes',
             title: 'sidebar.menu_notes',
             icon: 'notes'
           },
           {
-            route: '/trash',
+            path: '/trash',
             title: 'sidebar.menu_trash',
             icon: 'trash'
           },
           {
-            route: '/settings',
+            path: '/settings',
             title: 'sidebar.menu_settings',
             icon: 'settings'
           },
