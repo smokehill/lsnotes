@@ -113,6 +113,10 @@
       });
       self.__setHeaderType(i18n('form.title_new'));
       self.textFormat = lsGet('text_format');
+      // check open event
+      self.$eventBus.$on('form_open', function() {
+        self.show();
+      });
     },
     methods: {
       /**

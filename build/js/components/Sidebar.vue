@@ -7,7 +7,8 @@
       </a>
     </div>
     <ul class="menu">
-      <router-link tag="li" v-for="m in menu" :to="m.route" :key="m.title">
+      <router-link
+        tag="li" v-for="m in menu" :to="m.route" :key="m.title">
         <i :class="'fa fa-'+m.icon"></i>
         <span class="text">{{ m.title|i18n }}</span>
       </router-link>
@@ -49,9 +50,8 @@
       /**
        * Open form
        */
-      compose(e) {
-        e.preventDefault();
-        this.$parent.$refs.form.show();
+      compose() {
+        this.$eventBus.$emit('form_open');
       }
     }
   }
