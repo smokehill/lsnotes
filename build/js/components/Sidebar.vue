@@ -7,19 +7,17 @@
       </a>
     </div>
     <ul class="menu">
-      <li v-for="m in menu" v-bind:class="{ active: m.isActive }">
-        <a :href="m.path">
-          <i :class="'fa fa-'+m.icon"></i>
-          <span class="text">{{ m.iKey|i18n }}</span>
-        </a>
-      </li>
+      <router-link tag="li" v-for="m in menu" :to="m.route" :key="m.title">
+        <i :class="'fa fa-'+m.icon"></i>
+        <span class="text">{{ m.title|i18n }}</span>
+      </router-link>
     </ul>
   </div>
 </template>
 
 <script>
   import { lsGet, lsSet } from './../helpers.js';
-  
+
   export default {
     name: 'sidebar',
     data() {
@@ -27,22 +25,19 @@
         isMini: false,
         menu: [
           {
-            iKey: 'sidebar.menu_notes',
-            icon: 'notes',
-            path: '#/notes',
-            isActive: false
+            route: '/notes',
+            title: 'sidebar.menu_notes',
+            icon: 'notes'
           },
           {
-            iKey: 'sidebar.menu_trash',
-            icon: 'trash',
-            path: '#/trash',
-            isActive: false
+            route: '/trash',
+            title: 'sidebar.menu_trash',
+            icon: 'trash'
           },
           {
-            iKey: 'sidebar.menu_settings',
-            icon: 'settings',
-            path: '#/settings',
-            isActive: false
+            route: '/settings',
+            title: 'sidebar.menu_settings',
+            icon: 'settings'
           },
         ]
       }
@@ -51,19 +46,6 @@
       this.isMini = lsGet('sidebar_mini');
     },
     methods: {
-      /**
-       * Highlight active item
-       */
-      highlightMenu() {
-        const routeName = this.$router.currentRoute.name;
-        for (let i = 0; i < this.menu.length; i++) {
-          if (this.menu[i].icon == routeName) {
-            this.menu[i].isActive = true;
-          } else {
-            this.menu[i].isActive = false;
-          }
-        }
-      },
       /**
        * Open form
        */

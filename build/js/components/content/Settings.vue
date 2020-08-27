@@ -92,7 +92,6 @@
       this.sysLang = lsGet('language');
       this.isSidebarMini = lsGet('sidebar_mini');
       this.importData.name = i18n('settings.export_empty_file');
-      this.$parent.$refs.sidebar.highlightMenu();
       this.initStorageInfo();
       this.initExport();
     },

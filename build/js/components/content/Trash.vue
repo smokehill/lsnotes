@@ -53,7 +53,6 @@
       }
     },
     mounted: function() {
-      this.$parent.$refs.sidebar.highlightMenu();
       this.isSidebarMini = lsGet('sidebar_mini');
       this.total = this.$refs.list.count(this.type);
     },

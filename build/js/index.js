@@ -20,6 +20,8 @@ Vue.filter('listing_date_format', function(time) { return listingDateFormat(time
 Vue.filter('i18n', function(str) { return i18n(str); });
 
 const router = new VueRouter({
+  linkActiveClass: 'active',
+  linkExactActiveClass: '',
   routes: [
     { path: '*', redirect: '/' },
     { path: '/', redirect: '/notes' },
