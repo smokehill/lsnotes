@@ -128,9 +128,10 @@
        */
       toggleIsSidebarMini(e) {
         e.preventDefault();
-        this.isSidebarMini = (this.isSidebarMini) ? false : true;
-        this.$parent.$refs.sidebar.isMini = this.isSidebarMini;
-        lsSet('sidebar_mini', this.isSidebarMini);
+        const self = this;
+        self.isSidebarMini = (self.isSidebarMini) ? false : true;
+        lsSet('sidebar_mini', self.isSidebarMini);
+        self.$eventBus.$emit('sidebar_mini');
       },
       /**
        * Prepare LS usage info

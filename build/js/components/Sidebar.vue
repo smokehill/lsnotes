@@ -44,7 +44,11 @@
       }
     },
     mounted: function() {
-      this.isMini = lsGet('sidebar_mini');
+      const self = this;
+      self.isMini = lsGet('sidebar_mini');
+      self.$eventBus.$on('sidebar_mini', function() {
+        self.isMini = lsGet('sidebar_mini');
+      });
     },
     methods: {
       /**
