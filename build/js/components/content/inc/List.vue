@@ -1,6 +1,6 @@
 <template>
   <ul class="list" v-if="items.length > 0">
-    <li v-for="(item, index) in items" v-on:click="edit($event, item.id)" :data-id="item.id" v-bind:class="{ 'hidden': item.is_hidden, 'active': item.is_active }">
+    <li v-for="(item, index) in items" v-bind:key="item.id" v-on:click="edit($event, item.id)" :data-id="item.id" v-bind:class="{ 'hidden': item.is_hidden, 'active': item.is_active }">
       <i class="fa" v-on:click="select($event, index)" v-bind:class="{ 'fa-checkbox-o': item.is_checked, 'fa-checkbox': !item.is_checked }"></i>
       <span class="title">{{ item.title }}</span>
       <span class="date">{{ item.created_at | listing_date_format }}</span>

@@ -24,7 +24,7 @@
           <div class="settings-item-lable">{{ "settings.label_language"|i18n }}:</div>
           <div class="settings-item-content">
             <select v-model="sysLang">
-              <option v-for="lang in langs" :checked="sysLang == lang">{{ lang }}</option>
+              <option v-for="lang in langs" v-bind:key="lang" :checked="sysLang == lang">{{ lang }}</option>
             </select>
           </div>
         </div>

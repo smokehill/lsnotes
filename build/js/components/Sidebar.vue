@@ -7,8 +7,7 @@
       </a>
     </div>
     <ul class="menu">
-      <router-link
-        tag="li" v-for="m in menu" :to="m.path" :key="m.title">
+      <router-link tag="li" v-for="m in menu" :to="m.path" :key="m.title">
         <i :class="'fa fa-'+m.icon"></i>
         <span class="text">{{ m.title|i18n }}</span>
       </router-link>
