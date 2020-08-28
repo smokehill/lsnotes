@@ -93,10 +93,10 @@
           for (let i = 0; i < lsNotes.length; i++) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
               lsNotes[i].type = 'notes';
-              // change note type in form header
-              if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
-                this.$parent.$refs.form.note.type = lsNotes[i].type;
-                this.$parent.$refs.form.__setHeaderType(i18n('form.title_notes'));
+              // change note type in modal header
+              if (lsNotes[i].id == this.$parent.$refs.modal.note.id) {
+                this.$parent.$refs.modal.note.type = lsNotes[i].type;
+                this.$parent.$refs.modal.__setHeaderType(i18n('modal.title_notes'));
               }
             }
           }
@@ -122,8 +122,8 @@
         if (selected.length > 0 && lsNotes != null) {
           for (let i = lsNotes.length - 1; i >= 0; i--) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
-              if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
-                this.$parent.$refs.form.close(e);
+              if (lsNotes[i].id == this.$parent.$refs.modal.note.id) {
+                this.$parent.$refs.modal.close(e);
               }
               lsNotes.splice(i, 1);
             }

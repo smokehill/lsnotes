@@ -52,10 +52,10 @@
     },
     methods: {
       /**
-       * Open form
+       * Open modal
        */
       compose() {
-        this.$eventBus.$emit('form_open');
+        this.$eventBus.$emit('modal_open');
       }
     }
   }

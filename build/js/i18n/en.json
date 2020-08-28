@@ -40,7 +40,7 @@
     "status_import_finished": "Import finished",
     "status_import_failed": "Import failed"
   },
-  "form": {
+  "modal": {
     "title_new": "New",
     "title_notes": "Notes",
     "title_trash": "Trash",

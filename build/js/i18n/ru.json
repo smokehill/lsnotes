@@ -40,7 +40,7 @@
     "status_import_finished": "Импорт завершен",
     "status_import_failed": "Ошибка импорта"
   },
-  "form": {
+  "modal": {
     "title_new": "Новая",
     "title_notes": "Заметки",
     "title_trash": "Корзина",

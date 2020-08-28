@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="form-overlay" v-bind:class="{ hidden: classes.overlayIsHidden }"></div>
-    <div class="form" v-bind:class="{ 'hidden': classes.isHidden, 'sm': classes.isMini, 'lg': classes.isFullScreen  }" ref="form" v-fix-form>
-      <div class="form-wrapper">
-        <div class="form-header">
+    <div class="modal-overlay" v-bind:class="{ hidden: classes.overlayIsHidden }"></div>
+    <div class="modal" v-bind:class="{ 'hidden': classes.isHidden, 'sm': classes.isMini, 'lg': classes.isFullScreen  }" ref="modal" v-fix-modal>
+      <div class="modal-wrapper">
+        <div class="modal-header">
           <span class="text">{{ headerType }}</span>
           <ul class="controls">
             <li v-on:click="changeSize($event, 'height')">
@@ -17,21 +17,21 @@
             </li>
           </ul>
         </div>
-        <div class="form-body">
-          <input type="text" v-model="note.title" autocomplete="off" :placeholder="'form.input_title_placeholder'|i18n" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
+        <div class="modal-body">
+          <input type="text" v-model="note.title" autocomplete="off" :placeholder="'modal.input_title_placeholder'|i18n" v-bind:style="{ 'width': styles.titleWidth + 'px' }" spellcheck="false" />
           <textarea v-model="note.content" v-bind:style="{ 'width': styles.contentWidth + 'px', 'height': styles.contentHeight + 'px' }" v-bind:class="{ 'text-small': textFormat == 'small', 'text-normal': textFormat == 'normal', 'text-big': textFormat == 'big' }" spellcheck="false"></textarea>
           <input type="hidden" v-model="note.id">
           <input type="hidden" v-model="note.type">
           <input type="hidden" v-model="note.created_at">
         </div>
       </div>
-      <div class="form-footer" ref="formFooter">
-        <a href="#" class="btn-primary" v-on:click="save($event)">{{ "form.save_btn"|i18n }}</a>
+      <div class="modal-footer" ref="modalFooter">
+        <a href="#" class="btn-primary" v-on:click="save($event)">{{ "modal.save_btn"|i18n }}</a>
         <a href="#" class="btn-text-format fa fa-text-format" v-on:click="toogleTextFormatList($event)">
           <ul v-bind:class="{ 'hidden': classes.textFormatList.isHidden }">
-            <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "form.text_format_small"|i18n }}</li>
-            <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "form.text_format_normal"|i18n }}</li>
-            <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "form.text_format_big"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'small' }" v-on:click="setTextFormat('small')">{{ "modal.text_format_small"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'normal' }" v-on:click="setTextFormat('normal')">{{ "modal.text_format_normal"|i18n }}</li>
+            <li v-bind:class="{ 'active': textFormat == 'big' }" v-on:click="setTextFormat('big')">{{ "modal.text_format_big"|i18n }}</li>
           </ul>
         </a>
         <span id="process">{{ processText }}</span>
@@ -41,10 +41,10 @@
 </template>
 
 <script>
-  import { lsGet, lsSet, formDateFormat, i18n } from './../helpers.js';
+  import { lsGet, lsSet, modalDateFormat, i18n } from './../helpers.js';
   
   export default {
-    name: 'form-modal',
+    name: 'modal',
     data() {
       return {
         classes: {
@@ -89,10 +89,10 @@
       }
     },
     directives: {
-      'fix-form': {
+      'fix-modal': {
        update: (el, binding, vnode) => {
-          let width = vnode.context.$refs.form.offsetWidth - 28;
-          let height = vnode.context.$refs.form.offsetHeight - 159;
+          let width = vnode.context.$refs.modal.offsetWidth - 28;
+          let height = vnode.context.$refs.modal.offsetHeight - 159;
           // fix title & content sizes
           vnode.context.styles.titleWidth = width;
           vnode.context.styles.contentHeight = height;
@@ -111,16 +111,16 @@
             }
           }
       });
-      self.__setHeaderType(i18n('form.title_new'));
+      self.__setHeaderType(i18n('modal.title_new'));
       self.textFormat = lsGet('text_format');
       // check open event
-      self.$eventBus.$on('form_open', function() {
+      self.$eventBus.$on('modal_open', function() {
         self.show();
       });
     },
     methods: {
       /**
-       * Show form
+       * Show modal
        */
       show(id = null) {
         if (id != null) {
@@ -133,13 +133,13 @@
               this.note.content = notes[i].content;
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
-              this.__setHeaderType(i18n(`form.title_${notes[i].type}`));
-              this.__setProcessText(formDateFormat(this.note.updated_at));
+              this.__setHeaderType(i18n(`modal.title_${notes[i].type}`));
+              this.__setProcessText(modalDateFormat(this.note.updated_at));
               break;
             }
           }
         } else {
-          this.__setHeaderType(i18n('form.title_new'));
+          this.__setHeaderType(i18n('modal.title_new'));
           this.__empty();
         }
         if (this.classes.isHidden) {
@@ -151,7 +151,7 @@
         }
       },
       /**
-       * Close form
+       * Close modal
        */
       close(e) {
         e.preventDefault();
@@ -161,12 +161,12 @@
         this.classes.controls.isMini = false;
         this.classes.controls.isFullScreen = false;
         this.classes.overlayIsHidden = true;
-        this.__setHeaderType(i18n('form.title_new'));
+        this.__setHeaderType(i18n('modal.title_new'));
         this.__empty();
-        this.$eventBus.$emit('form_close');
+        this.$eventBus.$emit('modal_close');
       },
       /**
-       * Save form data
+       * Save modal data
        */
       save(e) {
         e.preventDefault();
@@ -175,12 +175,12 @@
         const id = Math.floor(Date.now() / 1000);
         self.__setProcessText('');
         if (self.note.title == '') {
-          // validate form data
-          self.__setProcessText(i18n(`form.status_title_required`));
+          // validate modal data
+          self.__setProcessText(i18n(`modal.status_title_required`));
           return false;
         } else if (self.note.content.length > 102400) {
           // validate content size (max: 100kb)
-          self.__setProcessText(i18n(`form.status_сontent_size_limit`));
+          self.__setProcessText(i18n(`modal.status_сontent_size_limit`));
           return false;
         } else {
           // validate LS total size
@@ -200,13 +200,13 @@
           lsTotal = (lsTotal * 2) / 1024;
           lsTotal = Number(lsTotal.toFixed(0));
           if (lsTotal > 10240) {
-            self.__setProcessText(i18n(`form.status_storage_size_limit`));
+            self.__setProcessText(i18n(`modal.status_storage_size_limit`));
             return false;
           }
         }
         // update notes
         let notes = lsGet('notes');
-        self.__setProcessText(i18n(`form.status_processing`));
+        self.__setProcessText(i18n(`modal.status_processing`));
         if (self.note.id == '') {
           // add new
           notes.push({
@@ -245,12 +245,12 @@
               components[i].$refs.list.init();
             }
           }
-          self.__setHeaderType(i18n(`form.title_${self.note.type}`));
-          self.__setProcessText(formDateFormat(date));
+          self.__setHeaderType(i18n(`modal.title_${self.note.type}`));
+          self.__setProcessText(modalDateFormat(date));
         }, self.$timeout);
       },
       /**
-       * Handle form size
+       * Handle modal size
        */
       changeSize(e, type) {
         e.preventDefault();
@@ -289,7 +289,7 @@
         }
       },
       /**
-      * Toogle text formats list
+      * Toogle text modalats list
       */
       toogleTextFormatList(e) {
         e.preventDefault();
@@ -323,7 +323,7 @@
       },
       /**
        * @internal
-       * Reset form data
+       * Reset modal data
        */
       __empty() {
         this.note.id = '';
@@ -336,14 +336,14 @@
       },
       /**
        * @internal
-       * Set form header type
+       * Set modal header type
        */
       __setHeaderType(value) {
         this.headerType = value;
       },
       /**
        * @internal
-       * Set form process text
+       * Set modal process text
        */
       __setProcessText(text) {
         this.processText = text;

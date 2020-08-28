@@ -22,7 +22,7 @@
     mounted: function() {
       const self = this;
       self.init();
-      self.$eventBus.$on('form_close', function() {
+      self.$eventBus.$on('modal_close', function() {
         for (let i = 0; i < self.items.length; i++) {
           self.items[i].is_active = false;
         }
@@ -39,7 +39,7 @@
           lsNotes.reverse();
           for (let i = 0; i < lsNotes.length; i++) {
             if (lsNotes[i].type == this.type) {
-              if (lsNotes[i].id == this.$parent.$root.$refs.form.note.id) {
+              if (lsNotes[i].id == this.$parent.$root.$refs.modal.note.id) {
                 lsNotes[i].is_active = true;
               }
               this.items.push(lsNotes[i]);
@@ -83,7 +83,7 @@
         if (e.target.classList.contains('fa')) {
           return;
         }
-        this.$parent.$root.$refs.form.show(id);
+        this.$parent.$root.$refs.modal.show(id);
         // highlight active
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].id == id) {

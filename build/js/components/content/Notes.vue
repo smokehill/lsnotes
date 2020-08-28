@@ -91,10 +91,10 @@
             if (selected.indexOf(lsNotes[i].id) != -1) {
               lsNotes[i].type = 'trash';
               lsNotes[i].is_checked = false;
-              // change note type in form header
-              if (lsNotes[i].id == this.$parent.$refs.form.note.id) {
-                this.$parent.$refs.form.note.type = lsNotes[i].type;
-                this.$parent.$refs.form.__setHeaderType(i18n('form.title_trash'));
+              // change note type in modal header
+              if (lsNotes[i].id == this.$parent.$refs.modal.note.id) {
+                this.$parent.$refs.modal.note.type = lsNotes[i].type;
+                this.$parent.$refs.modal.__setHeaderType(i18n('modal.title_trash'));
               }
             }
           }

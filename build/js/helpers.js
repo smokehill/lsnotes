@@ -51,9 +51,9 @@ export function listingDateFormat(time) {
 }
 
 /**
- * Date format for a note form
+ * Date format for a note modal
  */
-export function formDateFormat(time) {
+export function modalDateFormat(time) {
   const currentYear = new Date().getFullYear().toString();
   // current date, incoming date, incoming date string
   let cDate, iDate, iSDate; 
@@ -70,15 +70,15 @@ export function formDateFormat(time) {
     i = Math.abs(Math.round(((cDate.getTime() - iDate.getTime()) / 1000) / 60));
     h = Math.round(i / 60);
     if (i == 0) {
-      return i18n('form.status_changes_saved') ;
+      return i18n('modal.status_changes_saved') ;
     } else if (i < 60) {
-      return i18n('form.status_last_edit') + `: ${i} ` + i18n('form.status_minutes_ago');
+      return i18n('modal.status_last_edit') + `: ${i} ` + i18n('modal.status_minutes_ago');
     } else if (h < 12) {
-      return i18n('form.status_last_edit') + `: ${h} ` + i18n('form.status_hours_ago');
+      return i18n('modal.status_last_edit') + `: ${h} ` + i18n('modal.status_hours_ago');
     } else {
-      return i18n('form.status_last_edit') + `: ${month} ${day}`;
+      return i18n('modal.status_last_edit') + `: ${month} ${day}`;
     }
   } else {
-    return i18n('form.status_last_edit') + `: ${month} ${day}, ${year}`;
+    return i18n('modal.status_last_edit') + `: ${month} ${day}, ${year}`;
   }
 }

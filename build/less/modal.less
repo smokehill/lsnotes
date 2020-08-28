@@ -1,4 +1,4 @@
-.form-overlay {
+.modal-overlay {
   position: fixed;
   z-index: 899;
   padding-top: 100px;
@@ -14,7 +14,7 @@
   }
 }
 
-.form {
+.modal {
   position: fixed;
   right: 18px;
   bottom: 10px;
@@ -34,15 +34,15 @@
     width: 300px;
     height: 40px;
 
-    .form-header {
+    .modal-header {
       border-radius: 4px;
     }
 
-    .form-body {
+    .modal-body {
       display: none;
     }
 
-    .form-footer {
+    .modal-footer {
       display: none;
     }
   }
@@ -56,11 +56,11 @@
     height: 90%;
   }
 
-  .form-wrapper {
+  .modal-wrapper {
     height: 100%;
     margin-bottom: -56px;
 
-    .form-header {
+    .modal-header {
       height: 40px;
       line-height: 40px;
       background: #4d4d4d;
@@ -104,31 +104,31 @@
             }
 
             &.fa-show-hide {
-              background-image: url(../img/form_minimize.png);
+              background-image: url(../img/modal_minimize.png);
 
             }
-  
+
             &.fa-show-hide-o {
-              background-image: url(../img/form_maximize.png);
+              background-image: url(../img/modal_maximize.png);
             }
 
             &.fa-full-screen {
-              background-image: url(../img/form_full_screen.png);
+              background-image: url(../img/modal_full_screen.png);
             }
 
             &.fa-full-screen-o {
-              background-image: url(../img/form_full_screen_exit.png);
+              background-image: url(../img/modal_full_screen_exit.png);
             }
 
             &.fa-close {
-              background-image: url(../img/form_close.png);
+              background-image: url(../img/modal_close.png);
             }
           }
         }
       }
     }
 
-    .form-body {
+    .modal-body {
       background: @body-bg;
       padding: 12px 14px 0 13px;
 
@@ -170,7 +170,7 @@
     }
   }
 
-  .form-footer {
+  .modal-footer {
     background: @body-bg;
     height: 56px;
     line-height: 56px;
@@ -202,7 +202,7 @@
           display: inline-block;
           width: 17px;
           height: 14px;
-          background-image: url(../img/form_text_format.png);
+          background-image: url(../img/modal_text_format.png);
           background-repeat: no-repeat;
           background-position: center;
           background-size: 17px 17px;
