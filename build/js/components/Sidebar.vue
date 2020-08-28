@@ -20,7 +20,6 @@
   import { lsGet, lsSet } from './../helpers.js';
 
   export default {
-    name: 'sidebar',
     data() {
       return {
         isMini: false,
@@ -46,7 +45,7 @@
     mounted: function() {
       const self = this;
       self.isMini = lsGet('sidebar_mini');
-      self.$eventBus.$on('sidebar_mini', function() {
+      self.$eventBus.$on('sidebar.mini', function() {
         self.isMini = lsGet('sidebar_mini');
       });
     },
@@ -55,7 +54,7 @@
        * Open modal
        */
       compose() {
-        this.$eventBus.$emit('modal_open');
+        this.$eventBus.$emit('modal.open');
       }
     }
   }

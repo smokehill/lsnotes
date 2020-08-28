@@ -3,10 +3,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
-  entry: './build/app.js',
+  entry: './build/build.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js'
+    filename: 'build.js'
   },
   module: {
     rules: [
@@ -48,7 +48,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: 'app.css',
+      filename: 'build.css',
       allChunks: true
     }),
     new VueLoaderPlugin()

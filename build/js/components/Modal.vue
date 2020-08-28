@@ -12,7 +12,7 @@
             <li v-on:click="changeSize($event, 'width')">
               <i class="fa" v-bind:class="{ 'fa-full-screen-o': classes.controls.isFullScreen, 'fa-full-screen': !classes.controls.isFullScreen }"></i>
             </li>
-            <li v-on:click="close($event)">
+            <li v-on:click="close()">
               <i class="fa fa-close"></i>
             </li>
           </ul>
@@ -44,7 +44,6 @@
   import { lsGet, lsSet, modalDateFormat, i18n } from './../helpers.js';
   
   export default {
-    name: 'modal',
     data() {
       return {
         classes: {
@@ -84,13 +83,13 @@
       }
     },
     filters: {
-      strupFirst: function (string) {
+      strupFirst: function(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
     },
     directives: {
       'fix-modal': {
-       update: (el, binding, vnode) => {
+       update: function(el, binding, vnode) {
           let width = vnode.context.$refs.modal.offsetWidth - 28;
           let height = vnode.context.$refs.modal.offsetHeight - 159;
           // fix title & content sizes
@@ -113,16 +112,25 @@
       });
       self.__setHeaderType(i18n('modal.title_new'));
       self.textFormat = lsGet('text_format');
-      // check open event
-      self.$eventBus.$on('modal_open', function() {
+      // track open event
+      self.$eventBus.$on('modal.open', function() {
         self.show();
+      });
+      // track notes type changes
+      self.$eventBus.$on('modal.close', function() {
+        self.close();
+      });
+      // track notes type changes
+      self.$eventBus.$on('modal.changeHeader', function(value) {
+        self.__setHeaderType(i18n(`modal.title_${value}`));
       });
     },
     methods: {
       /**
        * Show modal
        */
-      show(id = null) {
+      show() {
+        let id = this.$store.state.noteId;
         if (id != null) {
           const notes = lsGet('notes');
           for (let i = 0; i < notes.length; i++) {
@@ -153,8 +161,7 @@
       /**
        * Close modal
        */
-      close(e) {
-        e.preventDefault();
+      close() {
         this.classes.isHidden = true;
         this.classes.isMini = false;
         this.classes.isFullScreen = false;
@@ -163,7 +170,8 @@
         this.classes.overlayIsHidden = true;
         this.__setHeaderType(i18n('modal.title_new'));
         this.__empty();
-        this.$eventBus.$emit('modal_close');
+        this.$store.commit('rememberNoteId', null);
+        this.$eventBus.$emit('list.clearActive');
       },
       /**
        * Save modal data
@@ -225,6 +233,7 @@
           self.note.title = self.note.title;
           self.note.content = self.note.content;
           self.note.created_at = date;
+          self.$store.commit('rememberNoteId', id);
         } else {
           // update old
           for (let i = 0; i < notes.length; i++) {
@@ -237,16 +246,11 @@
           }
         }
         // save notes and update list
-        const components = self.$parent.$children;
         setTimeout(function() {
           lsSet('notes', notes);
-          for (let i = 0; i < components.length; i++) {
-            if (components[i].$options.name == 'notes-list' || components[i].$options.name == 'trash-list') {
-              components[i].$refs.list.init();
-            }
-          }
           self.__setHeaderType(i18n(`modal.title_${self.note.type}`));
           self.__setProcessText(modalDateFormat(date));
+          self.$eventBus.$emit('list.update');
         }, self.$timeout);
       },
       /**

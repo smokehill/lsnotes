@@ -12,7 +12,6 @@
   import { lsGet } from './../../../helpers.js';
   
   export default {
-    name: 'list',
     props: ['type'],
     data() {
       return {
@@ -22,7 +21,10 @@
     mounted: function() {
       const self = this;
       self.init();
-      self.$eventBus.$on('modal_close', function() {
+      self.$eventBus.$on('list.update', function() {
+        self.init();
+      });
+      self.$eventBus.$on('list.clearActive', function() {
         for (let i = 0; i < self.items.length; i++) {
           self.items[i].is_active = false;
         }
@@ -39,7 +41,7 @@
           lsNotes.reverse();
           for (let i = 0; i < lsNotes.length; i++) {
             if (lsNotes[i].type == this.type) {
-              if (lsNotes[i].id == this.$parent.$root.$refs.modal.note.id) {
+              if (lsNotes[i].id == this.$store.state.noteId) {
                 lsNotes[i].is_active = true;
               }
               this.items.push(lsNotes[i]);
@@ -83,7 +85,8 @@
         if (e.target.classList.contains('fa')) {
           return;
         }
-        this.$parent.$root.$refs.modal.show(id);
+        this.$store.commit('rememberNoteId', id);
+        this.$eventBus.$emit('modal.open');
         // highlight active
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].id == id) {

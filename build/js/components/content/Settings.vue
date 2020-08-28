@@ -12,10 +12,10 @@
         <div class="settings-item-row">
           <div class="settings-item-lable">{{ "settings.label_sidebar_mini"|i18n }}:</div>
           <div class="settings-item-content">
-            <label class="radio-btn" for="radio-on" v-on:click="toggleIsSidebarMini($event)">
+            <label class="radio-btn" for="radio-on" v-on:click="toggleIsSidebarMini($event, 'on')">
               <input type="radio" id="radio-on" :checked="isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_on"|i18n }}</span>
             </label>
-            <label class="radio-btn" for="radio-off" v-on:click="toggleIsSidebarMini($event)">
+            <label class="radio-btn" for="radio-off" v-on:click="toggleIsSidebarMini($event, 'off')">
               <input type="radio" id="radio-off" :checked="!isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_off"|i18n }}</span>
             </label>
           </div>
@@ -55,7 +55,6 @@
   import { lsGet, lsSet, i18n } from './../../helpers.js';
 
   export default {
-    name: 'settings',
     data() {
       return {
         isSidebarMini: false,
@@ -126,12 +125,17 @@
       /**
        * Toggle sidebar
        */
-      toggleIsSidebarMini(e) {
+      toggleIsSidebarMini(e, value) {
         e.preventDefault();
         const self = this;
-        self.isSidebarMini = (self.isSidebarMini) ? false : true;
-        lsSet('sidebar_mini', self.isSidebarMini);
-        self.$eventBus.$emit('sidebar_mini');
+        if (value == 'on' && self.isSidebarMini == true
+          || value == 'off' && self.isSidebarMini == false) {
+          return false;
+        } else {
+          self.isSidebarMini = (self.isSidebarMini) ? false : true;
+          lsSet('sidebar_mini', self.isSidebarMini);
+          self.$eventBus.$emit('sidebar.mini');
+        }
       },
       /**
        * Prepare LS usage info

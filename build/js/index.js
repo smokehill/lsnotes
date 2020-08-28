@@ -1,15 +1,11 @@
 import Vue from 'vue';
+import Vuex from 'vuex'
 import VueRouter from 'vue-router';
-
-import Sidebar from './components/Sidebar.vue';
-import Modal from './components/Modal.vue';
+import App from './components/App.vue';
 import Notes from './components/content/Notes.vue';
 import Trash from './components/content/Trash.vue';
 import Settings from './components/content/Settings.vue';
-
-import { lsGet, lsSet, listingDateFormat, i18n } from './helpers.js';
-
-Vue.use(VueRouter);
+import { listingDateFormat, i18n } from './helpers.js';
 
 Vue.prototype.$eventBus = new Vue(); // events
 Vue.prototype.$timeout = 500; // setTimeout delay
@@ -18,6 +14,20 @@ Vue.filter('tolowercase', function(str) { return str.toLowerCase(); });
 Vue.filter('json_stringify', function(obj) { return JSON.stringify(obj); });
 Vue.filter('listing_date_format', function(time) { return listingDateFormat(time); });
 Vue.filter('i18n', function(str) { return i18n(str); });
+
+Vue.use(Vuex);
+Vue.use(VueRouter);
+
+const store = new Vuex.Store({
+  state: {
+    noteId: null // active note id
+  },
+  mutations: {
+    rememberNoteId(state, id) {
+      state.noteId = id;
+    }
+  }
+});
 
 const router = new VueRouter({
   linkActiveClass: 'active',
@@ -34,17 +44,8 @@ const router = new VueRouter({
 const app = new Vue({
   el: '#app',
   router: router,
-  components: {
-    'sidebar': Sidebar,
-    'modal': Modal
-  },
-  created: function() {
-    if (lsGet('notes') == null) {
-      // init LS base params
-      lsSet('notes', []);
-      lsSet('language', 'en');
-      lsSet('sidebar_mini', false);
-      lsSet('text_format', 'small');
-    }
+  store: store,
+  render(v) {
+    return v(App);
   }
 });

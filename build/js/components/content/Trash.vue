@@ -33,7 +33,6 @@
   import { lsGet, lsSet, i18n } from './../../helpers.js';
 
   export default {
-    name: 'trash-list',
     data() {
       return {
         type: 'trash',
@@ -93,11 +92,7 @@
           for (let i = 0; i < lsNotes.length; i++) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
               lsNotes[i].type = 'notes';
-              // change note type in modal header
-              if (lsNotes[i].id == this.$parent.$refs.modal.note.id) {
-                this.$parent.$refs.modal.note.type = lsNotes[i].type;
-                this.$parent.$refs.modal.__setHeaderType(i18n('modal.title_notes'));
-              }
+              this.$eventBus.$emit('modal.changeHeader', 'notes');
             }
           }
           lsSet('notes', lsNotes);
@@ -122,8 +117,8 @@
         if (selected.length > 0 && lsNotes != null) {
           for (let i = lsNotes.length - 1; i >= 0; i--) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
-              if (lsNotes[i].id == this.$parent.$refs.modal.note.id) {
-                this.$parent.$refs.modal.close(e);
+              if (lsNotes[i].id == this.$store.state.noteId) {
+                this.$eventBus.$emit('modal.close');
               }
               lsNotes.splice(i, 1);
             }
