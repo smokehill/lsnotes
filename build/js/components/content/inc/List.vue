@@ -36,7 +36,7 @@
     },
     methods: {
       /**
-       * Initialize notes
+       * Initialize notes.
        */
       init() {
         const lsNotes = lsGet('notes');
@@ -55,7 +55,7 @@
       },
       /**
        * @shared
-       * Search notes
+       * Search notes.
        */
       search(value) {
         if (value == '') {
@@ -77,13 +77,13 @@
         }
       },
       /**
-       * Select note
+       * Select note.
        */
       select(e, index) {
         this.items[index].is_checked = (!this.items[index].is_checked) ? true : false;
       },
       /**
-       * Edit note
+       * Edit note.
        */
       edit(e, id) {
         if (e.target.classList.contains('fa')) {
@@ -101,7 +101,7 @@
         }
       },
       /**
-       * Count total notes by type
+       * Count total notes by type.
        */
       count(type) {
         const lsNotes = lsGet('notes');

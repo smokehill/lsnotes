@@ -104,10 +104,4 @@ const modalDateFormat = (time) => {
   }
 }
 
-export {
-  lsGet,
-  lsSet,
-  i18n,
-  listingDateFormat,
-  modalDateFormat
-};
+export { lsGet, lsSet, i18n, listingDateFormat, modalDateFormat };

@@ -54,7 +54,7 @@
     },
     methods: {
       /**
-       * Select all notes
+       * Select all notes.
        */
       selectAll(e) {
         e.preventDefault();
@@ -73,7 +73,7 @@
         }
       },
       /**
-       * Move selected notes to trash
+       * Move selected notes to trash.
        */
       deleteSelected(e) {
         e.preventDefault();

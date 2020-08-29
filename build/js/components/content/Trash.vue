@@ -57,7 +57,7 @@
     },
     methods: {
       /**
-       * Select all notes
+       * Select all notes.
        */
       selectAll(e) {
         e.preventDefault();
@@ -76,7 +76,7 @@
         }
       },
       /**
-       * Restore selected notes
+       * Restore selected notes.
        */
       restoreSelected(e) {
         e.preventDefault();
@@ -105,7 +105,7 @@
         this.total = this.$refs.list.count(this.type);
       },
       /**
-       * Drop selected notes from LS
+       * Drop selected notes from LS.
        */
       deleteSelected(e) {
         e.preventDefault();

@@ -113,7 +113,7 @@
     },
     methods: {
       /**
-       * Toggle sidebar
+       * Toggle sidebar.
        */
       toggleIsSidebarMini(e, value) {
         e.preventDefault();
@@ -128,7 +128,7 @@
         }
       },
       /**
-       * Prepare LS usage info
+       * Prepare LS usage info.
        */
       initStorageInfo() {
         // Chrome LS total size is 10 MB
@@ -136,7 +136,7 @@
         this.storageInfo.used = this.__calcUsedSpace();
       },
       /**
-       * Export notes from LS into json file
+       * Export notes from LS into json file.
        */
       initExport() {
         const lsNotes = JSON.stringify(lsGet('notes'));
@@ -144,7 +144,7 @@
         this.exportData.href = window.URL.createObjectURL(blobData);
       },
       /**
-       * Import notes into LS from json file
+       * Import notes into LS from json file.
        */
       importNotes(e) {
         e.preventDefault();
@@ -169,13 +169,13 @@
         }, self.$timeout);
       },
       /**
-       * Trigger event on file input
+       * Trigger event on file input.
        */
       chooseFile(e) {
         this.$refs.importFile.click();
       },
       /**
-       * Export notes from LS into json file
+       * Export notes from LS into json file.
        */
       exportNotes(e) {
         e.preventDefault();
@@ -188,7 +188,7 @@
       },
       /**
        * @internal
-       * Calculate LS usaged space
+       * Calculate LS usaged space.
        */
       __calcUsedSpace() {
         let total = JSON.stringify(localStorage).length;
@@ -197,7 +197,7 @@
       },
       /**
        * @internal
-       * Enable import/export Message message
+       * Enable import/export Message message.
        */
       __enableMessage(text) {
         this.message.text = text;
@@ -205,7 +205,7 @@
       },
       /**
        * @internal
-       * Disable import/export Message message
+       * Disable import/export Message message.
        */
       __disableMessage() {
         this.message.text = '';
@@ -221,7 +221,7 @@
       },
       /**
        * @internal
-       * Clear import data
+       * Clear import data.
        */
       __clearImportData() {
         this.importData.name = i18n('settings.export_empty_file');
@@ -229,7 +229,7 @@
       },
       /**
        * @internal
-       * Validate import data
+       * Validate import data.
        */
       __validateImport() {
           let isValid = true;

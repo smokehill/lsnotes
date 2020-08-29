@@ -119,7 +119,7 @@
     },
     methods: {
       /**
-       * Show modal
+       * Show modal.
        */
       show() {
         const id = this.$store.state.noteId;
@@ -151,7 +151,7 @@
         }
       },
       /**
-       * Close modal
+       * Close modal.
        */
       close() {
         this.classes.isHidden = true;
@@ -168,7 +168,7 @@
         this.$eventBus.$emit('list.clearActive');
       },
       /**
-       * Save modal data
+       * Save modal data.
        */
       save(e) {
         e.preventDefault();
@@ -255,7 +255,7 @@
         }, self.$timeout);
       },
       /**
-       * Handle modal size
+       * Handle modal size.
        */
       changeSize(e, type) {
         e.preventDefault();
@@ -294,7 +294,7 @@
         }
       },
       /**
-      * Toogle text modalats list
+      * Toogle text modalats list.
       */
       toogleTextFormatList(e) {
         e.preventDefault();
@@ -307,7 +307,7 @@
         }
       },
       /**
-      * Set text format for a note content
+      * Set text format for a note content.
       */
       setTextFormat(type) {
         this.textFormat = type;
@@ -315,7 +315,7 @@
         lsSet('text_format', type);
       },
       /**
-      * Minimize on browser window resize
+      * Minimize on browser window resize.
       */
       minimize() {
         if (this.classes.isHidden == false) {
@@ -328,7 +328,7 @@
       },
       /**
        * @internal
-       * Reset modal data
+       * Reset modal data.
        */
       __empty() {
         this.note.id = '';
@@ -341,14 +341,14 @@
       },
       /**
        * @internal
-       * Set modal header type
+       * Set modal header type.
        */
       __setHeaderType(value) {
         this.headerType = value;
       },
       /**
        * @internal
-       * Set modal process text
+       * Set modal process text.
        */
       __setProcessText(text) {
         this.processText = text;

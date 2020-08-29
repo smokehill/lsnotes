@@ -39,7 +39,7 @@
     },
     methods: {
       /**
-       * Open modal
+       * Open modal.
        */
       compose() {
         this.$eventBus.$emit('modal.open');
