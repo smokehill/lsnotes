@@ -21,9 +21,11 @@
     mounted: function() {
       const self = this;
       self.init();
+      // track list update
       self.$eventBus.$on('list.update', function() {
         self.init();
       });
+      // track clear active note
       self.$eventBus.$on('list.clearActive', function() {
         for (let i = 0; i < self.items.length; i++) {
           self.items[i].is_active = false;

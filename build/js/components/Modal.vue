@@ -51,24 +51,11 @@
           isHidden: true,
           isMini: false,
           isFullScreen: false,
-          controls: {
-            isMini: false,
-            isFullScreen: false
-          },
-          textFormatList: {
-            isHidden: true
-          }
+          controls: { isMini: false, isFullScreen: false },
+          textFormatList: { isHidden: true }
         },
-        styles: {
-          titleWidth: 0,
-          contentHeight: 0,
-          contentWidth: 0
-        },
-        types: {
-          new: 'New',
-          notes: 'Notes',
-          trash: 'Trash'
-        },
+        styles: { titleWidth: 0, contentHeight: 0, contentWidth: 0 },
+        types: { new: 'New', notes: 'Notes', trash: 'Trash' },
         headerType: '',
         processText: '',
         textFormat: 'small',
@@ -101,6 +88,7 @@
     },
     mounted: function() {
       const self = this;
+
       window.addEventListener('resize', self.minimize);
       window.addEventListener('click', function(e){
           // check if click was outside text-format popup
@@ -110,16 +98,20 @@
             }
           }
       });
+
       self.__setHeaderType(i18n('modal.title_new'));
       self.textFormat = lsGet('text_format');
+
       // track open event
       self.$eventBus.$on('modal.open', function() {
         self.show();
       });
-      // track notes type changes
+
+      // track close event
       self.$eventBus.$on('modal.close', function() {
         self.close();
       });
+
       // track notes type changes
       self.$eventBus.$on('modal.changeHeader', function(value) {
         self.__setHeaderType(i18n(`modal.title_${value}`));
@@ -182,6 +174,7 @@
         const date = new Date().getTime();
         const id = Math.floor(Date.now() / 1000);
         self.__setProcessText('');
+
         if (self.note.title == '') {
           // validate modal data
           self.__setProcessText(i18n(`modal.status_title_required`));
@@ -204,17 +197,21 @@
             is_hidden: false,
             is_active: false
           }
+
           lsTotal = lsTotal + JSON.stringify(tmpNote).length;
           lsTotal = (lsTotal * 2) / 1024;
           lsTotal = Number(lsTotal.toFixed(0));
+
           if (lsTotal > 10240) {
             self.__setProcessText(i18n(`modal.status_storage_size_limit`));
             return false;
           }
         }
+
         // update notes
         let notes = lsGet('notes');
         self.__setProcessText(i18n(`modal.status_processing`));
+
         if (self.note.id == '') {
           // add new
           notes.push({
@@ -228,6 +225,7 @@
             is_hidden: false,
             is_active: false
           });
+
           self.note.id = id;
           self.note.type = 'notes';
           self.note.title = self.note.title;
@@ -245,6 +243,7 @@
             }
           }
         }
+
         // save notes and update list
         setTimeout(function() {
           lsSet('notes', notes);

@@ -35,6 +35,7 @@ export function i18n(str) {
   const lang = lsGet('language');
   const [key1, key2] =  str.split('.');
   const dict = require(`./i18n/${lang}.json`);
+
   return dict[key1][key2];
 }
 
@@ -45,8 +46,10 @@ export function listingDateFormat(time) {
   const currentYear = new Date().getFullYear().toString();
   let date = new Date(time).toISOString().slice(0,10);
   date = date.split('-');
+
   let [year, month, day] = [date[0], months[date[1]], Number(date[2])];
   month = month.toLowerCase().substr(0,3);
+
   return (year == currentYear) ? i18n(`months.${month}_s`) + ` ${day}` : i18n(`months.${month}_s`) + ` ${day}, ${year}`;
 }
 
@@ -61,14 +64,17 @@ export function modalDateFormat(time) {
   iDate = new Date(time);
   iSDate = iDate.toISOString().slice(0,10);
   iSDate = iSDate.split('-');
+
   let [year, month, day] = [iSDate[0], months[iSDate[1]], Number(iSDate[2])];
   month = month.toLowerCase().substr(0,3);
   month = i18n(`months.${month}_l`);
+
   if (year == currentYear) {
     // hours, minutes
     let h, i;
     i = Math.abs(Math.round(((cDate.getTime() - iDate.getTime()) / 1000) / 60));
     h = Math.round(i / 60);
+
     if (i == 0) {
       return i18n('modal.status_changes_saved') ;
     } else if (i < 60) {

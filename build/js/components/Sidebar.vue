@@ -23,27 +23,16 @@
       return {
         isMini: false,
         menu: [
-          {
-            path: '/notes',
-            title: 'sidebar.menu_notes',
-            icon: 'notes'
-          },
-          {
-            path: '/trash',
-            title: 'sidebar.menu_trash',
-            icon: 'trash'
-          },
-          {
-            path: '/settings',
-            title: 'sidebar.menu_settings',
-            icon: 'settings'
-          },
+          { path: '/notes', title: 'sidebar.menu_notes', icon: 'notes' },
+          { path: '/trash', title: 'sidebar.menu_trash', icon: 'trash' },
+          { path: '/settings', title: 'sidebar.menu_settings', icon: 'settings' },
         ]
       }
     },
     mounted: function() {
       const self = this;
       self.isMini = lsGet('sidebar_mini');
+      // track mini event
       self.$eventBus.$on('sidebar.mini', function() {
         self.isMini = lsGet('sidebar_mini');
       });

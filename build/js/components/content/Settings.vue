@@ -58,24 +58,12 @@
     data() {
       return {
         isSidebarMini: false,
-        storageInfo: {
-          total: '',
-          used: ''
-        },
+        storageInfo: { total: '', used: '' },
         sysLang: 'en',
         langs: ['en', 'ru'],
-        importData: {
-          name: '',
-          data: {},
-        },
-        exportData: {
-          href: '',
-          download: 'LSNotes.json'
-        },
-        message: {
-          on: false,
-          text: ''
-        },
+        importData: { name: '', data: {} },
+        exportData: { href: '', download: 'LSNotes.json' },
+        message: { on: false, text: '' }
       }
     },
     watch: {
@@ -100,8 +88,10 @@
           el.addEventListener('change', function() {
             let reader = new FileReader();
             let file = this.files[0];
+
             vnode.context.__clearImportData();
             vnode.context.__enableMessage(i18n('settings.status_processing'));
+
             setTimeout(function() {
               if (file.type == 'application/json') {
                 reader.onload = function() {
@@ -160,13 +150,16 @@
         e.preventDefault();
         const self = this;
         self.__enableMessage(i18n('settings.status_processing'));
+
         setTimeout(function() {
           if (self.__validateImport()) {
             let lsNotes = [];
             let data = self.importData.data;
+
             for (let i = 0; i < data.length; i++) {
               lsNotes.push(data[i]);
             }
+
             lsSet('notes', lsNotes);
             self.__enableMessage(i18n('settings.status_import_finished'));
           } else {
@@ -264,6 +257,7 @@
           } else {
             isValid = false;
           }
+  
           return isValid;
       }
     }

@@ -83,11 +83,13 @@
         let selected = [];
         let lsNotes = lsGet('notes');
         this.search = '';
+
         for (let i = 0; i < this.$refs.list.items.length; i++) {
           if (this.$refs.list.items[i].is_checked) {
             selected.push(this.$refs.list.items[i].id);
           }
         }
+
         if (selected.length > 0 && lsNotes != null) {
           for (let i = 0; i < lsNotes.length; i++) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
@@ -98,6 +100,7 @@
           lsSet('notes', lsNotes);
           this.$refs.list.init();
         }
+
         this.selectedAll = false;
         this.total = this.$refs.list.count(this.type);
       },
@@ -109,11 +112,13 @@
         let selected = [];
         let lsNotes = lsGet('notes');
         this.search = '';
+
         for (let i = 0; i < this.$refs.list.items.length; i++) {
           if (this.$refs.list.items[i].is_checked) {
             selected.push(this.$refs.list.items[i].id);
           }
         }
+
         if (selected.length > 0 && lsNotes != null) {
           for (let i = lsNotes.length - 1; i >= 0; i--) {
             if (selected.indexOf(lsNotes[i].id) != -1) {
@@ -126,6 +131,7 @@
           lsSet('notes', lsNotes);
           this.$refs.list.init();
         }
+
         this.selectedAll = false;
         this.total = this.$refs.list.count(this.type);
       }
