@@ -18,15 +18,17 @@
         items: []
       }
     },
-    mounted: function() {
+    mounted: function () {
       const self = this;
       self.init();
+
       // track list update
-      self.$eventBus.$on('list.update', function() {
+      self.$eventBus.$on('list.update', () => {
         self.init();
       });
+
       // track clear active note
-      self.$eventBus.$on('list.clearActive', function() {
+      self.$eventBus.$on('list.clearActive', () => {
         for (let i = 0; i < self.items.length; i++) {
           self.items[i].is_active = false;
         }

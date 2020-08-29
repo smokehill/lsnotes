@@ -70,13 +70,13 @@
       }
     },
     filters: {
-      strupFirst: function(string) {
+      strupFirst: (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
     },
     directives: {
       'fix-modal': {
-       update: function(el, binding, vnode) {
+       update: (el, binding, vnode) => {
           let width = vnode.context.$refs.modal.offsetWidth - 28;
           let height = vnode.context.$refs.modal.offsetHeight - 159;
           // fix title & content sizes
@@ -86,11 +86,11 @@
         }
       },
     },
-    mounted: function() {
+    mounted: function () {
       const self = this;
 
       window.addEventListener('resize', self.minimize);
-      window.addEventListener('click', function(e){
+      window.addEventListener('click', (e) => {
           // check if click was outside text-format popup
           if (!e.target.classList.contains('fa-text-format')) {
             if (!self.classes.textFormatList.isHidden) {
@@ -103,17 +103,17 @@
       self.textFormat = lsGet('text_format');
 
       // track open event
-      self.$eventBus.$on('modal.open', function() {
+      self.$eventBus.$on('modal.open', () => {
         self.show();
       });
 
       // track close event
-      self.$eventBus.$on('modal.close', function() {
+      self.$eventBus.$on('modal.close', () => {
         self.close();
       });
 
       // track notes type changes
-      self.$eventBus.$on('modal.changeHeader', function(value) {
+      self.$eventBus.$on('modal.changeHeader', (value) => {
         self.__setHeaderType(i18n(`modal.title_${value}`));
       });
     },
@@ -122,7 +122,7 @@
        * Show modal
        */
       show() {
-        let id = this.$store.state.noteId;
+        const id = this.$store.state.noteId;
         if (id != null) {
           const notes = lsGet('notes');
           for (let i = 0; i < notes.length; i++) {
@@ -160,8 +160,10 @@
         this.classes.controls.isMini = false;
         this.classes.controls.isFullScreen = false;
         this.classes.overlayIsHidden = true;
+
         this.__setHeaderType(i18n('modal.title_new'));
         this.__empty();
+
         this.$store.commit('rememberNoteId', null);
         this.$eventBus.$emit('list.clearActive');
       },
@@ -245,7 +247,7 @@
         }
 
         // save notes and update list
-        setTimeout(function() {
+        setTimeout(() => {
           lsSet('notes', notes);
           self.__setHeaderType(i18n(`modal.title_${self.note.type}`));
           self.__setProcessText(modalDateFormat(date));

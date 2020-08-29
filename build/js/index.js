@@ -10,10 +10,10 @@ import { listingDateFormat, i18n } from './helpers.js';
 Vue.prototype.$eventBus = new Vue(); // events
 Vue.prototype.$timeout = 500; // setTimeout delay
 
-Vue.filter('tolowercase', function(str) { return str.toLowerCase(); });
-Vue.filter('json_stringify', function(obj) { return JSON.stringify(obj); });
-Vue.filter('listing_date_format', function(time) { return listingDateFormat(time); });
-Vue.filter('i18n', function(str) { return i18n(str); });
+Vue.filter('tolowercase', (str) => str.toLowerCase());
+Vue.filter('json_stringify', (obj) => JSON.stringify(obj));
+Vue.filter('listing_date_format', (time) => listingDateFormat(time));
+Vue.filter('i18n', (str) => i18n(str));
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
@@ -45,7 +45,5 @@ const app = new Vue({
   el: '#app',
   router: router,
   store: store,
-  render(v) {
-    return v(App);
-  }
+  render: v => v(App)
 });

@@ -48,7 +48,7 @@
         this.$refs.list.search(val);
       }
     },
-    mounted: function() {
+    mounted: function () {
       this.isSidebarMini = lsGet('sidebar_mini');
       this.total = this.$refs.list.count(this.type);
     },

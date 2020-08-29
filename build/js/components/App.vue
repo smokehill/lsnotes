@@ -16,7 +16,7 @@
       'sidebar': Sidebar,
       'modal': Modal
     },
-    created: function() {
+    created: () => {
       if (lsGet('notes') == null) {
         // init LS base params
         lsSet('notes', []);

@@ -75,7 +75,7 @@
         }
       }
     },
-    mounted: function() {
+    mounted: function () {
       this.sysLang = lsGet('language');
       this.isSidebarMini = lsGet('sidebar_mini');
       this.importData.name = i18n('settings.export_empty_file');
@@ -84,17 +84,17 @@
     },
     directives: {
       'import-file': {
-        update: (el, binding, vnode) => {
-          el.addEventListener('change', function() {
-            let reader = new FileReader();
-            let file = this.files[0];
+        update: function (el, binding, vnode) {
+          el.addEventListener('change', function () {
+            const reader = new FileReader();
+            const file = this.files[0];
 
             vnode.context.__clearImportData();
             vnode.context.__enableMessage(i18n('settings.status_processing'));
 
-            setTimeout(function() {
+            setTimeout(() => {
               if (file.type == 'application/json') {
-                reader.onload = function() {
+                reader.onload = () => {
                   try {
                     vnode.context.__setImportData(file.name, JSON.parse(reader.result));
                     vnode.context.__enableMessage(i18n('settings.status_import_file_ready'));
@@ -151,7 +151,7 @@
         const self = this;
         self.__enableMessage(i18n('settings.status_processing'));
 
-        setTimeout(function() {
+        setTimeout(() => {
           if (self.__validateImport()) {
             let lsNotes = [];
             let data = self.importData.data;
@@ -181,7 +181,7 @@
         e.preventDefault();
         const self = this;
         self.__enableMessage(i18n('settings.status_processing'));
-        setTimeout(function() {
+        setTimeout(() => {
           self.$refs.exportBtn.click();
           self.__enableMessage(i18n('settings.status_export_finished'));  
         }, self.$timeout);

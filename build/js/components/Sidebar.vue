@@ -29,11 +29,11 @@
         ]
       }
     },
-    mounted: function() {
+    mounted: function () {
       const self = this;
       self.isMini = lsGet('sidebar_mini');
       // track mini event
-      self.$eventBus.$on('sidebar.mini', function() {
+      self.$eventBus.$on('sidebar.mini', () => {
         self.isMini = lsGet('sidebar_mini');
       });
     },

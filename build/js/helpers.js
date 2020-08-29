@@ -14,24 +14,33 @@ const months = {
 };
 
 /**
- * Get data from Local Storage
+ * Get data from Local Storage.
+ * 
+ * @param {string} key
+ * @return {string|null}
  */
-export function lsGet(key) {
+const lsGet = (key) => {
   const data = JSON.parse(localStorage.getItem(key));
-  return (data != null ) ? data : null;
-}
+  return (data != null) ? data : null;
+};
 
 /**
- * Set data into Local Storage
+ * Set data into Local Storage.
+ * 
+ * @param {string} key
+ * @param {string} value
  */
-export function lsSet(key, value) {
+const lsSet = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
 /**
- * Internationalization and localization
+ * Internationalization and localization.
+ * 
+ * @param {string} str
+ * @return {string}
  */
-export function i18n(str) {
+const i18n = (str) => {
   const lang = lsGet('language');
   const [key1, key2] =  str.split('.');
   const dict = require(`./i18n/${lang}.json`);
@@ -40,9 +49,12 @@ export function i18n(str) {
 }
 
 /**
- * Date format for a notes listing
+ * Date format for a notes listing.
+ * 
+ * @param {timestamp} time
+ * @return {string}
  */
-export function listingDateFormat(time) {
+const listingDateFormat = (time) => {
   const currentYear = new Date().getFullYear().toString();
   let date = new Date(time).toISOString().slice(0,10);
   date = date.split('-');
@@ -54,9 +66,12 @@ export function listingDateFormat(time) {
 }
 
 /**
- * Date format for a note modal
+ * Date format for a note modal.
+ * 
+ * @param {timestamp} time
+ * @return {string}
  */
-export function modalDateFormat(time) {
+const modalDateFormat = (time) => {
   const currentYear = new Date().getFullYear().toString();
   // current date, incoming date, incoming date string
   let cDate, iDate, iSDate; 
@@ -88,3 +103,11 @@ export function modalDateFormat(time) {
     return i18n('modal.status_last_edit') + `: ${month} ${day}, ${year}`;
   }
 }
+
+export {
+  lsGet,
+  lsSet,
+  i18n,
+  listingDateFormat,
+  modalDateFormat
+};
