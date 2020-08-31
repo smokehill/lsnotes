@@ -91,12 +91,12 @@
 
       window.addEventListener('resize', self.minimize);
       window.addEventListener('click', (e) => {
-          // check if click was outside text-format popup
-          if (!e.target.classList.contains('fa-text-format')) {
-            if (!self.classes.textFormatList.isHidden) {
-              self.classes.textFormatList.isHidden = true;
-            }
+        // check if click was outside text-format popup
+        if (!e.target.classList.contains('fa-text-format')) {
+          if (!self.classes.textFormatList.isHidden) {
+            self.classes.textFormatList.isHidden = true;
           }
+        }
       });
 
       self.__setHeaderType(i18n('modal.title_new'));
@@ -204,7 +204,7 @@
           lsTotal = (lsTotal * 2) / 1024;
           lsTotal = Number(lsTotal.toFixed(0));
 
-          if (lsTotal > 10240) {
+          if (lsTotal > chrome.storage.local.QUOTA_BYTES) {
             self.__setProcessText(i18n(`modal.status_storage_size_limit`));
             return false;
           }

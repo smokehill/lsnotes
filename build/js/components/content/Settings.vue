@@ -131,8 +131,7 @@
        * Prepare LS usage info.
        */
       initStorageInfo() {
-        // Chrome LS total size is 10 MB
-        this.storageInfo.total = 10;
+        this.storageInfo.total = (chrome.storage.local.QUOTA_BYTES / 1024) /1024;
         this.storageInfo.used = this.__calcUsedSpace();
       },
       /**

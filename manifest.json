@@ -4,6 +4,7 @@
   "version": "1.0",
   "author": "valera.padolochniy@gmail.com",
   "description": "Local Storage Notes",
+  "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
