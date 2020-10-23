@@ -41,7 +41,7 @@ const lsSet = (key, value) => {
  * @return {string}
  */
 const i18n = (str) => {
-  const lang = lsGet('language');
+  const lang = (lsGet('language') == null) ? 'en' : lsGet('language');
   const [key1, key2] =  str.split('.');
   const dict = require(`./i18n/${lang}.json`);
 
