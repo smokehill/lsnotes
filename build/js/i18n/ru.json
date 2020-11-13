@@ -25,7 +25,7 @@
     "local_storage_size_of": "из",
     "local_storage_size_used": "занято",
     "export_import_info_1": "Экспорт, Импорт опции позволяють управлять заметками через JSON файл.",
-    "export_import_info_2": "ВАЖНО: после Импорта все предыдущие заметки будут удалены.",
+    "export_import_info_2": "ВАЖНО: после импорта все предыдущие заметки будут удалены!",
     "sidebar_mini_radio_on": "вкл.",
     "sidebar_mini_radio_off": "выкл.",
     "import_btn_go": "Старт",
