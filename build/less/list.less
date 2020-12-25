@@ -124,7 +124,7 @@
           left: 12px;
           width: 200px;
           padding: 4px 8px;
-          border: 1px solid @hr-tag;
+          border: 1px solid darken(@hr-tag, 3%);
           border-radius: 3px;
           background: @body-bg;
           outline: none;
@@ -222,7 +222,7 @@
         }
 
         &:hover {
-          background-color: #ebf0fa;
+          background-color: lighten(@sidebar-bg, 35%);
 
           i.fa {
             opacity: .6;
@@ -234,7 +234,7 @@
         }
   
         &:focus {
-          background-color:#ebf0fa;
+          background-color:lighten(@sidebar-bg, 35%);
 
           i.fa {
             opacity: .6;

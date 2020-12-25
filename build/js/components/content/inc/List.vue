@@ -58,6 +58,7 @@
        * Search notes.
        */
       search(value) {
+        value = value.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
         if (value == '') {
           for (let i = 0; i < this.items.length; i++) {
             this.items[i].is_hidden = false;
@@ -65,7 +66,7 @@
           }
           return false;
         } else {
-          var reg = new RegExp(`^${value}(.*)`, 'ig');
+          var reg = new RegExp(`${value}(.*)`, 'ig');
           for (let i = 0; i < this.items.length; i++) {
             this.items[i].is_checked = false;
             if (this.items[i].title.match(reg) !== null) {
