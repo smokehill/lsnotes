@@ -46,11 +46,12 @@
       search: function (val) {
         this.selectedAll = false;
         this.$refs.list.search(val);
+        this.total = this.$refs.list.count();
       }
     },
     mounted: function () {
       this.isSidebarMini = lsGet('sidebar_mini');
-      this.total = this.$refs.list.count(this.type);
+      this.total = this.$refs.list.count();
     },
     methods: {
       /**
@@ -100,7 +101,7 @@
         }
 
         this.selectedAll = false;
-        this.total = this.$refs.list.count(this.type);
+        this.total = this.$refs.list.count();
       }
     }
   }

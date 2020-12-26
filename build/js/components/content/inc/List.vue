@@ -36,7 +36,7 @@
     },
     methods: {
       /**
-       * Initialize notes.
+       * Initialize notes by type.
        */
       init() {
         const lsNotes = lsGet('notes');
@@ -66,7 +66,7 @@
           }
           return false;
         } else {
-          var reg = new RegExp(`${value}(.*)`, 'ig');
+          var reg = new RegExp(`${value}(.*)`, 'gi');
           for (let i = 0; i < this.items.length; i++) {
             this.items[i].is_checked = false;
             if (this.items[i].title.match(reg) !== null) {
@@ -102,16 +102,13 @@
         }
       },
       /**
-       * Count total notes by type.
+       * Count total notes.
        */
-      count(type) {
-        const lsNotes = lsGet('notes');
+      count() {
         let total = 0;
-        if (lsNotes != null) {
-          for (let i = 0; i < lsNotes.length; i++) {
-            if (lsNotes[i].type == type) {
-              total = total + 1;
-            }
+        for (let i = 0; i < this.items.length; i++) {
+          if (!this.items[i].is_hidden) {
+            total = total + 1;
           }
         }
         return total;
