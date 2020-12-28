@@ -250,43 +250,66 @@
     .settings-items {
 
       .settings-item-row {
-        display: block;
         border-bottom: 1px solid @hr-tag;
-        height: 40px;
-        line-height: 40px;
+        display: flex;
+        align-items: center;
         margin: 0 20px;
+        padding: 12px 0;
 
         .settings-item-lable {
-          float: left;
-          display: inline-block;
           width: 140px;
           color: @text-color;
           opacity: .9;
-          font-weight: bold;
+
+          div {
+            margin-top: 8px;
+
+            &:nth-child(1) {
+              font-weight: bold;
+              margin-top: 0px;
+            }
+  
+            &:nth-child(2) {
+              font-weight: normal;
+              font-size: 12px;
+              
+            }
+          }
         }
 
         .settings-item-content {
-          display: inline-block;
 
-          span.text {
-            opacity: .9;
-          }
-    
-          input[type="file"] {
-            display: none;
-          }
+          div {
+            margin-top: 8px;
 
-          label.radio-btn {
-            position: relative;
-            margin-right: 4px;
-
-            input[type="radio"] {
-              position: absolute;
-              top: 0;
+            &:nth-child(1) {
+              margin-top: 0px;
             }
 
-            span {
-              margin-left: 21px;
+            span.text {
+              opacity: .9;
+            }
+      
+            input[type="file"] {
+              display: none;
+            }
+  
+            label.radio-btn {
+              position: relative;
+              margin-right: 4px;
+  
+              &:first-child {
+                margin-left: -5px;
+              }
+  
+              input[type="radio"] {
+                position: absolute;
+                top: 0;
+              }
+  
+              span {
+                margin-left: 21px;
+              }
             }
           }
         }
@@ -295,14 +318,14 @@
       p.export-import-info {
         margin: 15px 20px 5px 20px;
         line-height: 1.4;
-        color: lighten(@text-color, 25%);
-        font-size: 13px;
+        font-size: 12px;
+        opacity: .9;
       }
 
       p.export-import-process {
         padding: 0 20px;
         font-size: 13px;
-        color: lighten(@text-color, 25%);
+        color: darken(@sidebar-bg, 15%);
       }
     }
   }

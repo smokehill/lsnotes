@@ -6,43 +6,71 @@
     <div class="content-body">
       <div class="settings-items">
         <div class="settings-item-row">
-          <div class="settings-item-lable">{{ "settings.label_local_storage"|i18n }}:</div>
-          <div class="settings-item-content"><span class="text">{{ storageInfo.used }} MB {{ "settings.local_storage_size_of"|i18n }} {{ storageInfo.total }} MB {{ "settings.local_storage_size_used"|i18n }}</span></div>
-        </div>
-        <div class="settings-item-row">
-          <div class="settings-item-lable">{{ "settings.label_sidebar_mini"|i18n }}:</div>
+          <div class="settings-item-lable">
+            <div>{{ "settings.label_local_storage"|i18n }}:</div>
+          </div>
           <div class="settings-item-content">
-            <label class="radio-btn" for="radio-on" v-on:click="toggleIsSidebarMini($event, 'on')">
-              <input type="radio" id="radio-on" :checked="isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_on"|i18n }}</span>
-            </label>
-            <label class="radio-btn" for="radio-off" v-on:click="toggleIsSidebarMini($event, 'off')">
-              <input type="radio" id="radio-off" :checked="!isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_off"|i18n }}</span>
-            </label>
+            <div><span class="text">{{ storageInfo.used }} Mb {{ "settings.local_storage_size_of"|i18n }} {{ storageInfo.total }} Mb {{ "settings.local_storage_size_used"|i18n }}</span></div>
           </div>
         </div>
         <div class="settings-item-row">
-          <div class="settings-item-lable">{{ "settings.label_language"|i18n }}:</div>
+          <div class="settings-item-lable">
+            <div>{{ "settings.label_sidebar_mini"|i18n }}:</div>
+          </div>
           <div class="settings-item-content">
-            <select v-model="sysLang">
-              <option v-for="lang in langs" v-bind:key="lang" :checked="sysLang == lang">{{ lang }}</option>
-            </select>
+            <div>
+              <label class="radio-btn" for="radio-on" v-on:click="toggleIsSidebarMini($event, 'on')">
+                <input type="radio" id="radio-on" :checked="isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_on"|i18n }}</span>
+              </label>
+            </div>
+            <div>
+              <label class="radio-btn" for="radio-off" v-on:click="toggleIsSidebarMini($event, 'off')">
+                <input type="radio" id="radio-off" :checked="!isSidebarMini" name="radio"><span>{{ "settings.sidebar_mini_radio_off"|i18n }}</span>
+              </label>
+            </div>
           </div>
         </div>
-        <p class="export-import-info">{{ "settings.export_import_info_1"|i18n }}<br>{{ "settings.export_import_info_2"|i18n }}</p>
         <div class="settings-item-row">
-          <div class="settings-item-lable">{{ "settings.label_export"|i18n }}:</div>
+          <div class="settings-item-lable">
+            <div>{{ "settings.label_language"|i18n }}:</div>
+          </div>
           <div class="settings-item-content">
-            <button v-on:click="exportNotes($event)">{{ "settings.import_btn_go"|i18n }}</button>
-            <a :href="exportData.href" :download="exportData.download" ref="exportBtn"></a>
+            <div>
+              <select v-model="sysLang">
+                <option v-for="lang in langs" v-bind:key="lang" :checked="sysLang == lang">{{ lang }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="export-import-info">
+          {{ "settings.export_import_info_1"|i18n }}
+          <br/>{{ "settings.export_import_info_2"|i18n }}: LSNotes.json
+        </p>
+        <div class="settings-item-row">
+          <div class="settings-item-lable">
+            <div>{{ "settings.label_export"|i18n }}:</div>
+          </div>
+          <div class="settings-item-content">
+            <div>
+              <button v-on:click="exportNotes($event)">{{ "settings.import_btn_go"|i18n }}</button>
+              <a :href="exportData.href" :download="exportData.download" ref="exportBtn"></a>
+            </div>
           </div>
         </div>
         <div class="settings-item-row">
-          <div class="settings-item-lable">{{ "settings.label_import"|i18n }}:</div>
+          <div class="settings-item-lable">
+            <div>{{ "settings.label_import"|i18n }}:</div>
+            <div>{{ "settings.import_info"|i18n }}</div>
+          </div>
           <div class="settings-item-content">
-            <button v-on:click="chooseFile($event)">{{ "settings.export_btn_choose_file"|i18n }}</button>
-            <input type="file" name="photo" accept="application/json" v-import-file  ref="importFile" />
-            <button v-on:click="importNotes($event)">{{ "settings.export_btn_go"|i18n }}</button>
-            <span class="text">{{ importData.name }}</span>
+            <div>
+              <button v-on:click="chooseFile($event)">{{ "settings.export_btn_choose_file"|i18n }}</button>
+              <input type="file" name="photo" accept="application/json" v-import-file  ref="importFile" />
+              <span class="text">{{ importData.name }}</span>
+            </div>
+            <div>
+              <button v-on:click="importNotes($event)">{{ "settings.export_btn_go"|i18n }}</button>
+            </div>
           </div>
         </div>
         <p v-if="message.on" class="export-import-process">{{ message.text }}</p>
