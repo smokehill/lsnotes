@@ -1,6 +1,6 @@
 # LSNotes
 
-Extension for Google Chrome.
+[![Build Status](https://travis-ci.com/smokehill/lsnotes.svg?branch=master)](https://travis-ci.com/smokehill/lsnotes)
 
 Simple notes manager in a browser window. Uses Local Storage and provides export-import for a notes backup.
 
