@@ -28,8 +28,8 @@ test('listingDateFormat', () => {
   const yearAgo = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
   const yearAgoUnit = yearAgo.toString().split(' ');
 
-  expect(listingDateFormat(dayAgo.getTime())).toBe(`${dayAgoUnit[1]} ${dayAgoUnit[2]}`);
-  expect(listingDateFormat(yearAgo.getTime())).toBe(`${yearAgoUnit[1]} ${yearAgoUnit[2]}, ${yearAgoUnit[3]}`);
+  expect(listingDateFormat(dayAgo.getTime())).toBe(`${dayAgoUnit[1]} ${Number(dayAgoUnit[2])}`);
+  expect(listingDateFormat(yearAgo.getTime())).toBe(`${yearAgoUnit[1]} ${Number(yearAgoUnit[2])}, ${yearAgoUnit[3]}`);
 });
 
 test('modalDateFormat', () => {
@@ -44,6 +44,6 @@ test('modalDateFormat', () => {
   expect(modalDateFormat(now.getTime())).toBe('All changes saved');
   expect(modalDateFormat(minAgo.getTime())).toBe('Last edit: 1 min. ago');
   expect(modalDateFormat(hourAgo.getTime())).toBe('Last edit: 1 h. ago');
-  expect(modalDateFormat(dayAgo.getTime())).toBe(`Last edit: ${months[dayAgoM]} ${dayAgoD}`);
-  expect(modalDateFormat(yearAgo.getTime())).toBe(`Last edit: ${months[yearAgoM]} ${yearAgoD}, ${yearAgoY}`);
+  expect(modalDateFormat(dayAgo.getTime())).toBe(`Last edit: ${months[dayAgoM]} ${Number(dayAgoD)}`);
+  expect(modalDateFormat(yearAgo.getTime())).toBe(`Last edit: ${months[yearAgoM]} ${Number(yearAgoD)}, ${yearAgoY}`);
 });
