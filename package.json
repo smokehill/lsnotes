@@ -9,7 +9,7 @@
         "test": "jest"
     },
     "author": "valera.padolochniy@gmail.com",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@babel/core": "^7.1.0",
         "@babel/preset-env": "^7.1.0",
