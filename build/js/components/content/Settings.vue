@@ -117,22 +117,22 @@
             const reader = new FileReader();
             const file = this.files[0];
 
-            vnode.context.__clearImportData();
-            vnode.context.__enableMessage(i18n('settings.status_processing'));
+            vnode.context.clearImportData();
+            vnode.context.enableMessage(i18n('settings.status_processing'));
 
             setTimeout(() => {
               if (file.type == 'application/json') {
                 reader.onload = () => {
                   try {
-                    vnode.context.__setImportData(file.name, JSON.parse(reader.result));
-                    vnode.context.__enableMessage(i18n('settings.status_import_file_ready'));
+                    vnode.context.setImportData(file.name, JSON.parse(reader.result));
+                    vnode.context.enableMessage(i18n('settings.status_import_file_ready'));
                   } catch {
-                    vnode.context.__enableMessage(i18n('settings.status_import_file_unable'));
+                    vnode.context.enableMessage(i18n('settings.status_import_file_unable'));
                   }
                 };
                 reader.readAsText(file);
               } else {
-                vnode.context.__enableMessage(i18n('settings.status_import_file_unable'));
+                vnode.context.enableMessage(i18n('settings.status_import_file_unable'));
               }
             }, vnode.context.$timeout);
           });
@@ -160,7 +160,7 @@
        */
       initStorageInfo() {
         this.storageInfo.total = (chrome.storage.local.QUOTA_BYTES / 1024) /1024;
-        this.storageInfo.used = this.__calcUsedSpace();
+        this.storageInfo.used = this.calcUsedSpace();
       },
       /**
        * Export notes from LS into json file.
@@ -176,10 +176,10 @@
       importNotes(e) {
         e.preventDefault();
         const self = this;
-        self.__enableMessage(i18n('settings.status_processing'));
+        self.enableMessage(i18n('settings.status_processing'));
 
         setTimeout(() => {
-          if (self.__validateImport()) {
+          if (self.validateImport()) {
             let lsNotes = [];
             let data = self.importData.data;
 
@@ -188,11 +188,11 @@
             }
 
             lsSet('notes', lsNotes);
-            self.__enableMessage(i18n('settings.status_import_finished'));
+            self.enableMessage(i18n('settings.status_import_finished'));
           } else {
-            self.__enableMessage(i18n('settings.status_import_failed'));
+            self.enableMessage(i18n('settings.status_import_failed'));
           }
-          self.__clearImportData();
+          self.clearImportData();
         }, self.$timeout);
       },
       /**
@@ -207,58 +207,52 @@
       exportNotes(e) {
         e.preventDefault();
         const self = this;
-        self.__enableMessage(i18n('settings.status_processing'));
+        self.enableMessage(i18n('settings.status_processing'));
         setTimeout(() => {
           self.$refs.exportBtn.click();
-          self.__enableMessage(i18n('settings.status_export_finished'));  
+          self.enableMessage(i18n('settings.status_export_finished'));  
         }, self.$timeout);
       },
       /**
-       * @internal
        * Calculate LS usaged space.
        */
-      __calcUsedSpace() {
+      calcUsedSpace() {
         let total = JSON.stringify(localStorage).length;
         total = (total * 2) / 1024 / 1024;
         return total.toFixed(2);
       },
       /**
-       * @internal
        * Enable import/export Message message.
        */
-      __enableMessage(text) {
+      enableMessage(text) {
         this.message.text = text;
         this.message.on = true;
       },
       /**
-       * @internal
        * Disable import/export Message message.
        */
-      __disableMessage() {
+      disableMessage() {
         this.message.text = '';
         this.message.on = false;
       },
       /**
-       * @internal
        * Set import data
        */
-      __setImportData(name, data) {
+      setImportData(name, data) {
         this.importData.name = name;
         this.importData.data = data;
       },
       /**
-       * @internal
        * Clear import data.
        */
-      __clearImportData() {
+      clearImportData() {
         this.importData.name = i18n('settings.export_empty_file');
         this.importData.data = {};
       },
       /**
-       * @internal
        * Validate import data.
        */
-      __validateImport() {
+      validateImport() {
           let isValid = true;
           const noteKeys = ['id', 'type', 'title', 'content', 'created_at', 'updated_at', 'is_checked', 'is_hidden', 'is_active'];
           const noteTypes = ['notes', 'trash'];

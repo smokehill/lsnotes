@@ -99,7 +99,7 @@
         }
       });
 
-      self.__setHeaderType(i18n('modal.title_new'));
+      self.setHeaderType(i18n('modal.title_new'));
       self.textFormat = lsGet('text_format');
 
       // track open event
@@ -114,7 +114,7 @@
 
       // track notes type changes
       self.$eventBus.$on('modal.changeHeader', (value) => {
-        self.__setHeaderType(i18n(`modal.title_${value}`));
+        self.setHeaderType(i18n(`modal.title_${value}`));
       });
     },
     methods: {
@@ -133,14 +133,14 @@
               this.note.content = notes[i].content;
               this.note.created_at = notes[i].created_at;
               this.note.updated_at = notes[i].updated_at;
-              this.__setHeaderType(i18n(`modal.title_${notes[i].type}`));
-              this.__setProcessText(modalDateFormat(this.note.updated_at));
+              this.setHeaderType(i18n(`modal.title_${notes[i].type}`));
+              this.setProcessText(modalDateFormat(this.note.updated_at));
               break;
             }
           }
         } else {
-          this.__setHeaderType(i18n('modal.title_new'));
-          this.__empty();
+          this.setHeaderType(i18n('modal.title_new'));
+          this.empty();
         }
         if (this.classes.isHidden) {
           this.classes.isHidden = false;
@@ -161,8 +161,8 @@
         this.classes.controls.isFullScreen = false;
         this.classes.overlayIsHidden = true;
 
-        this.__setHeaderType(i18n('modal.title_new'));
-        this.__empty();
+        this.setHeaderType(i18n('modal.title_new'));
+        this.empty();
 
         this.$store.commit('rememberNoteId', null);
         this.$eventBus.$emit('list.clearActive');
@@ -175,15 +175,15 @@
         const self = this;
         const date = new Date().getTime();
         const id = Math.floor(Date.now() / 1000);
-        self.__setProcessText('');
+        self.setProcessText('');
 
         if (self.note.title == '') {
           // validate modal data
-          self.__setProcessText(i18n(`modal.status_title_required`));
+          self.setProcessText(i18n(`modal.status_title_required`));
           return false;
         } else if (self.note.content.length > 102400) {
           // validate content size (max: 100kb)
-          self.__setProcessText(i18n(`modal.status_сontent_size_limit`));
+          self.setProcessText(i18n(`modal.status_сontent_size_limit`));
           return false;
         } else {
           // validate LS total size
@@ -205,14 +205,14 @@
           lsTotal = Number(lsTotal.toFixed(0));
 
           if (lsTotal > chrome.storage.local.QUOTA_BYTES) {
-            self.__setProcessText(i18n(`modal.status_storage_size_limit`));
+            self.setProcessText(i18n(`modal.status_storage_size_limit`));
             return false;
           }
         }
 
         // update notes
         let notes = lsGet('notes');
-        self.__setProcessText(i18n(`modal.status_processing`));
+        self.setProcessText(i18n(`modal.status_processing`));
 
         if (self.note.id == '') {
           // add new
@@ -249,8 +249,8 @@
         // save notes and update list
         setTimeout(() => {
           lsSet('notes', notes);
-          self.__setHeaderType(i18n(`modal.title_${self.note.type}`));
-          self.__setProcessText(modalDateFormat(date));
+          self.setHeaderType(i18n(`modal.title_${self.note.type}`));
+          self.setProcessText(modalDateFormat(date));
           self.$eventBus.$emit('list.update');
         }, self.$timeout);
       },
@@ -327,30 +327,27 @@
         }
       },
       /**
-       * @internal
        * Reset modal data.
        */
-      __empty() {
+      empty() {
         this.note.id = '';
         this.note.type = 'notes';
         this.note.title = '';
         this.note.content = '';
         this.note.created_at = '';
         this.note.updated_at = '';
-        this.__setProcessText('');
+        this.setProcessText('');
       },
       /**
-       * @internal
        * Set modal header type.
        */
-      __setHeaderType(value) {
+      setHeaderType(value) {
         this.headerType = value;
       },
       /**
-       * @internal
        * Set modal process text.
        */
-      __setProcessText(text) {
+      setProcessText(text) {
         this.processText = text;
       }
     }
