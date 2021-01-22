@@ -54,8 +54,8 @@
         }
       },
       /**
-       * @shared
        * Search notes.
+       * @param {string} value
        */
       search(value) {
         value = value.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
@@ -79,12 +79,16 @@
       },
       /**
        * Select note.
+       * @param {object} e
+       * @param {int} index
        */
       select(e, index) {
         this.items[index].is_checked = (!this.items[index].is_checked) ? true : false;
       },
       /**
        * Edit note.
+       * @param {object} e
+       * @param {int} id
        */
       edit(e, id) {
         if (e.target.classList.contains('fa')) {

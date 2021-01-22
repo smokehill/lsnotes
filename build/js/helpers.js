@@ -15,7 +15,6 @@ const months = {
 
 /**
  * Get data from Local Storage.
- * 
  * @param {string} key
  * @return {string|null}
  */
@@ -26,7 +25,6 @@ const lsGet = (key) => {
 
 /**
  * Set data into Local Storage.
- * 
  * @param {string} key
  * @param {string} value
  */
@@ -36,7 +34,6 @@ const lsSet = (key, value) => {
 
 /**
  * Internationalization and localization.
- * 
  * @param {string} str
  * @return {string}
  */
@@ -50,7 +47,6 @@ const i18n = (str) => {
 
 /**
  * Date format for a notes listing.
- * 
  * @param {timestamp} time
  * @return {string}
  */
@@ -67,7 +63,6 @@ const listingDateFormat = (time) => {
 
 /**
  * Date format for a note modal.
- * 
  * @param {timestamp} time
  * @return {string}
  */

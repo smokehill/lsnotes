@@ -59,6 +59,7 @@
     methods: {
       /**
        * Select all notes.
+       * @param {object} e
        */
       selectAll(e) {
         e.preventDefault();
@@ -78,6 +79,7 @@
       },
       /**
        * Restore selected notes.
+       * @param {object} e
        */
       restoreSelected(e) {
         e.preventDefault();
@@ -106,7 +108,8 @@
         this.total = this.$refs.list.count();
       },
       /**
-       * Drop selected notes from LS.
+       * Drop selected notes from Local Storage.
+       * @param {object} e
        */
       deleteSelected(e) {
         e.preventDefault();

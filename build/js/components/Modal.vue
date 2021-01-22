@@ -169,6 +169,7 @@
       },
       /**
        * Save modal data.
+       * @param {object} e
        */
       save(e) {
         e.preventDefault();
@@ -256,6 +257,8 @@
       },
       /**
        * Handle modal size.
+       * @param {object} e
+       * @param {string} type
        */
       changeSize(e, type) {
         e.preventDefault();
@@ -294,7 +297,8 @@
         }
       },
       /**
-      * Toogle text modalats list.
+      * Toogle text formats in footer.
+      * @param {object} e
       */
       toogleTextFormatList(e) {
         e.preventDefault();
@@ -308,6 +312,7 @@
       },
       /**
       * Set text format for a note content.
+      * @param {string} type
       */
       setTextFormat(type) {
         this.textFormat = type;
@@ -340,12 +345,14 @@
       },
       /**
        * Set modal header type.
+       * @param {string} value
        */
       setHeaderType(value) {
         this.headerType = value;
       },
       /**
        * Set modal process text.
+       * @param {string} text
        */
       setProcessText(text) {
         this.processText = text;

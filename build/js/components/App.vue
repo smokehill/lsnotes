@@ -18,7 +18,7 @@
     },
     created: () => {
       if (lsGet('notes') == null) {
-        // init LS base params
+        // init Local Storage base params
         lsSet('notes', []);
         lsSet('language', 'en');
         lsSet('sidebar_mini', false);

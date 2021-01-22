@@ -142,6 +142,8 @@
     methods: {
       /**
        * Toggle sidebar.
+       * @param {object} e
+       * @param {string} value
        */
       toggleIsSidebarMini(e, value) {
         e.preventDefault();
@@ -156,14 +158,14 @@
         }
       },
       /**
-       * Prepare LS usage info.
+       * Prepare Local Storage usage info.
        */
       initStorageInfo() {
         this.storageInfo.total = (chrome.storage.local.QUOTA_BYTES / 1024) /1024;
         this.storageInfo.used = this.calcUsedSpace();
       },
       /**
-       * Export notes from LS into json file.
+       * Export notes from Local Storage into json file.
        */
       initExport() {
         const lsNotes = JSON.stringify(lsGet('notes'));
@@ -171,7 +173,8 @@
         this.exportData.href = window.URL.createObjectURL(blobData);
       },
       /**
-       * Import notes into LS from json file.
+       * Import notes into Local Storage from json file.
+       * @param {object} e
        */
       importNotes(e) {
         e.preventDefault();
@@ -197,12 +200,14 @@
       },
       /**
        * Trigger event on file input.
+       * @param {object} e
        */
       chooseFile(e) {
         this.$refs.importFile.click();
       },
       /**
-       * Export notes from LS into json file.
+       * Export notes from Local Storage into json file.
+       * @param {object} e
        */
       exportNotes(e) {
         e.preventDefault();
@@ -214,7 +219,7 @@
         }, self.$timeout);
       },
       /**
-       * Calculate LS usaged space.
+       * Calculate Local Storage usaged space.
        */
       calcUsedSpace() {
         let total = JSON.stringify(localStorage).length;
@@ -222,21 +227,24 @@
         return total.toFixed(2);
       },
       /**
-       * Enable import/export Message message.
+       * Enable import/export message.
+       * @param {string} text
        */
       enableMessage(text) {
         this.message.text = text;
         this.message.on = true;
       },
       /**
-       * Disable import/export Message message.
+       * Disable import/export message.
        */
       disableMessage() {
         this.message.text = '';
         this.message.on = false;
       },
       /**
-       * Set import data
+       * Set import data.
+       * @param {string} name
+       * @param {object} data
        */
       setImportData(name, data) {
         this.importData.name = name;

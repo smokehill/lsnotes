@@ -56,6 +56,7 @@
     methods: {
       /**
        * Select all notes.
+       * @param {object} e
        */
       selectAll(e) {
         e.preventDefault();
@@ -75,6 +76,7 @@
       },
       /**
        * Move selected notes to trash.
+       * @param {object} e
        */
       deleteSelected(e) {
         e.preventDefault();
