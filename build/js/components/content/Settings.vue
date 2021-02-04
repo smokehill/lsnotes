@@ -42,13 +42,10 @@
             </div>
           </div>
         </div>
-        <p class="export-import-info">
-          {{ "settings.export_import_info_1"|i18n }}
-          <br/>{{ "settings.export_import_info_2"|i18n }}: LSNotes.json
-        </p>
         <div class="settings-item-row">
           <div class="settings-item-lable">
             <div>{{ "settings.label_export"|i18n }}:</div>
+            <div>{{ "settings.export_info"|i18n }}</div>
           </div>
           <div class="settings-item-content">
             <div>

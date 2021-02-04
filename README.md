@@ -1,7 +1,6 @@
 # LSNotes
 
 [![Build Status](https://travis-ci.com/smokehill/lsnotes.svg?branch=master)](https://travis-ci.com/smokehill/lsnotes)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/smokehill/lsnotes)
 ![GitHub](https://img.shields.io/github/license/smokehill/lsnotes)
 
 Simple notes manager in a browser window. Uses Local Storage and provides export-import for a notes backup.
