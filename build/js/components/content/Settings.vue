@@ -83,12 +83,24 @@
     data() {
       return {
         isSidebarMini: false,
-        storageInfo: { total: '', used: '' },
+        storageInfo: {
+          total: '',
+          used: ''
+        },
         sysLang: 'en',
         langs: ['en', 'ru'],
-        importData: { name: '', data: {} },
-        exportData: { href: '', download: 'LSNotes.json' },
-        message: { on: false, text: '' }
+        importData: {
+          name: '',
+          data: {}
+        },
+        exportData: {
+          href: '',
+          download: 'LSNotes.json'
+        },
+        message: {
+          on: false,
+          text: ''
+        }
       }
     },
     watch: {

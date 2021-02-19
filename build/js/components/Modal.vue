@@ -51,11 +51,24 @@
           isHidden: true,
           isMini: false,
           isFullScreen: false,
-          controls: { isMini: false, isFullScreen: false },
-          textFormatList: { isHidden: true }
+          controls: {
+            isMini: false,
+            isFullScreen: false
+          },
+          textFormatList: {
+            isHidden: true
+          }
         },
-        styles: { titleWidth: 0, contentHeight: 0, contentWidth: 0 },
-        types: { new: 'New', notes: 'Notes', trash: 'Trash' },
+        styles: {
+          titleWidth: 0,
+          contentHeight: 0,
+          contentWidth: 0
+        },
+        types: {
+          new: 'New',
+          notes: 'Notes',
+          trash: 'Trash'
+        },
         headerType: '',
         processText: '',
         textFormat: 'small',
