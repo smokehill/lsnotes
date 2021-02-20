@@ -44,6 +44,23 @@
         </div>
         <div class="settings-item-row">
           <div class="settings-item-lable">
+            <div>{{ "settings.label_hot_keys"|i18n }}:</div>
+          </div>
+          <div class="settings-item-content">
+            <div>
+              <ul class="hot-keys">
+                <li><strong>Ctrl + Arrow down</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_down"|i18n }}</li>
+                <li><strong>Ctrl + Arrow up</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_up"|i18n }}</li>
+                <li><strong>Ctrl + Arrow left</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_left"|i18n }}</li>
+                <li><strong>Ctrl + Arrow right</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_right"|i18n }}</li>
+                <li><strong>Ctrl + S</strong> &ndash; {{ "settings.hot_keys_ctrl_s"|i18n }}</li>
+                <li><strong>Ctrl + X</strong> &ndash; {{ "settings.hot_keys_ctrl_x"|i18n }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="settings-item-row">
+          <div class="settings-item-lable">
             <div>{{ "settings.label_export"|i18n }}:</div>
             <div>{{ "settings.export_info"|i18n }}</div>
           </div>

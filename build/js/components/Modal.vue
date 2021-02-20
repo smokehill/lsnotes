@@ -111,6 +111,64 @@
           }
         }
       });
+      window.addEventListener('keydown', (e) => {
+        // handle [Ctrl]+[Arrow Down] to hide window
+        if ((e.ctrlKey || e.metaKey)
+          && e.which == 40
+          && !self.classes.isHidden
+          && !self.classes.isMini) {
+            e.preventDefault();
+            self.changeSize(e, 'height');
+            return false;
+        }
+        // handle [Ctrl]+[Arrow Up] to show window
+        if ((e.ctrlKey || e.metaKey)
+          && e.which == 38
+          && !self.classes.isHidden
+          && self.classes.isMini
+          && !self.classes.isFullScreen) {
+            e.preventDefault();
+            self.changeSize(e, 'height');
+            return false;
+        }
+        // handle [Ctrl]+[Arrow Left] to maximize window
+        if ((e.ctrlKey || e.metaKey)
+          && e.which == 37
+          && !self.classes.isHidden
+          && !self.classes.isMini
+          && !self.classes.isFullScreen) {
+            e.preventDefault();
+            self.changeSize(e, 'width');
+            return false;
+        }
+        // handle [Ctrl]+[Arrow Right] to minimize window
+        if ((e.ctrlKey || e.metaKey)
+          && e.which == 39
+          && !self.classes.isHidden
+          && !self.classes.isMini
+          && self.classes.isFullScreen) {
+            e.preventDefault();
+            self.changeSize(e, 'width');
+            return false;
+        }
+        // handle [Ctrl]+[S] to save in window
+        if ((e.ctrlKey || e.metaKey)
+          && e.which == 83
+          && !self.classes.isHidden
+          && !self.classes.isMini) {
+            e.preventDefault();
+            self.save(e);
+            return false;
+        }
+        // handle [Ctrl]+[X] to close window
+        if ((e.ctrlKey || e.metaKey)
+          && e.which == 88
+          && !self.classes.isHidden) {
+            e.preventDefault();
+            self.close();
+            return false;
+        }
+      });
 
       self.setHeaderType(i18n('modal.title_new'));
       self.textFormat = lsGet('text_format');
