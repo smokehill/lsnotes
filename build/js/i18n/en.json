@@ -32,7 +32,7 @@
     "hot_keys_ctrl_arrow_left": "maximize window",
     "hot_keys_ctrl_arrow_right": "minimize window",
     "hot_keys_ctrl_s": "save in window",
-    "hot_keys_ctrl_x": "close window",
+    "hot_keys_ctrl_q": "close window",
     "export_btn_choose_file": "Choose file",
     "export_btn_go": "Go",
     "export_info": "In JSON format.",

@@ -135,7 +135,7 @@
         if ((e.ctrlKey || e.metaKey)
           && e.which == 37
           && !self.classes.isHidden
-          && !self.classes.isMini
+          && (!self.classes.isMini || self.classes.isMini)
           && !self.classes.isFullScreen) {
             e.preventDefault();
             self.changeSize(e, 'width');
@@ -160,9 +160,9 @@
             self.save(e);
             return false;
         }
-        // handle [Ctrl]+[X] to close window
+        // handle [Ctrl]+[Q] to close window
         if ((e.ctrlKey || e.metaKey)
-          && e.which == 88
+          && e.which == 81
           && !self.classes.isHidden) {
             e.preventDefault();
             self.close();

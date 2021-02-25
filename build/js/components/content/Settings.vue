@@ -49,12 +49,12 @@
           <div class="settings-item-content">
             <div>
               <ul class="hot-keys">
-                <li><strong>Ctrl + Arrow down</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_down"|i18n }}</li>
-                <li><strong>Ctrl + Arrow up</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_up"|i18n }}</li>
-                <li><strong>Ctrl + Arrow left</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_left"|i18n }}</li>
-                <li><strong>Ctrl + Arrow right</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_right"|i18n }}</li>
+                <li><strong>Ctrl + Arrow Down</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_down"|i18n }}</li>
+                <li><strong>Ctrl + Arrow Up</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_up"|i18n }}</li>
+                <li><strong>Ctrl + Arrow Left</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_left"|i18n }}</li>
+                <li><strong>Ctrl + Arrow Right</strong> &ndash; {{ "settings.hot_keys_ctrl_arrow_right"|i18n }}</li>
                 <li><strong>Ctrl + S</strong> &ndash; {{ "settings.hot_keys_ctrl_s"|i18n }}</li>
-                <li><strong>Ctrl + X</strong> &ndash; {{ "settings.hot_keys_ctrl_x"|i18n }}</li>
+                <li><strong>Ctrl + Q</strong> &ndash; {{ "settings.hot_keys_ctrl_q"|i18n }}</li>
               </ul>
             </div>
           </div>

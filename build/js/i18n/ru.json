@@ -32,7 +32,7 @@
     "hot_keys_ctrl_arrow_left": "развернуть окно",
     "hot_keys_ctrl_arrow_right": "свернуть окно",
     "hot_keys_ctrl_s": "сохранить в окне",
-    "hot_keys_ctrl_x": "закрыть окно",
+    "hot_keys_ctrl_q": "закрыть окно",
     "export_btn_choose_file": "Выбрать файл",
     "export_btn_go": "Старт",
     "export_info": "В JSON формате.",
